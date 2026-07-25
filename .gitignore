@@ -1,0 +1,13 @@
+# Executables
+*.exe
+*.out
+*.app
+
+# VS Code & Temp files
+.vscode/
+tempCodeRunnerFile*
+*.o
+*.obj
+
+# Node modules (if applicable)
+node_modules/
