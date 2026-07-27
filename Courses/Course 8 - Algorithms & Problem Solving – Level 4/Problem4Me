@@ -1,0 +1,45 @@
+#include <iostream>
+#include "InputLib.h"
+
+using namespace std;
+
+bool IsLeapYear(short year)
+{
+    return (year % 400 == 0 || (year % 4 == 0 && year % 100 != 0));
+}
+
+short GetTotalDaysInYear(short year)
+{
+    return IsLeapYear(year) ? 366 : 365;
+}
+
+int GetTotalHoursInYear(short year)
+{
+    return GetTotalDaysInYear(year) * 24;
+}
+
+long GetTotalMinutesInYear(short year)
+{
+    return GetTotalHoursInYear(year) * 60;
+}
+
+long long GetTotalSecondsInYear(short year)
+{
+    return GetTotalMinutesInYear(year) * 60;
+}
+
+int main()
+{
+    short targetYear = InputLib::ReadIntPositiveNumber("Please enter a year to check: ");
+
+    cout << "\nNumber Of Days    in Year [" << targetYear << "] is " <<
+    GetTotalDaysInYear(targetYear);
+    cout << "\nNumber Of Hours   in Year [" << targetYear << "] is " <<
+    GetTotalHoursInYear(targetYear);
+    cout << "\nNumber Of Minutes in Year [" << targetYear << "] is " <<
+    GetTotalMinutesInYear(targetYear);
+    cout << "\nNumber Of Seconds in Year [" << targetYear << "] is " <<
+    GetTotalSecondsInYear(targetYear) << endl;
+
+    return 0;
+}

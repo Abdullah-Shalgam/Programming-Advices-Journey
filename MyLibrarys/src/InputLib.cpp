@@ -3,6 +3,7 @@
 #include <limits>
 #include <cctype>
 #include <cstdlib>
+#include <cerrno>
 #include "InputLib.h"
 
 using namespace std;
@@ -74,6 +75,33 @@ int InputLib::ReadIntPositiveNumber(string Msg)
         if (processedCharactersEnd != inputLine.c_str() && *processedCharactersEnd == '\0' && validatedNumber >= 0)
         {
             return static_cast<int>(validatedNumber);
+        }
+        cout << "\nInvalid Input, Try again.\n\n";
+    }
+}
+
+long long InputLib::ReadLongLongPositiveNumber(string Msg)
+{
+    string inputLine;
+    while (true)
+    {
+        cout << Msg;
+        if (!getline(cin >> ws, inputLine))
+        {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << "\nInvalid Input, Try again.\n\n";
+            continue;
+        }
+        char* processedCharactersEnd;
+        errno = 0;
+        long long validatedNumber = strtoll(inputLine.c_str(), &processedCharactersEnd, 10);
+        if (processedCharactersEnd != inputLine.c_str() && 
+            *processedCharactersEnd == '\0' && 
+            errno != ERANGE && 
+            validatedNumber >= 0)
+        {
+            return validatedNumber;
         }
         cout << "\nInvalid Input, Try again.\n\n";
     }
