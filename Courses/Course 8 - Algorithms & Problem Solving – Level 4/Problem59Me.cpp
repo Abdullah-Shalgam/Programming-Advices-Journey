@@ -4,11 +4,19 @@
 
 using namespace std;
 
+enum enCompareDates { Before = -1, Equal = 0, After = 1 };
+
 struct stDate
 {
     short Day = 0;
     short Month = 0;
     short Year = 0;
+};
+
+struct stPeriod
+{
+    stDate StartDate;
+    stDate EndDate;
 };
 
 bool IsLeapYear(short year)
@@ -40,6 +48,18 @@ stDate ReadFullDate()
     return Date;
 }
 
+stPeriod ReadPeriod()
+{
+    stPeriod Period;
+
+    cout << "Enter Start Date:\n\n";
+    Period.StartDate = ReadFullDate();
+    cout << "\nEnter End Date:\n\n";
+    Period.EndDate = ReadFullDate();
+
+    return Period;
+}
+
 bool IsDate1BeforeDate2(stDate Date1, stDate Date2)
 {
     return (Date1.Year < Date2.Year) ? true : 
@@ -65,11 +85,23 @@ short GetNumberOfDaysFromTheBeginingOfTheYear(stDate Date)
     return TotalDays + Date.Day;
 }
 
-short GetDiffInDaysBetWeenTwoDates(stDate Date1, stDate Date2, bool IncludeEndDay = false)
+void SwapTwoDates(stDate &Date1, stDate &Date2)
 {
-    if (!IsDate1BeforeDate2(Date1, Date2)) return 0;
+    stDate Temp = Date1;
+    Date1 = Date2;
+    Date2 = Temp;
+}
 
-    short DaysDiff = 0;
+int GetDiffInDaysBetWeenTwoDates(stDate Date1, stDate Date2, bool IncludeEndDay = false)
+{
+    int DaysDiff = 0;
+    short SwapFlagValue = 1;
+
+    if (!IsDate1BeforeDate2(Date1, Date2) && !IsDate1EqualDate2(Date1, Date2))
+    {
+        SwapTwoDates(Date1, Date2);
+        SwapFlagValue = -1;
+    }
 
     if (Date1.Year < Date2.Year)
     {
@@ -89,19 +121,34 @@ short GetDiffInDaysBetWeenTwoDates(stDate Date1, stDate Date2, bool IncludeEndDa
         DaysDiff = GetNumberOfDaysFromTheBeginingOfTheYear(Date2) - GetNumberOfDaysFromTheBeginingOfTheYear(Date1);
     }
 
-    return (IncludeEndDay) ? DaysDiff + 1 : DaysDiff;
+    return IncludeEndDay ? (DaysDiff + 1) * SwapFlagValue : DaysDiff * SwapFlagValue;
+}
+
+enCompareDates CompareDates(stDate Date1, stDate Date2)
+{
+    if (IsDate1BeforeDate2(Date1, Date2)) return enCompareDates::Before;
+    if (IsDate1EqualDate2(Date1, Date2)) return enCompareDates::Equal;
+    return enCompareDates::After;
+}
+
+bool IsOverlapPeriod(stPeriod Period1, stPeriod Period2)
+{
+    return !((CompareDates(Period2.EndDate, Period1.StartDate) == enCompareDates::Before) ||
+             (CompareDates(Period1.EndDate, Period2.StartDate) == enCompareDates::Before));
+}
+
+int GetPeriodLengthInDays(stPeriod Period, bool IncludeEndDate = false)
+{
+    return GetDiffInDaysBetWeenTwoDates(Period.StartDate, Period.EndDate, IncludeEndDate);
 }
 
 int main()
 {
-    stDate Date1 = ReadFullDate();
-    cout << "\n";
-    stDate Date2 = ReadFullDate();
-
-    cout << "\nDiffrence is: " <<
-    GetDiffInDaysBetWeenTwoDates(Date1, Date2) << " Day(s).";
-    cout << "\nDiffrence (Including End Day) is: " <<
-    GetDiffInDaysBetWeenTwoDates(Date1, Date2, true) << " Day(s).";
-
+    cout << "Enter Period:\n";
+    stPeriod Period = ReadPeriod();
+    
+    cout << "\nPeriod Length is: " << GetPeriodLengthInDays(Period);
+    cout << "\nPeriod Length (Including End Date) is: " << GetPeriodLengthInDays(Period, true);
+    
     return 0;
 }

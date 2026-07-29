@@ -4,6 +4,8 @@
 
 using namespace std;
 
+enum enCompareDates { Before = -1, Equal = 0, After = 1 };
+
 struct stDate
 {
     short Day = 0;
@@ -35,31 +37,40 @@ stDate ReadFullDate()
     return Date;
 }
 
-//bool IsDate1EqualDate2(stDate Date1, stDate Date2)
-//{
-//    return (Date1.Year != Date2.Year) ? false : (Date1.Month != Date2.Month) ? false : (Date1.Day != Date2.Day) ? false : true;
-//}
-
 bool IsDate1EqualDate2(stDate Date1, stDate Date2)
 {
     return ((Date1.Year == Date2.Year) && (Date1.Month == Date2.Month) && (Date1.Day == Date2.Day));
 }
 
+bool IsDate1BeforeDate2(stDate Date1, stDate Date2)
+{
+    return (Date1.Year < Date2.Year) ? true : 
+           (Date1.Year == Date2.Year) ? ((Date1.Month < Date2.Month) ? true : 
+                                        (Date1.Month == Date2.Month) ? (Date1.Day < Date2.Day) : false) 
+                                      : false;
+}
+
+bool IsDate1AfterDate2(stDate Date1, stDate Date2)
+{
+    return (!IsDate1BeforeDate2(Date1, Date2) && !IsDate1EqualDate2(Date1, Date2));
+}
+
+enCompareDates CompareDates(stDate Date1, stDate Date2)
+{
+    if (IsDate1BeforeDate2(Date1, Date2)) return enCompareDates::Before;
+    if (IsDate1EqualDate2(Date1, Date2)) return enCompareDates::Equal;
+    return enCompareDates::After;
+}
+
 int main()
 {
+    cout << "Enter Date1:\n";
     stDate Date1 = ReadFullDate();
     cout << "\n";
+    cout << "Enter Date2:\n";
     stDate Date2 = ReadFullDate();
 
-    if (IsDate1EqualDate2(Date1, Date2))
-    {
-        cout << "\nYes : Date1 is Equal To Date2.";
-    }
-
-    else
-    {
-        cout << "\nNo : Date1 is NOT Equal To Date2.";
-    }
+    cout << "\nCompare Result = " << CompareDates(Date1, Date2);
 
     return 0;
 }

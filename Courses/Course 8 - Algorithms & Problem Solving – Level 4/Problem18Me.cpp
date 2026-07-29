@@ -98,7 +98,7 @@ stDate GetSystemDate()
     Date.Month = now->tm_mon + 1;
     Date.Day = now->tm_mday;
     return Date;
-    }
+}
 
 int main()
 {

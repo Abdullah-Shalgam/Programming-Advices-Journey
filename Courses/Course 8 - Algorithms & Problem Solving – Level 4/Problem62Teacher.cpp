@@ -28,33 +28,29 @@ stDate ReadFullDate()
     stDate Date;
 
     Date.Year = InputLib::ReadIntPositiveNumber("Please enter a Year: ");
-    Date.Month = InputLib::ReadIntNumberInRange(1, 12, "Please enter a Month: ");
-    Date.Day = InputLib::ReadIntNumberInRange
-    (1, GetTotalDaysInMonth(Date.Year, Date.Month), "Please enter a Day: ");
+    Date.Month = InputLib::ReadIntPositiveNumber("Please enter a Month: ");
+    Date.Day = InputLib::ReadIntPositiveNumber("Please enter a Day: ");
 
     return Date;
 }
 
-bool IsDate1EqualDate2(stDate Date1, stDate Date2)
+bool IsValideDate(stDate Date)
 {
-    return (Date1.Year == Date2.Year) ? ((Date1.Month == Date2.Month) ? ((Date1.Day == Date2.Day) ? true : false) : false) : false;
+    return (Date.Month >= 1 && Date.Month <= 12) && 
+           (Date.Day >= 1 && Date.Day <= GetTotalDaysInMonth(Date.Year, Date.Month));
 }
 
 int main()
 {
-    stDate Date1 = ReadFullDate();
-    cout << "\n";
-    stDate Date2 = ReadFullDate();
-
-    if (IsDate1EqualDate2(Date1, Date2))
+    stDate Date = ReadFullDate();
+    
+    if (IsValideDate(Date))
     {
-        cout << "\nYes : Date1 is Equal To Date2.";
+        cout << "Yes, Date is a valide Date.";
     }
-
     else
     {
-        cout << "\nNo : Date1 is NOT Equal To Date2.";
+        cout << "No, Date is NOT a valide Date.";
     }
-
     return 0;
 }

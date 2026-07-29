@@ -48,6 +48,11 @@ bool IsDate1BeforeDate2(stDate Date1, stDate Date2)
                                       : false;
 }
 
+bool IsDate1EqualDate2(stDate Date1, stDate Date2)
+{
+    return ((Date1.Year == Date2.Year) && (Date1.Month == Date2.Month) && (Date1.Day == Date2.Day));
+}
+
 bool IsLastDayInMonth(stDate Date)
 {
     return (Date.Day == GetTotalDaysInMonth(Date.Year, Date.Month));
@@ -101,27 +106,25 @@ void SwapTwoDates(stDate &Date1, stDate &Date2)
     Date2 = Temp;
 }
 
-short GetDiffInDaysBetWeenTwoDates(stDate Date1, stDate Date2, bool IncludeEndDay = false)
+int GetDiffInDaysBetWeenTwoDates(stDate Date1, stDate Date2, bool IncludeEndDay = false)
 {
-    bool IsSwapped = false;
+    short SwapFlagValue = 1;
 
-    if (!IsDate1BeforeDate2(Date1, Date2))
+    if (!IsDate1BeforeDate2(Date1, Date2) && !IsDate1EqualDate2(Date1, Date2))
     {
         SwapTwoDates(Date1, Date2);
-        IsSwapped = true;
+        SwapFlagValue = -1;
     }
 
-    short DaysDiff = 0;
+    int DaysDiff = 0;
 
     while (IsDate1BeforeDate2(Date1, Date2))
     {
         DaysDiff++;
         Date1 = IncreaseDateByOneDay(Date1);
     }
-
-    if (IncludeEndDay) DaysDiff++;
-
-    return (IsSwapped) ? -DaysDiff : DaysDiff;
+    
+    return IncludeEndDay ? (DaysDiff + 1) * SwapFlagValue : DaysDiff * SwapFlagValue;
 }
 
 int main()
