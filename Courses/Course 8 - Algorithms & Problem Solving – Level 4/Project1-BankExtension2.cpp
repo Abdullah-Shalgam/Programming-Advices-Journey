@@ -125,13 +125,49 @@ vector<string> SplitString(string str, string delim = "#//#")
     return vTokens;
 }
 
+string ReadPinMasked(string Msg = "Enter PIN Code: ")
+{
+    string pin = "";
+    char ch;
+
+    cout << Msg;
+
+    while (true)
+    {
+        ch = _getch();
+
+        if (ch == 13) 
+        {
+            if (!pin.empty()) 
+                break;
+        }
+
+        else if (ch == 8) 
+        {
+            if (!pin.empty())
+            {
+                pin.pop_back();
+                cout << "\b \b";
+            }
+        }
+
+        else if (isdigit(ch) && pin.length() < 4)
+        {
+            pin += ch;
+            cout << '*';
+        }
+    }
+
+    cout << endl;
+    return pin;
+}
+
 string GetValidPIN()
 {
     string pin;
     while (true)
     {
-        cout << "Enter PinCode (4 digits): ";
-        cin >> pin;
+        pin = ReadPinMasked("Enter PinCode (4 digits): ");
 
         if (pin.length() != 4)
         {
@@ -139,18 +175,7 @@ string GetValidPIN()
             continue;
         }
 
-        bool isAllDigits = true;
-        for (char c : pin)
-        {
-            if (!isdigit(c))
-            {
-                isAllDigits = false;
-                break;
-            }
-        }
-
-        if (isAllDigits) return pin;
-        else cout << "\nError: PIN must contain digits only.\n\n";
+        return pin;
     }
 }
 
@@ -282,6 +307,11 @@ bool FindUserByUsername(string username, const vector<stUser>& vUsers, stUser& u
         }
     }
     return false;
+}
+
+bool LoadUserInfo(string username, string password)
+{
+    return FindUserByUserNameAndPassWord(username, password, CurrentUser);
 }
 
 bool FindUserByUserNameAndPassWord(string username, string password, stUser& user)
@@ -1102,7 +1132,7 @@ void Login()
         username = InputLib::ReadText("Enter Username: ");
         password = InputLib::ReadText("Enter Password: ");
 
-        loginFailed = !FindUserByUserNameAndPassWord(username, password, CurrentUser);
+        loginFailed = !LoadUserInfo(username, password);
 
     } while (loginFailed);
 
