@@ -1,0 +1,14 @@
+Simple Summary
+
+FTP (File Transfer Protocol):
+A protocol used to upload or download files between your device and a server.
+
+FTP Types
+FTP → Not secure
+FTPS → FTP + SSL/TLS (secure)
+SFTP → FTP over SSH (secure)
+
+Usage
+Upload website files
+Download files from server
+Manage files: Rename, Delete, Move

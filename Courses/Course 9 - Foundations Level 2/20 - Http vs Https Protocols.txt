@@ -1,0 +1,29 @@
+Simple Summary
+
+HTTP (HyperText Transfer Protocol)
+
+It’s the protocol used to access and transfer data on the World Wide Web (WWW).
+
+It works over Port 80 (default).
+
+The browser sends an HTTP request to the web server, and they exchange data (HTML, text, images, videos, etc.).
+
+HTTP sends data in plain text, meaning it’s not encrypted — anyone intercepting the traffic can read it.
+
+HTTPS (HyperText Transfer Protocol Secure)
+
+Same as HTTP, but with encryption for security.
+
+It uses SSL (Secure Socket Layer) or TLS (Transport Layer Security) to encrypt data.
+
+Works over Port 443 (default).
+
+Encrypted data can only be read by someone who has the decryption key.
+
+It’s slower than HTTP because encryption adds processing time and increases data size.
+
+HTTPS is mainly used for secure pages — like logins, payments, and private information.
+
+Websites need an SSL/TLS certificate installed on the server to enable HTTPS.
+
+TLS is newer, faster, and more secure than SSL.

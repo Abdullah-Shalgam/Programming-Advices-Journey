@@ -1,0 +1,43 @@
+Simple Summary
+
+1. Modem
+
+Connects your home network to the internet through your ISP (using 4G, DSL, Cable, or Fiber).
+
+Has only one output cable — gives internet access but does not create a network.
+
+Example: the box your ISP gives you.
+
+2. Router
+
+Connects to the Modem to create a local network (LAN).
+
+Lets multiple devices connect wirelessly (Wi-Fi) or through Ethernet cables.
+
+Many modern routers have a built-in Modem.
+
+Works on two frequency bands:
+
+2.4 GHz: slower but longer range.
+
+5 GHz: faster but shorter range.
+
+3. Gateway
+
+Works like a bridge between different networks using different protocols.
+
+Has its own IP address and allows communication between incompatible systems or networks.
+
+In simple terms:
+
+If all devices use the same protocol → Router is enough.
+
+If devices use different protocols → you need a Gateway.
+
+4. Mesh Network
+
+A system that extends Wi-Fi coverage without cables.
+
+Uses multiple devices (nodes) that communicate wirelessly to keep the signal strong across a large area.
+
+Ideal for big homes or offices where one router isn’t enough.

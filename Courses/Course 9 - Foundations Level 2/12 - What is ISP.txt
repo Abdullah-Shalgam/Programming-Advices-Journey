@@ -1,0 +1,9 @@
+Simple Summary
+
+Internet Service Provider (ISP)
+
+A company that connects you to the Internet, e.g., Zain, AT&T, Orange, etc.
+
+ISPs provide Internet access, communication lines, and hosting services for individuals and businesses.
+
+Without an ISP, you can’t connect to the Internet.

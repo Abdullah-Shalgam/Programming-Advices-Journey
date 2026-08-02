@@ -1,0 +1,13 @@
+Simple Summary
+
+Data is transferred as Packets.
+A Packet is a small piece of data sent over a network.
+
+Who is responsible?
+Protocols are responsible for data transfer.
+
+Main Protocols
+IP (Internet Protocol):
+Handles addressing and routing packets.
+TCP (Transmission Control Protocol):
+Breaks data into packets, ensures delivery, and reorders packets.

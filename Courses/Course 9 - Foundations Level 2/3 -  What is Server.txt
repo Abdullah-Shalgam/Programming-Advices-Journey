@@ -1,0 +1,29 @@
+Simple Summary
+
+Server
+Server: A powerful computer that shares data and services with other computers.
+
+Server vs PC
+Reliability: Server is more reliable than PC.
+Performance: Server has higher performance.
+Shutdown Time: Server runs 24/7.
+Maintenance Cost: Server is more expensive to maintain.
+
+Types of Servers
+Web Server: Hosts websites.
+Mail Server: Handles emails.
+Application Server: Runs applications.
+Database Server: Manages databases.
+File Server: Stores and shares files.
+Image Server: Stores images.
+VoIP Server (Voice over IP): Handles voice calls.
+Game Server: Runs online games.
+Printing/Fax Server: Manages printing and fax.
+
+Forms of Servers
+Tower Server: Standalone, looks like a PC.
+Rack Server: Fits in a 19-inch rack.
+Blade Server: Fits in a 19-inch rack, high density.
+
+Data Center
+Data Center: A facility that contains many servers with power, cooling, and security.

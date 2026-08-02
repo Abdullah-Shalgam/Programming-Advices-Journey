@@ -1,0 +1,37 @@
+Simple Network Summary
+
+Network: A group of devices connected together to share data and resources.
+
+Local Area Network (LAN):
+A small network in a limited area like a home, school, or office.
+
+Wide Area Network (WAN):
+A very large network that connects many LANs together, like the Internet.
+
+Wired Communication:
+Connecting devices using cables.
+
+Wireless Communication:
+Connecting devices without cables using radio signals.
+
+Ethernet:
+A wired network technology used in LANs.
+It uses Ethernet cables.
+
+Switch:
+A device that connects multiple devices together inside a LAN.
+
+Router:
+A device that connects a LAN to a WAN (the Internet).
+
+Wireless Router:
+A router that provides both wired and wireless (Wi-Fi) connections.
+
+Wi-Fi (Wireless Fidelity):
+A wireless technology that allows devices to connect to the network without cables.
+
+Radio Signals:
+Invisible waves used to send data wirelessly.
+
+Protocol:
+A set of rules that defines how devices communicate and exchange data.

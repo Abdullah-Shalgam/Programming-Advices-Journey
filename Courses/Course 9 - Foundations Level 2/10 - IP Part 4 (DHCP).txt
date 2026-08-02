@@ -1,0 +1,7 @@
+Simple Summary
+
+DHCP (Dynamic Host Configuration Protocol):
+A protocol that automatically assigns IP addresses to devices on a network.
+
+DHCP Server:
+Provides IP address, subnet mask, gateway, and DNS.

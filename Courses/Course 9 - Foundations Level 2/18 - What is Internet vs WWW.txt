@@ -1,0 +1,10 @@
+Simple Summary
+
+Internet: A global network that connects millions of networks.
+
+WWW (World Wide Web):
+A service that runs on the Internet and allows users to access websites.
+
+Difference
+The Internet is the infrastructure.
+The WWW is a service on top of the Internet.

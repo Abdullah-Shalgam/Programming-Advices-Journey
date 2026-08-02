@@ -1,0 +1,21 @@
+Simple Summary
+
+MAC (Media Access Control) Address:
+A unique physical identifier assigned by the manufacturer to every network device (like a phone, laptop, or router).
+It’s like a car’s chassis number — no two devices have the same MAC.
+
+Purpose & Functions:
+
+Improves network security.
+
+Identifies each device’s connection history — when it joined or left the network.
+
+Acts as the physical address in the network layer.
+
+Can be used to:
+
+Allow or block specific devices from network access.
+
+Restrict internet usage for certain devices.
+
+Track a device’s location or activity through the ISP.

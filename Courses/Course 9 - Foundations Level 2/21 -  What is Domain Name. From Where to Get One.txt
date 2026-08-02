@@ -1,0 +1,13 @@
+Simple Summary
+
+Domain Name: A human-readable address of a website.
+Example: www.google.com
+Easier to remember than IP Address
+
+Where to get a Domain Name?
+Register from a Domain Registrar
+Examples: GoDaddy, Namecheap, Bluehost
+
+Server IP Address vs Domain Name
+Server IP Address: The unique number of a server on the Internet
+Domain Name: It is unique & easy-to-remember name, which is mapped to the IP by DNS

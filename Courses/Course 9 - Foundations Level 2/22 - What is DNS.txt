@@ -1,0 +1,15 @@
+Simple Summary
+
+DNS (Domain Name System):
+Converts domain names (like www.google.com) into IP addresses (like 172.217.5.110).
+
+Why is DNS important?
+Easier to remember domain names than IP addresses
+Acts like a “phone book” for the Internet
+
+How DNS works?
+Enter domain in browser
+Browser asks DNS server: “What is the IP?”
+DNS responds with IP
+Browser connects to server using IP
+Page loads

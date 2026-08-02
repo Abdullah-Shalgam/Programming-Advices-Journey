@@ -1,0 +1,19 @@
+Simple Summary
+
+IP Address: A unique number that identifies a device on a network.
+
+IPv4 (Internet Protocol Version 4)
+Size: 32 bits = 4 bytes
+Written in decimal numbers separated by dots.
+Example: 192.168.1.1
+
+IPv6 (Internet Protocol Version 6)
+Size: 128 bits = 16 bytes
+Written in hexadecimal notation.
+Example: 2001:db8::1
+
+Device Location
+Devices are located using their IP Address.
+
+
+Note: The network supports both IPv4 and IPv6, because some countries do not yet support IPv6.

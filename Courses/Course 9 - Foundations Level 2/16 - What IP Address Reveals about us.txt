@@ -1,0 +1,19 @@
+Simple Summary 
+
+What does an IP address reveal?
+Country
+City (approximate)
+ISP
+
+Who wants your IP address?
+Websites
+ISP
+Hackers (rare cases)
+Law enforcement (legal cases)
+
+How to protect your IP address?
+Use a VPN
+Enable Firewall
+Avoid suspicious links
+Use HTTPS
+Use NAT

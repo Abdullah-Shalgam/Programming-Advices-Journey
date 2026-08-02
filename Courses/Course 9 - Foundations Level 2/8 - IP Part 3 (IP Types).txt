@@ -1,0 +1,42 @@
+Simple Summary
+
+IP Address = The unique address of your device — either on a local network (LAN) or the internet (global).
+
+Types of IP Addresses:
+
+Public IP
+
+Accessible by anyone on the internet.
+
+Assigned by your ISP (Internet Service Provider) — e.g., Zain.
+
+Used when your device connects directly to the internet.
+
+Private IP
+
+Used inside local networks (LANs) only.
+
+Not reachable from outside the network.
+
+Defined under both IPv4 and IPv6 standards.
+
+You can use one Public IP and share it across many devices in a local network.
+
+Static IP
+
+Fixed — doesn’t change over time.
+
+Commonly used for servers.
+
+Limited in number and more expensive.
+
+Provided permanently by your ISP.
+
+Dynamic IP
+
+Changes automatically from time to time.
+
+Cheaper and easier for ISPs to manage.
+
+Note:
+An IP address can be Public or Private, and each can also be Static or Dynamic depending on how it’s assigned.

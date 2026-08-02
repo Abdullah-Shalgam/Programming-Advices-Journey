@@ -1,0 +1,14 @@
+Simple Summary
+
+VPN (Virtual Private Network):
+Creates an encrypted tunnel between your device and the Internet.
+
+What does VPN do?
+Hides your real IP address
+Encrypts your data
+Improves privacy and security
+
+VPN Uses
+Secure public Wi-Fi
+Privacy protection
+Access restricted content

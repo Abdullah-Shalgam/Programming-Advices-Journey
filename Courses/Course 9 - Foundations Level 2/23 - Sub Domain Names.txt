@@ -1,0 +1,16 @@
+Simple Summary
+
+Subdomain: A part of the main domain used to organize or separate sections of a website.
+
+Format:
+subdomain.domain.com
+
+Examples:
+blog.example.com
+shop.example.com
+
+
+Purpose:
+Organize website sections
+SEO benefits
+Separate servers or services

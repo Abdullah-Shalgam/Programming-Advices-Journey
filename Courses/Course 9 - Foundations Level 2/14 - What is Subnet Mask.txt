@@ -1,0 +1,25 @@
+Simple Summary
+
+A Subnet Mask is used to divide a large network into smaller subnets.
+
+It helps improve network performance and security.
+
+Every IP address has two parts:
+
+Network ID → identifies the network
+
+Host ID → identifies the specific device
+
+Devices in the same subnet can communicate directly; others communicate through the router/gateway.
+
+Subnet mask determines which bits of the IP belong to the network or the host.
+
+CIDR (/8, /16, /24) notation shows how many bits are used for the network.
+
+Example classes:
+
+Class A → 255.0.0.0 → 16M hosts
+
+Class B → 255.255.0.0 → 65K hosts
+
+Class C → 255.255.255.0 → 254 hosts

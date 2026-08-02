@@ -1,0 +1,18 @@
+Simple Summary
+
+NAT (Network Address Translation):
+Converts private IP addresses to a public IP address.
+
+IP Mapping:
+The router maps private IPs and ports to a public IP.
+
+How does the router know the program?
+
+By using Port Numbers.
+
+IP Address → identifies the device
+
+Port Number → identifies the program
+
+NAT Table
+The router keeps a NAT Table to send data back to the correct device and program.

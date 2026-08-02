@@ -1,0 +1,10 @@
+Simple Summary
+
+Local Area Network (LAN):
+A small network in a limited area like a home or office.
+
+Metropolitan Area Network (MAN):
+A medium-size network that covers a city or large area.
+
+Wide Area Network (WAN):
+A very large network that covers countries or the whole world.

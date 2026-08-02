@@ -1,0 +1,14 @@
+Simple Summary
+
+URL (Uniform Resource Locator)
+A web address to locate a resource on the Internet
+
+Parts of a URL
+Protocol → Communication method (HTTP, HTTPS, FTP)
+Subdomain → Part of main domain (blog.example.com → blog)
+Domain Name → Main website name (example)
+Top-Level Domain (TLD) → .com, .net, .org
+Port → Optional, service number on server (:80, :443)
+Path / Resource Name → Location of the file on server (/folder/page.html)
+Query / Parameters → Optional, extra info (?user=amera)
+Fragment → Optional, specific part of page (#section2)

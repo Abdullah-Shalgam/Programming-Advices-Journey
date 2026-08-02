@@ -1,0 +1,16 @@
+Simple Summary
+
+Port: A number that identifies a service or program on a device.
+
+Hardware Port: A physical connector like USB or Ethernet.
+
+Software Port: A logical port number used by applications.
+
+Socket: A connection endpoint defined by IP address and port number.
+
+Socket Address: IP address + port number.
+
+Common Ports
+HTTP (HyperText Transfer Protocol): Port 80
+HTTPS (HyperText Transfer Protocol Secure): Port 443
+SMTP (Simple Mail Transfer Protocol): Port 25

@@ -1,0 +1,31 @@
+Simple Summary
+
+TCP & IP work together:
+
+TCP handles breaking data into packets, sending, and reassembling it.
+
+IP (Internet Protocol) handles locating the device — it defines the address.
+
+Connection types:
+
+Wired – using cables (Ethernet).
+
+Wireless – using Wi-Fi.
+
+Protocol = a set of rules that define how devices communicate over wired or wireless connections.
+
+IP Address:
+
+Every device connected to a network or the internet has a unique IP address.
+
+It’s a numerical address that identifies the exact device location.
+
+Example format (IPv4): 123.89.46.72 → 4 bytes = 32 bits total.
+
+Written as Dotted Decimal Notation.
+
+Each number (called an octet) represents 8 bits.
+
+Each octet can hold a value from 0 to 255 (1 Byte = 256 In Decimal).
+
+IPv4 can create 4,294,967,296 unique addresses.

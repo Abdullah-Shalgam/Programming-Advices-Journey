@@ -1,0 +1,15 @@
+Simple Summary
+
+TCP (Transmission Control Protocol).
+
+TCP responsibilities:
+
+Splits the file into small packets.
+
+Sends each packet through the network.
+
+Makes sure all packets arrive complete and in order.
+
+Reassembles them correctly on the receiver’s side.
+
+Adds information (like numbers and headers) to help organize and rebuild the file
