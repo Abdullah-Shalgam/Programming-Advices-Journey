@@ -1,0 +1,23 @@
+Simple Summary
+
+3-Tier Architecture
+A software architecture that divides an application into three layers.
+
+Layers
+1. Presentation Layer
+User Interface
+Displays data and collects input
+Examples: Web UI, API Controllers
+
+2. Business Layer
+Contains business rules and logic
+Performs calculations and validations
+Implemented using C# classes
+
+3. Database Layer
+Manages data storage
+Uses SQL Server, tables, and stored procedures
+
+Key Idea
+Separation of concerns
+Each layer has a clear responsibility

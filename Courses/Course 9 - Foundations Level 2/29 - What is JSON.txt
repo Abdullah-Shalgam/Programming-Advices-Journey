@@ -1,0 +1,20 @@
+Simple Summary
+
+JSON (JavaScript Object Notation):
+A lightweight format for storing and transporting data.
+
+Features
+Easy to read and write
+Smaller than XML → faster for transfer
+Supports: String, Number, Boolean, Array, Object, Null
+
+Example
+{
+  "name": "Amira",
+  "age": 20,
+  "email": "amira@gmail.com",
+  "skills": ["HTML", "CSS", "JavaScript"]
+}
+
+JSON → Data focus, simple, small
+XML → Data + structure, verbose, bigger

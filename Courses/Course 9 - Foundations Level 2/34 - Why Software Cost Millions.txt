@@ -1,0 +1,9 @@
+Simple Answer:
+
+Software costs millions because:
+It takes time
+Built by many skilled people
+Highly complex
+Needs security, infrastructure, maintenance
+Carries huge responsibility and risk
+You are paying for reliability, scalability, and trust, not just code.

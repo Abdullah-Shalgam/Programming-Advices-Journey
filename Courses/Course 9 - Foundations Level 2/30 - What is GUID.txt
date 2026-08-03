@@ -1,0 +1,11 @@
+Simple Summary
+
+GUID (Globally Unique Identifier)
+UUID (Universally Unique Identifier)
+
+A 128-bit unique identifier used to uniquely identify objects, users, or records.
+
+Key points
+Almost impossible to duplicate
+Used in databases, APIs, distributed systems
+GUID is Microsoft’s name for UUID

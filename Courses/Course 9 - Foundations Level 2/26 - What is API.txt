@@ -1,0 +1,16 @@
+Simple Summary
+
+API (Application Programming Interface)
+An API allows different software applications to communicate with each other.
+
+Why APIs are used?
+Share data
+Connect systems
+Improve security
+Save development time
+
+Common API actions
+GET → Retrieve data
+POST → Send data
+PUT → Update data
+DELETE → Remove data

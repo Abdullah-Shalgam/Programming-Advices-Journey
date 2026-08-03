@@ -1,0 +1,42 @@
+Simple Summary
+
+API (Application Programming Interface)
+A way for software to communicate with other software
+Receives Request → Returns Response
+
+Why use API?
+Share data
+Connect applications
+Secure communication (hide internal code)
+Save development time
+
+Common actions (Web API)
+GET → Retrieve data
+POST → Send data
+PUT → Update data
+DELETE → Remove data
+
+Real examples
+Login with Google / Facebook
+Website asks Google API to authenticate you
+Returns your email & profile info
+Weather app
+App requests Weather API for temperature, humidity, forecast
+Maps in Uber / Careem
+App uses Google Maps API
+Returns map, route, and ETA
+Online payments (Stripe / PayPal)
+Payment API verifies credit card
+Returns Success or Failed
+
+Programmer example
+GET /users/5
+Response:
+{
+  "id": 5,
+  "name": "Amira",
+  "email": "amira@gmail.com"
+}
+
+
+Every time an app fetches or sends data from/to another service → API is working behind the scenes

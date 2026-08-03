@@ -1,0 +1,17 @@
+Simple Summary
+
+XML (eXtensible Markup Language):
+A markup language used to store and transport data.
+Tags are user-defined
+Data is structured and machine-readable
+
+HTML (Hypertext Markup Language):
+A markup language used to display content on web pages.
+Tags are predefined
+Focused on presentation, not data
+
+Key difference
+HTML → display
+XML → data storage & transport
+
+XML + XSLT → New Format (html, PDF,..etc)

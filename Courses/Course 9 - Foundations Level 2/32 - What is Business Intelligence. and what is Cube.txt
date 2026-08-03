@@ -1,0 +1,44 @@
+Simple Summary
+
+Business Intelligence (BI)
+BI transforms raw data into valuable information for decision making.
+
+Common Company Problems:
+Data is distributed across the enterprise
+Data everywhere, information nowhere
+Reports take too long
+Different users need different formats
+
+Data Cube?
+A data structure for analysis
+
+Contains:
+Dimensions: Customer, Product, Time
+Measures: Sales, Quantity, Profit
+
+Dashboards?
+Visual representation of data
+Helps management see performance quickly
+
+Why BI?
+
+Answer key questions:
+What happened?
+What is happening?
+Why did it happen?
+What will happen?
+What do I want to happen?
+
+BI Benefits:
+Fact-based decision making
+Single version of the truth
+Reduced cost and wasted effort
+Better operational efficiency
+
+BI Tools:
+Power BI
+Tableau
+SAP BO
+Oracle BI
+Qlik Sense
+IBM Cognos

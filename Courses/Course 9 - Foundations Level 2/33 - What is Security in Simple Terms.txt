@@ -1,0 +1,9 @@
+Simple Answer
+
+There is no absolute protection for any software.
+
+Security is about:
+Reducing risk
+Delaying attacks
+Detecting breaches early
+Minimizing damage
