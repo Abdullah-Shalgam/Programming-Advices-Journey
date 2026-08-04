@@ -1,0 +1,18 @@
+Simple Summary
+
+Abstraction (Second OOP Principle)?
+Show what an object does
+Hide how it does it
+
+Purpose?
+Reduce complexity
+Improve usability
+Separate interface from implementation
+
+How to implement?
+Abstract classes
+Interfaces
+
+Example?
+calculateGPA() is declared
+Implementation is hidden

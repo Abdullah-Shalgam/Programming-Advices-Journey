@@ -1,0 +1,17 @@
+Simple Summary
+
+Objects in Memory?
+Objects are stored in memory (RAM)
+Each object has its own memory location
+
+Class vs Object?
+Class: blueprint, no actual data in memory
+Object: real instance with values
+
+Multiple Objects?
+Each object has separate data
+Changes in one object do not affect others
+
+Methods?
+Methods are shared
+Data members are unique per object

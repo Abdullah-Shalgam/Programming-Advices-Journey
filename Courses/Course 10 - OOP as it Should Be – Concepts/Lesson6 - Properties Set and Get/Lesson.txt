@@ -1,0 +1,17 @@
+Simple Summary
+
+Properties (Get/Set)?
+Interface to private data
+Safe way to read/write data
+
+Get?
+Read the value
+
+Set?
+Write/modify the value
+Can add validation
+
+Example?
+Private: gpa
+Public property: GPA
+Use student.GPA to get or set safely

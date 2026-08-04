@@ -1,0 +1,24 @@
+Simple Summary
+
+Constructor?
+A special member function
+Called automatically when an object is created
+Has the same name as the class
+Has no return type
+Usually public
+
+Default Constructor?
+A constructor with no parameters
+Created automatically by the compiler if no constructor is defined
+
+Parameterized Constructor?
+A constructor with parameters
+Used to initialize member data
+Overrides the default constructor
+
+Important Rule?
+If you define a parameterized constructor, the compiler will NOT create a default constructor
+
+Common Error?
+Error: no default constructor exists
+Happens when creating an object without parameters while no default constructor is defined

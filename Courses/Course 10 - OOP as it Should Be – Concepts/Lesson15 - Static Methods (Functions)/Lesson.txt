@@ -1,0 +1,14 @@
+Simple Summary
+
+Static Methods?
+Belong to the class, not to objects
+Can be called without creating an object
+Can also be called through an object
+
+Access Rules?
+Can access static members only
+Cannot access non-static members
+No this pointer
+
+Best Practice?
+Call static methods using the class name

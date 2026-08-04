@@ -1,0 +1,22 @@
+Simple Summary
+
+Destructor?
+A special member function
+Called automatically when an object is destroyed
+
+Properties?
+Same name as the class
+Preceded by ~
+No parameters
+No return type
+Only one destructor per class
+Cannot be overloaded
+
+Purpose?
+Free memory
+Release resources
+Delete memory allocated with new
+
+When called?
+When object goes out of scope
+When delete is used

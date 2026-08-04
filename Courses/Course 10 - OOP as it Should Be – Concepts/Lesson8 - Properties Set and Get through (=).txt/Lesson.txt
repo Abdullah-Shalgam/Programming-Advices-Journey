@@ -1,0 +1,14 @@
+Simple Summary
+
+Property with get/set in C++
+__declspec(property) creates a property
+Property looks like a variable
+Internally calls functions
+
+"=" Operator?
+obj.name = value → calls set function
+value = obj.name → calls get function
+
+Key Point?
+Property is not real data
+Real data is stored in a private member

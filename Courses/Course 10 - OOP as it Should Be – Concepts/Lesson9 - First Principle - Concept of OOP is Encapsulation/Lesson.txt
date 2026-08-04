@@ -1,0 +1,20 @@
+Simple Summary
+
+Encapsulation (OOP First Principle)?
+Hiding internal details of a class
+Expose only necessary functionality
+
+Why use it?
+Data protection
+Control access
+Better code organization
+Easier maintenance
+
+How to implement?
+Make data members private
+Use public methods / properties (get/set) to access data
+
+Example?
+Private: gpa
+Public: getGPA() / setGPA()
+Ensures safe read/write

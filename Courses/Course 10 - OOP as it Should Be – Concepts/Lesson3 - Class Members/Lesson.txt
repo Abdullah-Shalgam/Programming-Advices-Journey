@@ -1,0 +1,17 @@
+Simple Summary
+
+Class Members?
+Everything inside a class
+
+Types of Members?
+Data members (variables)
+Member functions (methods)
+
+Access Specifiers?
+public → accessible from outside
+private → accessible only inside the class
+
+Example?
+Name, GPA → data members
+calculateGPA() → method
+GPA is usually private

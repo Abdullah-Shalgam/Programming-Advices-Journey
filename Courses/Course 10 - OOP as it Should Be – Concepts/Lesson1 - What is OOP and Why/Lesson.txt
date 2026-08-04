@@ -1,0 +1,27 @@
+Simple Summary
+
+Functional Programming (FP)?
+Based on functions
+Focuses on inputs and outputs
+Functions are independent
+
+Object-Oriented Programming (OOP)?
+Based on objects
+Objects contain:
+Data (members)
+Behavior (methods)
+
+Method?
+A function inside a class
+Represents an object’s behavior
+
+Members?
+Everything inside a class
+Includes:
+Variables
+Methods
+
+University Example?
+Student → object
+Name, Age → members
+calculateGPA() → method

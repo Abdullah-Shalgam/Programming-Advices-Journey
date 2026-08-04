@@ -1,0 +1,18 @@
+Simple Summary 
+
+Static Member?
+A variable shared by all objects
+Belongs to the class, not to objects
+Only one copy in memory
+Modifying it affects all objects
+
+Shared Variable?
+Another name for static member
+
+Global Variable?
+Defined outside classes
+Accessible everywhere
+Not recommended in OOP
+
+Access?
+Prefer access via class name

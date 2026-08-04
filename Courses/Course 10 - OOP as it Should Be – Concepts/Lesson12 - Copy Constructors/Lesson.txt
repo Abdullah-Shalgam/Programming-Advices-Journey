@@ -1,0 +1,23 @@
+Simple Summary
+
+Copy Constructor?
+Initializes a new object using an existing object
+Copies data member by member
+Used for copy initialization
+
+Definition?
+Takes an object of the same class as a parameter
+
+Compiler vs Programmer?
+Compiler creates a copy constructor if none is defined
+Compiler-generated copy constructor performs shallow copy
+Programmer should define it when dynamic memory is used
+
+Types of Constructors?
+Default constructor
+Parameterized constructor
+Copy constructor
+
+Constructor Overloading?
+Multiple constructors in one class
+Achieved using function overloading
