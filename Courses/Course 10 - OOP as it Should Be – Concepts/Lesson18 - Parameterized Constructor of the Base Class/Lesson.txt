@@ -1,0 +1,15 @@
+Simple Summary
+
+Parameterized Constructor of Base Class?
+If base class has a parameterized constructor
+Derived class must call it explicitly
+
+How?
+Using constructor initializer list
+
+Order?
+Base constructor is called first
+Then derived constructor
+
+Error?
+Occurs if base constructor is not called

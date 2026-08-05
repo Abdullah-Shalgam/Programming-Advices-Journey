@@ -1,0 +1,15 @@
+Simple Summary 
+
+Access Specifiers?
+Public: accessible everywhere
+Private: accessible only inside class
+Protected: accessible inside class and derived classes, but not outside
+
+Inheritance Rules?
+Private members → not accessible by derived class
+Protected members → accessible by derived class
+Public members → accessible everywhere
+
+Key Concept?
+Protected = private to outside, public to derived classes
+Inside the class → can access all members (public, private, protected)

@@ -1,0 +1,15 @@
+Simple Summary
+
+Public inheritance:
+Public → Public, Protected → Protected
+Used for is-a relationship.
+
+Protected inheritance:
+Public & Protected → Protected
+No access from objects.
+
+Private inheritance:
+Public & Protected → Private
+Only usable inside derived class.
+
+Private members are not inherited.

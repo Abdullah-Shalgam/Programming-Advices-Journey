@@ -1,0 +1,13 @@
+Simple Summary
+
+Polymorphism means many forms.
+It allows writing consistent and flexible code.
+
+It can be achieved through:
+Function overloading
+Operator overloading
+Function overriding
+Virtual functions
+
+Compile-time polymorphism uses overloading.
+Run-time polymorphism uses virtual functions and overriding.

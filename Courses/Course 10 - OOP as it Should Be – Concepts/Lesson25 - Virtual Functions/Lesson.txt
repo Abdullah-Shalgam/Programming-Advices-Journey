@@ -1,0 +1,8 @@
+Simple Summary
+
+Virtual Function:
+A function in Base class declared with virtual
+Can be overridden in Derived class
+Enables Run-time Polymorphism
+Binding happens at run-time, not compile-time
+Virtual destructors are important to prevent memory leaks

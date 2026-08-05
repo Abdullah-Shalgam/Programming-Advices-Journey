@@ -1,0 +1,9 @@
+Simple Summary
+
+Static (Early) binding: happens at compile time
+Used with non-virtual functions
+Function call depends on pointer type
+
+Dynamic (Late) binding: happens at run time
+Requires virtual functions
+Function call depends on actual object type

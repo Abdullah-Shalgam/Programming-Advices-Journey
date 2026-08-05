@@ -14,6 +14,10 @@ private:
 
 public:
 
+    clsPerson()
+    {
+    }
+
     // 1. استخدام Member Initializer List + const string&
     clsPerson(int ID, const string& FirstName, const string& LastName, const string& Email, const string& Phone)
         : _ID(ID), _FirstName(FirstName), _LastName(LastName), _Email(Email), _Phone(Phone)
@@ -66,13 +70,42 @@ public:
     }
 };
 
+class clsEmployee : public clsPerson
+{
+private:
+    float _Salary = 0;
+    string _Title = "";
+    string _Department = "";
+
+public:
+
+    // Setters
+    void SetSalary(float Salary)                 { _Salary = Salary; }
+    void SetTitle(const string& Title)           { _Title = Title; }
+    void SetDepartment(const string& Department) { _Department = Department; }
+
+    // Getters
+    float Salary() const      { return _Salary; }
+    string Title() const      { return _Title; }
+    string Department() const { return _Department; }
+};
+
 int main()
 {
-    clsPerson Person1(10, "Ali", "Al-Ganodi", "koko@gmail.com", "0933487529");
-    Person1.Print();
+    clsEmployee Employee1;
+    
+    Employee1.SetFirstName("Mohammed");
+    Employee1.SetLastName("Abu-Hadhoud");
+    Employee1.SetEmail("a@a.com");
 
-    Person1.SendEmail("Hi", "How are you?");
-    Person1.SendSMS("How are you?");
+    Employee1.Print();
+
+    Employee1.SendEmail("Hi", "How are you?");
+
+    Employee1.SetSalary(5000);
+    cout << "Salary is: " << Employee1.Salary();
+
+    Employee1.Print();
 
     return 0;
 }

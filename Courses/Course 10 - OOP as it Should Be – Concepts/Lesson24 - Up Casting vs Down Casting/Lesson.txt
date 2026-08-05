@@ -1,0 +1,6 @@
+Simple Summary
+
+Upcasting: Parent pointer → Child object (safe, automatic)
+Downcasting: Child pointer → Parent object (unsafe, needs cast)
+
+Parent object does not contain child members in memory

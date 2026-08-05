@@ -1,0 +1,15 @@
+Simple Summary
+
+Multi-Level Inheritance?
+A derived class is inherited from another derived class
+Forms a chain of inheritance: Base → Derived → Sub-Derived
+
+Properties?
+Public/protected members are inherited
+Private members are not directly accessible
+Constructor call order: Base → Derived → Sub-Derived
+Destructor call order: Sub-Derived → Derived → Base
+
+Example?
+Person → Student → EngineeringStudent
+EngineeringStudent can access members of both Student and Person (except private)

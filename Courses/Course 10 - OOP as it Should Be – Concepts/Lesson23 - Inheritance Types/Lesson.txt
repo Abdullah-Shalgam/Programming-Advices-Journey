@@ -1,0 +1,7 @@
+Simple Summary
+
+Single inheritance: one class inherits from one class
+Multilevel inheritance: inheritance chain
+Multiple inheritance: one class inherits from multiple classes (C++ only)
+Hierarchical inheritance: many classes inherit from one base class
+Hybrid inheritance: combination of inheritance types

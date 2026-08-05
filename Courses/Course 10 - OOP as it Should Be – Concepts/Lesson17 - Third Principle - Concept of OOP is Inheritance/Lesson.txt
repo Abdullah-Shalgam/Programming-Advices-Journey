@@ -1,0 +1,21 @@
+Simple Summary
+
+Inheritance (Third OOP Principle)?
+Creating a new class from an existing class
+Inherits properties and behaviors
+
+Base / Super Class?
+The existing class
+
+Derived / Sub Class?
+The new class
+
+Benefits?
+Code reusability
+Reduced duplication
+Better organization
+
+Inherited Members?
+public → inherited
+protected → inherited
+private → inherited but not accessible. you can access it using setters & getters

@@ -1,0 +1,17 @@
+Simple Summary
+
+Function Overriding?
+Redefining a base class function in a derived class
+Same name and parameters
+Base function should be virtual
+
+After Overriding?
+Base function is hidden
+Derived object calls derived function
+
+Access Base Function?
+Use Base::function() inside derived class
+
+Polymorphism?
+Base pointer + derived object
+Calls derived function at runtime
