@@ -1,11 +1,11 @@
 #pragma once
 
-namespace MathLib 
+class MathLib 
 {
-    int RandomNumber(int From, int To);
-    int ReversedNumber(int Num);
-    void Swap2Numbers(int& num1, int& num2);
-    bool isPrime(int i);
-    bool isPerfect(int Num);
-    bool IsPalindrome(int Num);
-}
+    static int RandomNumber(int From, int To);
+    static int ReversedNumber(int Num);
+    static void Swap2Numbers(int& num1, int& num2);
+    static bool isPrime(int i);
+    static bool isPerfect(int Num);
+    static bool IsPalindrome(int Num);
+};

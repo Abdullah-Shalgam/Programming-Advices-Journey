@@ -1,0 +1,8 @@
+Simple Summary
+
+this is an implicit pointer available inside all member functions
+It points to the current invoking object
+Friend and static functions do not have a this pointer
+Used to resolve name conflicts
+Can be used to pass the current object to other functions
+Helps in writing clear and maintainable code

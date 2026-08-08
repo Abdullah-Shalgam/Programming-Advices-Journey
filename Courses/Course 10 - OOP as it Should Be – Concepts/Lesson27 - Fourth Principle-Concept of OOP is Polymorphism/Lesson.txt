@@ -5,7 +5,7 @@ It allows writing consistent and flexible code.
 
 It can be achieved through:
 Function overloading
-Operator overloading
+Operator overloading = like summing numbers or concatenating strings by using +.
 Function overriding
 Virtual functions
 

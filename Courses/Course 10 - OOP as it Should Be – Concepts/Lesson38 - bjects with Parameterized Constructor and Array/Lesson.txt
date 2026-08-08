@@ -1,0 +1,13 @@
+Simple Summary
+
+Objects with Parameterized Constructor and Arrays
+Arrays require a default constructor.
+A class with only a parameterized constructor cannot be stored in an array directly.
+
+Solutions:
+Add a default constructor.
+Initialize the array at declaration.
+Use vector (recommended).
+
+new[] always calls the default constructor.
+vector handles object construction safely.

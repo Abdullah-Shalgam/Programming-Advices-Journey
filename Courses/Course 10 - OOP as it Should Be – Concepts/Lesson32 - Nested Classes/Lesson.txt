@@ -1,0 +1,7 @@
+Simple Summary
+
+A nested class is a class defined inside another class
+The outer class is called the enclosing class
+Nested class is a member of the enclosing class
+Nested classes have no special access to outer class members
+Normal access rules apply unless friendship is declared

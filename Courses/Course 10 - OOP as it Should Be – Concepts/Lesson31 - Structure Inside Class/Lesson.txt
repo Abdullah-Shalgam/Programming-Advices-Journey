@@ -1,0 +1,3 @@
+✨The Summary✨
+
+🎯 A structure is a data type that can be defined inside a class, and it can contain properties with setter and getter functions.

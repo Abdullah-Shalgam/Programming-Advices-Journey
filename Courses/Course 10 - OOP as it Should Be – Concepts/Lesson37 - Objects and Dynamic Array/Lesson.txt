@@ -1,0 +1,10 @@
+Simple Summary
+
+Objects and Dynamic Arrays in C++ :
+A dynamic array is created at runtime using new.
+You can create a dynamic array of objects.
+A default constructor is required.
+Objects are accessed using array indexing [].
+You must free memory using delete[].
+Dynamic arrays are error-prone.
+vector is safer and recommended in modern C++.

@@ -1,0 +1,11 @@
+Simple Summary
+
+A friend class can access all private and protected members of another class
+Friendship in C++ is one-way
+
+If class B is friend of class A:
+B can access A members
+A cannot access B members
+
+Friendship is given, not taken
+Friendship is not inherited or symmetric

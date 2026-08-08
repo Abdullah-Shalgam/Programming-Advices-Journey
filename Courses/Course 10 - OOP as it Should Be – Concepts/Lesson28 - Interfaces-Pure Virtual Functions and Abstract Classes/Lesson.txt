@@ -1,0 +1,8 @@
+Simple Summary
+
+A pure virtual function has no body and ends with = 0
+A class with at least one pure virtual function is an abstract class
+You cannot create objects from an abstract class
+Derived classes must implement all pure virtual functions
+C++ interfaces are implemented using abstract classes
+Abstract class is not the same as abstraction (OOP concept)

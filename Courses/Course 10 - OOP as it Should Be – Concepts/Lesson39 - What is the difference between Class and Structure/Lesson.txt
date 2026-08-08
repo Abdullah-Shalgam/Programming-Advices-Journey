@@ -1,0 +1,23 @@
+Simple Summary
+
+Difference between Class and Struct in C++
+struct default members are public
+class default members are private
+
+Both can have:
+Member variables
+Member functions
+Constructors/Destructors
+Inheritance
+
+struct usually used for data-only
+class usually used for full OOP
+
+Main difference: default access control
+
+Difference between Class and Struct in C#
+
+struct default members are public      :          class default members are private
+Struct for Generally for Grouping Data :          class for Data Apstarction And Have More Inheritance Fetures
+Struct Value Type (Stack)              :          class Reference Type (Heap)
+Only Parametarized Constructor         :          class All Types of Constructors

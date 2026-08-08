@@ -1,0 +1,13 @@
+Simple Summary
+
+Adding Objects to Vector in C++
+vector can store objects just like primitive data types.
+
+You can add objects using:
+push_back(object) → adds a copy
+push_back(Class(args)) → temporary object + copy
+emplace_back(args) ✅ best option (no copy)
+
+emplace_back constructs the object directly inside the vector.
+Access object members using . operator.
+Use reference in loops to avoid unnecessary copying.

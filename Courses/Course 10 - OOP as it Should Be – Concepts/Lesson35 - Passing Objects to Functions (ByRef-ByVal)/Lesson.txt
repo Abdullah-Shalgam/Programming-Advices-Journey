@@ -1,0 +1,8 @@
+Simple Summary
+
+Objects are user-defined data types
+Objects can be passed to functions like int or string
+They can be passed by value or by reference
+Passing by value creates a copy
+Passing by reference avoids copying and improves performance
+const reference is recommended when no modification is needed

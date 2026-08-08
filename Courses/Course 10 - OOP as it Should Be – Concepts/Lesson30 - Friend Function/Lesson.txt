@@ -1,0 +1,8 @@
+Simple Summary
+
+A friend function is not a member of a class
+It is declared using the friend keyword inside the class
+It can access private and protected members
+It is defined outside the class
+Used when multiple classes need to share data
+Friendship is one-way and not inherited

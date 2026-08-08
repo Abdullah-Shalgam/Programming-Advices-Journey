@@ -1,0 +1,18 @@
+✨The Summary✨
+
+cut the class code ➡️ solution explorer ➡️ Header Files ➡️ add file ➡️ class ➡️ inline ✅
+➡️ use .h file for class declaration
+➡️ put #pragma once at the top of the header file
+➡️ move method implementations to .cpp file
+➡️ include the header file using #include "ClassName.h"
+
+
+⚠️ error 'class' type redefinition: write #pragma once to prevent class redefinition.
+ 📍 📍
+#pragma once
+ #include <iostream>
+using namespace std;
+class name
+{
+
+}
