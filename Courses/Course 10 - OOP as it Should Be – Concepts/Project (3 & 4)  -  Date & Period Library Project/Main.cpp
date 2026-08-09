@@ -1,6 +1,5 @@
 #include <iostream>
 #include <cassert>
-#include "clsDate.h"
 #include "clsPeriod.h"
 
 using namespace std;

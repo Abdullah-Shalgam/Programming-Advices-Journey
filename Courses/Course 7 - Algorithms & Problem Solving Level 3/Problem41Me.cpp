@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include "InputLib.h"
+#include "InputValidateLib.h"
 
 using namespace std;
 
@@ -39,7 +39,7 @@ string ReverseWordInString(string S1)
 
 int main()
 {
-    string S1 = InputLib::ReadText("Please Enter Your Stirng?:\n");
+    string S1 = InputValidateLib::ReadText("Please Enter Your Stirng?:\n");
     cout << "\nString after reversing words:-\n";
     cout << ReverseWordInString(S1);
     return 0;

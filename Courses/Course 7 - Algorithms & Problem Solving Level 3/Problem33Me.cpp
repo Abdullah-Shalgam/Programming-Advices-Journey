@@ -1,5 +1,5 @@
 #include <iostream>
-#include "InputLib.h"
+#include "InputValidateLib.h"
 
 using namespace std;
 
@@ -22,7 +22,7 @@ short CountVowelsInText(string Text)
 
 int main()
 {
-    string S1 = InputLib::ReadText("Please Enter Your String?:\n");
+    string S1 = InputValidateLib::ReadText("Please Enter Your String?:\n");
     cout << endl;
     cout << "Number of Vowels is: " << CountVowelsInText(S1);
     return 0;

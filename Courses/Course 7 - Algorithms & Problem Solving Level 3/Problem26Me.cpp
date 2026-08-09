@@ -1,6 +1,6 @@
 #include <iostream>
 #include <string>
-#include "InputLib.h"
+#include "InputValidateLib.h"
 
 using namespace std;
 
@@ -24,7 +24,7 @@ string ConvertTextToUpperCase(string Text)
 
 int main()
 {
-    string S1 = InputLib::ReadText("Please Enter Your Stirng?:\n");
+    string S1 = InputValidateLib::ReadText("Please Enter Your Stirng?:\n");
     S1 = ConvertTextToUpperCase(S1);
     cout << "\nString after Upper:\n";
     cout << S1;

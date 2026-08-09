@@ -1,5 +1,5 @@
 #include <iostream>
-#include "InputLib.h"
+#include "InputValidateLib.h"
 
 using namespace std;
 
@@ -32,8 +32,8 @@ long long GetTotalSecondsInMonth(short year, short month)
 
 int main()
 {
-    short targetYear = InputLib::ReadIntPositiveNumber("Please enter a year to check: ");
-    short targetMonth = InputLib::ReadIntNumberInRange(1, 12, "\nPlease enter a month to check: ");
+    short targetYear = InputValidateLib::ReadIntPositiveNumber("Please enter a year to check: ");
+    short targetMonth = InputValidateLib::ReadIntNumberInRange(1, 12, "\nPlease enter a month to check: ");
 
     cout << "\nNumber Of Days    in Month [" << targetMonth << "] is " <<
     GetTotalDaysInMonth(targetYear, targetMonth);

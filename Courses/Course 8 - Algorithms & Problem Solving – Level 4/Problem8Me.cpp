@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 #include <iomanip>
-#include "InputLib.h"
+#include "InputValidateLib.h"
 
 using namespace std;
 
@@ -66,8 +66,8 @@ void PrintMonthCalendar(short year, short month)
 
 int main()
 {
-    short targetYear = InputLib::ReadIntPositiveNumber("Please enter a year: ");
-    short targetMonth = InputLib::ReadIntNumberInRange(1, 12, "\nPlease enter a month: ");
+    short targetYear = InputValidateLib::ReadIntPositiveNumber("Please enter a year: ");
+    short targetMonth = InputValidateLib::ReadIntNumberInRange(1, 12, "\nPlease enter a month: ");
 
     PrintMonthCalendar(targetYear, targetMonth);
 

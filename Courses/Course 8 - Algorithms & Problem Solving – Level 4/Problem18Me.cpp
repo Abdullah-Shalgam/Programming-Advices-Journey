@@ -2,7 +2,7 @@
 
 #include <iostream>
 #include <string>
-#include "InputLib.h"
+#include "InputValidateLib.h"
 
 using namespace std;
 
@@ -34,9 +34,9 @@ stDate ReadFullDate()
 {
     stDate Date;
 
-    Date.Year = InputLib::ReadIntPositiveNumber("Please enter a Year: ");
-    Date.Month = InputLib::ReadIntNumberInRange(1, 12, "Please enter a Month: ");
-    Date.Day = InputLib::ReadIntNumberInRange
+    Date.Year = InputValidateLib::ReadIntPositiveNumber("Please enter a Year: ");
+    Date.Month = InputValidateLib::ReadIntNumberInRange(1, 12, "Please enter a Month: ");
+    Date.Day = InputValidateLib::ReadIntNumberInRange
     (1, GetTotalDaysInMonth(Date.Year, Date.Month), "Please enter a Day: ");
 
     return Date;

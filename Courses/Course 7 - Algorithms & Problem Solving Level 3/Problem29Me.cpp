@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 #include <cctype>
-#include "InputLib.h"
+#include "InputValidateLib.h"
 
 using namespace std;
 
@@ -48,7 +48,7 @@ short CountLowerCaseLettersInText(string Text)
 
 int main()
 {
-    string S1 = InputLib::ReadText("Please Enter Your stirng?:\n");
+    string S1 = InputValidateLib::ReadText("Please Enter Your stirng?:\n");
     cout << "\nMethod 1:\n\n";
     cout << "\nString Length = " << S1.length();
     cout << "\nCapital Letters Count= " << CountUpperCaseLettersInText(S1);

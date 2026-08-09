@@ -2,7 +2,7 @@
 #include <ctime>
 #include <iomanip>
 #include "MathLib.h"
-#include "InputLib.h"
+#include "InputValidateLib.h"
 
 using namespace std;
 
@@ -55,7 +55,7 @@ int main()
     cout << "Matrix:\n";
     PrintMatrixElements(Matrix, 3, 3);
     cout << endl;
-    short NumberToCount  = InputLib::ReadIntNumber("Enter the number to count in matrix?: ");
+    short NumberToCount  = InputValidateLib::ReadIntNumber("Enter the number to count in matrix?: ");
     short NumberFrequency = GetNumberFrequencyInMatrix(Matrix, 3, 3, NumberToCount);
     printf("\nNumber %d count in matrix is %d", NumberToCount, NumberFrequency);
     return 0;

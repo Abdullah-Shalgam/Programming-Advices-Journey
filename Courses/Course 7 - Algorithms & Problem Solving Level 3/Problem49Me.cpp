@@ -3,7 +3,7 @@
 #include <vector>
 #include <cstdio>
 #include <iomanip>
-#include "InputLib.h"
+#include "InputValidateLib.h"
 
 using namespace std;
 
@@ -100,7 +100,7 @@ void PrintClientDetails(stClient Client)
 int main()
 {
     stClient Client;
-    string AccountNumber = InputLib::ReadText("Please Enter Account Number?: ");
+    string AccountNumber = InputValidateLib::ReadText("Please Enter Account Number?: ");
     if (FindClientByAccountNumber(AccountNumber, Client))
     {
         PrintClientDetails(Client);

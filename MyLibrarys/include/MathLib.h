@@ -2,6 +2,7 @@
 
 class MathLib 
 {
+public:
     static int RandomNumber(int From, int To);
     static int ReversedNumber(int Num);
     static void Swap2Numbers(int& num1, int& num2);

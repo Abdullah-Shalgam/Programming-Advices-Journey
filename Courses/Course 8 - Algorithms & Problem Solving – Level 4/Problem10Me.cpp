@@ -1,6 +1,6 @@
 #include <iostream>
 #include <string>
-#include "InputLib.h"
+#include "InputValidateLib.h"
 
 using namespace std;
 
@@ -30,10 +30,10 @@ short GetNumberOfDaysFromTheBeginingOfTheYear(short year, short month, short day
 
 int main()
 {
-    short targetYear = InputLib::ReadIntPositiveNumber("Please enter a year: ");
-    short targetMonth = InputLib::ReadIntNumberInRange(1, 12, "\nPlease enter a month: ");
+    short targetYear = InputValidateLib::ReadIntPositiveNumber("Please enter a year: ");
+    short targetMonth = InputValidateLib::ReadIntNumberInRange(1, 12, "\nPlease enter a month: ");
     
-    short targetDay = InputLib::ReadIntNumberInRange
+    short targetDay = InputValidateLib::ReadIntNumberInRange
     (1, GetTotalDaysInMonth(targetYear, targetMonth), "\nPlease enter a day: ");
     
 

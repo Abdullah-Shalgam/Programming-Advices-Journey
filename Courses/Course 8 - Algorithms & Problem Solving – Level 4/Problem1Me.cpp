@@ -1,6 +1,6 @@
 #include <iostream>
 #include <string>
-#include "InputLib.h"
+#include "InputValidateLib.h"
 
 using namespace std;
 
@@ -74,7 +74,7 @@ string ConvertNumToText(long long Num)
 
 int main()
 {
-    long long Number = InputLib::ReadLongLongPositiveNumber("Please Enter a Number: ");
+    long long Number = InputValidateLib::ReadLongLongPositiveNumber("Please Enter a Number: ");
     cout << ConvertNumToText(Number) << endl;
     return 0;
 }

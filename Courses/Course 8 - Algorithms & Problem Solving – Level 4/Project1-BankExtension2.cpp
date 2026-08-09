@@ -6,7 +6,7 @@
 #include <sstream>
 #include <cstdlib>
 #include <conio.h>
-#include "InputLib.h"
+#include "InputValidateLib.h"
 
 using namespace std;
 
@@ -212,31 +212,31 @@ void ShowAccessDeniedMessage()
 
 int ReadPermissionsToSet()
 {
-    char answer = InputLib::getYesNoAnswer("\nDo you want to give full access? (y/n): ");
+    char answer = InputValidateLib::getYesNoAnswer("\nDo you want to give full access? (y/n): ");
     if (toupper(answer) == 'Y') return enMainMenuPermissions::eAll;
 
     int permissions = 0;
     cout << "\nSelect granular permissions:\n\n";
 
-    if (toupper(InputLib::getYesNoAnswer("Show Clients List? (y/n): ")) == 'Y') 
+    if (toupper(InputValidateLib::getYesNoAnswer("Show Clients List? (y/n): ")) == 'Y') 
         permissions |= enMainMenuPermissions::pListClients;
 
-    if (toupper(InputLib::getYesNoAnswer("\nAdd New Client? (y/n): ")) == 'Y') 
+    if (toupper(InputValidateLib::getYesNoAnswer("\nAdd New Client? (y/n): ")) == 'Y') 
         permissions |= enMainMenuPermissions::pAddNewClient;
 
-    if (toupper(InputLib::getYesNoAnswer("\nDelete Client? (y/n): ")) == 'Y') 
+    if (toupper(InputValidateLib::getYesNoAnswer("\nDelete Client? (y/n): ")) == 'Y') 
         permissions |= enMainMenuPermissions::pDeleteClient;
 
-    if (toupper(InputLib::getYesNoAnswer("\nUpdate Client? (y/n): ")) == 'Y') 
+    if (toupper(InputValidateLib::getYesNoAnswer("\nUpdate Client? (y/n): ")) == 'Y') 
         permissions |= enMainMenuPermissions::pUpdateClient;
 
-    if (toupper(InputLib::getYesNoAnswer("\nFind Client? (y/n): ")) == 'Y') 
+    if (toupper(InputValidateLib::getYesNoAnswer("\nFind Client? (y/n): ")) == 'Y') 
         permissions |= enMainMenuPermissions::pFindClient;
 
-    if (toupper(InputLib::getYesNoAnswer("\nTransactions Access? (y/n): ")) == 'Y') 
+    if (toupper(InputValidateLib::getYesNoAnswer("\nTransactions Access? (y/n): ")) == 'Y') 
         permissions |= enMainMenuPermissions::pTransactions;
 
-    if (toupper(InputLib::getYesNoAnswer("\nManage Users Access? (y/n): ")) == 'Y') 
+    if (toupper(InputValidateLib::getYesNoAnswer("\nManage Users Access? (y/n): ")) == 'Y') 
         permissions |= enMainMenuPermissions::pManageUsers;
 
     return permissions;
@@ -368,15 +368,15 @@ void PrintUserCard(stUser user)
 stUser ReadNewUser()
 {
     stUser user;
-    user.Name = InputLib::ReadText("Enter UserName: ");
+    user.Name = InputValidateLib::ReadText("Enter UserName: ");
 
     while (UserExistsByUserName(user.Name, UsersFileName))
     {
         cout << "\nUser [" << user.Name << "] already exists. Enter another UserName: ";
-        user.Name = InputLib::ReadText("");
+        user.Name = InputValidateLib::ReadText("");
     }
     
-    user.PassWord   = InputLib::ReadText("Enter Password: ");
+    user.PassWord   = InputValidateLib::ReadText("Enter Password: ");
     user.Permission = ReadPermissionsToSet();
 
     return user;
@@ -386,7 +386,7 @@ stUser UpdateUserRecord(string username)
 {
     stUser user;
     user.Name       = username;
-    user.PassWord   = InputLib::ReadText("Enter Password: ");
+    user.PassWord   = InputValidateLib::ReadText("Enter Password: ");
     user.Permission = ReadPermissionsToSet();
 
     return user;
@@ -521,18 +521,18 @@ void PrintClientCard(stClient client)
 stClient ReadNewClient()
 {
     stClient client;
-    client.AccountNumber = InputLib::ReadText("Enter Account Number: ");
+    client.AccountNumber = InputValidateLib::ReadText("Enter Account Number: ");
 
     while (ClientExistsByAccountNumber(client.AccountNumber, ClientsFileName))
     {
         cout << "\nClient [" << client.AccountNumber << "] already exists. Enter another Account Number: ";
-        client.AccountNumber = InputLib::ReadText("");
+        client.AccountNumber = InputValidateLib::ReadText("");
     }
 
     client.PinCode        = GetValidPIN();
-    client.Name           = InputLib::ReadText("Enter Name: ");
-    client.PhoneNumber    = InputLib::ReadText("Enter Phone: ");
-    client.AccountBalance = InputLib::ReadFloatPositiveNumber("Enter Account Balance: ");
+    client.Name           = InputValidateLib::ReadText("Enter Name: ");
+    client.PhoneNumber    = InputValidateLib::ReadText("Enter Phone: ");
+    client.AccountBalance = InputValidateLib::ReadDblPositiveNumber("Enter Account Balance: ");
 
     return client;
 }
@@ -542,9 +542,9 @@ stClient UpdateClientRecord(string accountNumber)
     stClient client;
     client.AccountNumber  = accountNumber;
     client.PinCode        = GetValidPIN();
-    client.Name           = InputLib::ReadText("Enter Name: ");
-    client.PhoneNumber    = InputLib::ReadText("Enter Phone: ");
-    client.AccountBalance = InputLib::ReadFloatPositiveNumber("Enter Account Balance: ");
+    client.Name           = InputValidateLib::ReadText("Enter Name: ");
+    client.PhoneNumber    = InputValidateLib::ReadText("Enter Phone: ");
+    client.AccountBalance = InputValidateLib::ReadDblPositiveNumber("Enter Account Balance: ");
 
     return client;
 }
@@ -584,7 +584,7 @@ void ShowAddNewUsersScreen()
         stUser user = ReadNewUser();
         AddDataLineToFile(UsersFileName, ConvertUserRecordToLine(user));
         
-        addMore = InputLib::getYesNoAnswer("\nUser Added Successfully, do you want to add more Users? (y/n): ");
+        addMore = InputValidateLib::getYesNoAnswer("\nUser Added Successfully, do you want to add more Users? (y/n): ");
     } while (toupper(addMore) == 'Y');
 }
 
@@ -594,7 +594,7 @@ void ShowDeleteUserScreen()
     cout << "\tDelete User Screen";
     cout << "\n---------------------------------\n";
 
-    string username = InputLib::ReadText("Please enter UserName: ");
+    string username = InputValidateLib::ReadText("Please enter UserName: ");
 
     if (username == "Admin")
     {
@@ -614,7 +614,7 @@ void ShowDeleteUserScreen()
     if (FindUserByUsername(username, vUsers, user))
     {
         PrintUserCard(user);
-        char answer = InputLib::getYesNoAnswer("\n\nAre you sure you want to delete this User? (y/n): ");
+        char answer = InputValidateLib::getYesNoAnswer("\n\nAre you sure you want to delete this User? (y/n): ");
         if (toupper(answer) == 'Y')
         {
             MarkUserForDeleteByUsername(username, vUsers);
@@ -632,13 +632,13 @@ void ShowUpdateUserScreen()
     cout << "\n-----------------------------------\n";
 
     vector<stUser> vUsers = LoadUsersDataFromFile(UsersFileName);
-    string username = InputLib::ReadText("Please enter UserName: ");
+    string username = InputValidateLib::ReadText("Please enter UserName: ");
     stUser user;
 
     if (FindUserByUsername(username, vUsers, user))
     {
         PrintUserCard(user);
-        char answer = InputLib::getYesNoAnswer("\n\nAre you sure you want to update this User? (y/n): ");
+        char answer = InputValidateLib::getYesNoAnswer("\n\nAre you sure you want to update this User? (y/n): ");
         if (toupper(answer) == 'Y')
         {
             for (stUser& u : vUsers)
@@ -663,7 +663,7 @@ void ShowFindUserScreen()
     cout << "\n-----------------------------------\n";
 
     vector<stUser> vUsers = LoadUsersDataFromFile(UsersFileName);
-    string username = InputLib::ReadText("Please enter UserName: ");
+    string username = InputValidateLib::ReadText("Please enter UserName: ");
     stUser user;
 
     if (FindUserByUsername(username, vUsers, user)) PrintUserCard(user);
@@ -722,7 +722,7 @@ void ShowAddNewClientsScreen()
         stClient client = ReadNewClient();
         AddDataLineToFile(ClientsFileName, ConvertClientRecordToLine(client));
         
-        addMore = InputLib::getYesNoAnswer("\nClient Added Successfully, do you want to add more clients? (y/n): ");
+        addMore = InputValidateLib::getYesNoAnswer("\nClient Added Successfully, do you want to add more clients? (y/n): ");
     } while (toupper(addMore) == 'Y');
 }
 
@@ -739,13 +739,13 @@ void ShowDeleteClientScreen()
     cout << "\n-----------------------------------\n";
 
     vector<stClient> vClients = LoadClientsDataFromFile(ClientsFileName);
-    string accountNumber = InputLib::ReadText("Please enter AccountNumber: ");
+    string accountNumber = InputValidateLib::ReadText("Please enter AccountNumber: ");
     stClient client;
 
     if (FindClientByAccountNumber(accountNumber, vClients, client))
     {
         PrintClientCard(client);
-        char answer = InputLib::getYesNoAnswer("\n\nAre you sure you want to delete this client? (y/n): ");
+        char answer = InputValidateLib::getYesNoAnswer("\n\nAre you sure you want to delete this client? (y/n): ");
         if (toupper(answer) == 'Y')
         {
             MarkClientForDeleteByAccountNumber(accountNumber, vClients);
@@ -769,13 +769,13 @@ void ShowUpdateClientScreen()
     cout << "\n-----------------------------------\n";
 
     vector<stClient> vClients = LoadClientsDataFromFile(ClientsFileName);
-    string accountNumber = InputLib::ReadText("Please enter AccountNumber: ");
+    string accountNumber = InputValidateLib::ReadText("Please enter AccountNumber: ");
     stClient client;
 
     if (FindClientByAccountNumber(accountNumber, vClients, client))
     {
         PrintClientCard(client);
-        char answer = InputLib::getYesNoAnswer("\n\nAre you sure you want to update this client? (y/n): ");
+        char answer = InputValidateLib::getYesNoAnswer("\n\nAre you sure you want to update this client? (y/n): ");
         if (toupper(answer) == 'Y')
         {
             for (stClient& c : vClients)
@@ -806,7 +806,7 @@ void ShowFindClientScreen()
     cout << "\n-----------------------------------\n";
 
     vector<stClient> vClients = LoadClientsDataFromFile(ClientsFileName);
-    string accountNumber = InputLib::ReadText("Please enter AccountNumber: ");
+    string accountNumber = InputValidateLib::ReadText("Please enter AccountNumber: ");
     stClient client;
 
     if (FindClientByAccountNumber(accountNumber, vClients, client)) PrintClientCard(client);
@@ -823,20 +823,20 @@ void ShowDepositScreen()
     cout << "\n-----------------------------------\n";
 
     vector<stClient> vClients = LoadClientsDataFromFile(ClientsFileName);
-    string accountNumber = InputLib::ReadText("Please enter AccountNumber: ");
+    string accountNumber = InputValidateLib::ReadText("Please enter AccountNumber: ");
     short clientIndex = FindClientIndexByAccountNumber(accountNumber, vClients);
 
     while (clientIndex == -1)
     {
         cout << "\nClient with [" << accountNumber << "] does not exist.\n";
-        accountNumber = InputLib::ReadText("Please enter AccountNumber: ");
+        accountNumber = InputValidateLib::ReadText("Please enter AccountNumber: ");
         clientIndex = FindClientIndexByAccountNumber(accountNumber, vClients);
     }
 
     PrintClientCard(vClients[clientIndex]);
-    double amount = InputLib::ReadFloatPositiveNumber("\nPlease enter deposit amount: ");
+    double amount = InputValidateLib::ReadDblPositiveNumber("\nPlease enter deposit amount: ");
 
-    char answer = InputLib::getYesNoAnswer("\n\nAre you sure you want to perform this transaction? (y/n): ");
+    char answer = InputValidateLib::getYesNoAnswer("\n\nAre you sure you want to perform this transaction? (y/n): ");
     if (toupper(answer) == 'Y')
     {
         vClients[clientIndex].AccountBalance += amount;
@@ -852,27 +852,27 @@ void ShowWithdrawScreen()
     cout << "\n-----------------------------------\n";
 
     vector<stClient> vClients = LoadClientsDataFromFile(ClientsFileName);
-    string accountNumber = InputLib::ReadText("Please enter AccountNumber: ");
+    string accountNumber = InputValidateLib::ReadText("Please enter AccountNumber: ");
     short clientIndex = FindClientIndexByAccountNumber(accountNumber, vClients);
 
     while (clientIndex == -1)
     {
         cout << "\nClient with [" << accountNumber << "] does not exist.\n";
-        accountNumber = InputLib::ReadText("Please enter AccountNumber: ");
+        accountNumber = InputValidateLib::ReadText("Please enter AccountNumber: ");
         clientIndex = FindClientIndexByAccountNumber(accountNumber, vClients);
     }
 
     PrintClientCard(vClients[clientIndex]);
-    double amount = InputLib::ReadFloatPositiveNumber("\nPlease enter withdraw amount: ");
+    double amount = InputValidateLib::ReadDblPositiveNumber("\nPlease enter withdraw amount: ");
 
     while (amount > vClients[clientIndex].AccountBalance)
     {
         cout << "\nAmount exceeds available balance! Maximum allowed withdraw is: " 
              << vClients[clientIndex].AccountBalance << endl;
-        amount = InputLib::ReadFloatPositiveNumber("Please enter another amount: ");
+        amount = InputValidateLib::ReadDblPositiveNumber("Please enter another amount: ");
     }
 
-    char answer = InputLib::getYesNoAnswer("\n\nAre you sure you want to perform this transaction? (y/n): ");
+    char answer = InputValidateLib::getYesNoAnswer("\n\nAre you sure you want to perform this transaction? (y/n): ");
     if (toupper(answer) == 'Y')
     {
         vClients[clientIndex].AccountBalance -= amount;
@@ -975,7 +975,7 @@ void ShowTransactionsMenu()
     cout << GetTabs(1) << "[4] Main Menu.\n";
     cout << "===========================================\n";
     
-    short choice = InputLib::ReadIntNumberInRange(1, 4, "Choose what do you want to do? [1 to 4]: ");
+    short choice = InputValidateLib::ReadIntNumberInRange(1, 4, "Choose what do you want to do? [1 to 4]: ");
     PerformTransactionsMenuOption((enTransactionsMenuOptions)choice);
 }
 
@@ -1036,7 +1036,7 @@ void ShowManageUsersMenu()
     cout << GetTabs(1) << "[6] Main Menu.\n";
     cout << "=======================================================\n";
     
-    short choice = InputLib::ReadIntNumberInRange(1, 6, "Choose what do you want to do? [1 to 6]: ");
+    short choice = InputValidateLib::ReadIntNumberInRange(1, 6, "Choose what do you want to do? [1 to 6]: ");
     PerformManageUsersMenuOption((enManageUsersMenuOptions)choice);
 }
 
@@ -1100,7 +1100,7 @@ void ShowMainMenu()
     cout << GetTabs(1) << "[8] Logout.\n";
     cout << "===========================================\n";
     
-    short choice = InputLib::ReadIntNumberInRange(1, 8, "Choose what do you want to do? [1 to 8]: ");
+    short choice = InputValidateLib::ReadIntNumberInRange(1, 8, "Choose what do you want to do? [1 to 8]: ");
     PerformMainMenuOption((enMainMenuOptions)choice);
 }
 
@@ -1129,8 +1129,8 @@ void Login()
             cout << "Invalid Username/Password!\n\n";
         }
 
-        username = InputLib::ReadText("Enter Username: ");
-        password = InputLib::ReadText("Enter Password: ");
+        username = InputValidateLib::ReadText("Enter Username: ");
+        password = InputValidateLib::ReadText("Enter Password: ");
 
         loginFailed = !LoadUserInfo(username, password);
 

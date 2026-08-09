@@ -1,7 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
-#include "InputLib.h"
+#include "InputValidateLib.h"
 
 using namespace std;
 
@@ -19,11 +19,11 @@ struct stClient
 stClient ReadNewClient()
 {
     stClient ClientRecord;
-    ClientRecord.AccountNumber = InputLib::ReadText("Enter Account Number?: ");
-    ClientRecord.PinCode = InputLib::ReadText("Enter PinCode?: ");
-    ClientRecord.Name = InputLib::ReadText("Enter Name?: ");
-    ClientRecord.PhoneNumber = InputLib::ReadText("Enter Phone?: ");
-    ClientRecord.AccountBalance = InputLib::ReadFloatPositiveNumber("Enter Account Balance?: ");
+    ClientRecord.AccountNumber = InputValidateLib::ReadText("Enter Account Number?: ");
+    ClientRecord.PinCode = InputValidateLib::ReadText("Enter PinCode?: ");
+    ClientRecord.Name = InputValidateLib::ReadText("Enter Name?: ");
+    ClientRecord.PhoneNumber = InputValidateLib::ReadText("Enter Phone?: ");
+    ClientRecord.AccountBalance = InputValidateLib::ReadDblPositiveNumber("Enter Account Balance?: ");
     return ClientRecord;
 }
 

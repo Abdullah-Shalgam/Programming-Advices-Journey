@@ -1,5 +1,5 @@
 #include <iostream>
-#include "InputLib.h"
+#include "InputValidateLib.h"
 
 using namespace std;
 
@@ -24,7 +24,7 @@ bool IsLeapYear(short Year)
 
 int main()
 {
-    short Year = InputLib::ReadIntPositiveNumber("Enter The Year : ");
+    short Year = InputValidateLib::ReadIntPositiveNumber("Enter The Year : ");
 
     if (IsLeapYear(Year))
     {

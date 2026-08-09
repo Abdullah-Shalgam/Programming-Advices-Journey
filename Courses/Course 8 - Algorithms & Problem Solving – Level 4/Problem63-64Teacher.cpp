@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include "InputLib.h"
+#include "InputValidateLib.h"
 
 using namespace std;
 
@@ -54,7 +54,7 @@ string DateStructToString(stDate DateStruct, string Delim = "/")
 
 int main()
 {
-    string DateString = InputLib::ReadText("Please Enter DateString dd/mm/yyyy : ");
+    string DateString = InputValidateLib::ReadText("Please Enter DateString dd/mm/yyyy : ");
 
     stDate DateStruct = StringToDateStruct(DateString);
     

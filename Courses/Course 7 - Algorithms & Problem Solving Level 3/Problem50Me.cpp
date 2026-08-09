@@ -4,7 +4,7 @@
 #include <cstdio>
 #include <iomanip>
 #include <sstream>
-#include "InputLib.h"
+#include "InputValidateLib.h"
 
 using namespace std;
 
@@ -166,7 +166,7 @@ void DeleteClientByAccountNumber(string AccountNumber)
 
 bool IsWantDelete()
 {
-    char Answer = InputLib::ReadCharacter("Are you sure you want delete this client? (y/n): ");
+    char Answer = InputValidateLib::ReadCharacter("Are you sure you want delete this client? (y/n): ");
     return (tolower(Answer) == 'y');
 }
 
@@ -185,7 +185,7 @@ void PrintClientDetails(stClient Client)
 int main()
 {
     stClient Client;
-    string AccountNumber = InputLib::ReadText("Please Enter Account Number?: ");
+    string AccountNumber = InputValidateLib::ReadText("Please Enter Account Number?: ");
 
     if (FindClientByAccountNumber(AccountNumber, Client))
     {

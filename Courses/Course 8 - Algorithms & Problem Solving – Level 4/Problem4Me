@@ -1,5 +1,5 @@
 #include <iostream>
-#include "InputLib.h"
+#include "InputValidateLib.h"
 
 using namespace std;
 
@@ -30,7 +30,7 @@ long long GetTotalSecondsInYear(short year)
 
 int main()
 {
-    short targetYear = InputLib::ReadIntPositiveNumber("Please enter a year to check: ");
+    short targetYear = InputValidateLib::ReadIntPositiveNumber("Please enter a year to check: ");
 
     cout << "\nNumber Of Days    in Year [" << targetYear << "] is " <<
     GetTotalDaysInYear(targetYear);

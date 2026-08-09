@@ -1,6 +1,6 @@
 #include <iostream>
 #include <string>
-#include "InputLib.h"
+#include "InputValidateLib.h"
 
 using namespace std;
 
@@ -32,9 +32,9 @@ stDate ReadFullDate()
 {
     stDate Date;
 
-    Date.Year = InputLib::ReadIntPositiveNumber("Please enter a year: ");
-    Date.Month = InputLib::ReadIntNumberInRange(1, 12, "\nPlease enter a month: ");
-    Date.Day = InputLib::ReadIntNumberInRange
+    Date.Year = InputValidateLib::ReadIntPositiveNumber("Please enter a year: ");
+    Date.Month = InputValidateLib::ReadIntNumberInRange(1, 12, "\nPlease enter a month: ");
+    Date.Day = InputValidateLib::ReadIntNumberInRange
     (1, GetTotalDaysInMonth(Date.Year, Date.Month), "\nPlease enter a day: ");
 
     return Date;
@@ -89,7 +89,7 @@ stDate GetDateAfterAddingDays(short DaysAdded, stDate Date)
 int main()
 {
     stDate Date = ReadFullDate();
-    short DaysToAdd = InputLib::ReadIntPositiveNumber("\nHow many days to add: ");
+    short DaysToAdd = InputValidateLib::ReadIntPositiveNumber("\nHow many days to add: ");
     
     Date = GetDateAfterAddingDays(DaysToAdd, Date);
 

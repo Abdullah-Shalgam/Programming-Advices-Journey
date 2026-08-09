@@ -1,12 +1,12 @@
 #include <iostream>
-#include "InputLib.h"
+#include "InputValidateLib.h"
 
 using namespace std;
 
 int main()
 {
-    int Num1 = InputLib::ReadIntNumber("Enter the first number: \n");
-    int Num2 = InputLib::ReadIntNumber("Enter the second number: \n");
+    int Num1 = InputValidateLib::ReadIntNumber("Enter the first number: \n");
+    int Num2 = InputValidateLib::ReadIntNumber("Enter the second number: \n");
     int Sum = Num1 + Num2;
     printf("\nFirst Number = %d \n", Num1);
     printf("Second Number = %d \n", Num2);

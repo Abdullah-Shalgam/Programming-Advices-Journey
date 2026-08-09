@@ -1,6 +1,6 @@
 #include <iostream>
 #include <vector>
-#include "InputLib.h"
+#include "InputValidateLib.h"
 
 using namespace std;
 
@@ -17,9 +17,9 @@ void ReadEmployeUntilSayNo(vector <stEmployee> & vEmployees)
     char Answer = 'y';
     do
     {
-        TempEmploye.FirstName = InputLib::ReadText("Enter the first name: ");
-        TempEmploye.LastName = InputLib::ReadText("Enter the last name: ");
-        TempEmploye.Salary = InputLib::ReadFloatNumber("Enter the salary: ");
+        TempEmploye.FirstName = InputValidateLib::ReadText("Enter the first name: ");
+        TempEmploye.LastName = InputValidateLib::ReadText("Enter the last name: ");
+        TempEmploye.Salary = InputValidateLib::ReadDblNumber("Enter the salary: ");
         vEmployees.push_back(TempEmploye);
         cout << "\nDo you want to add another Employee [Y/N]: ";
         cin >> Answer;

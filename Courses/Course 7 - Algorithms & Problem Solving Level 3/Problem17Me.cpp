@@ -1,7 +1,7 @@
 #include <iostream>
 #include <ctime>
 #include <iomanip>
-#include "InputLib.h"
+#include "InputValidateLib.h"
 #include "MathLib.h"
 
 using namespace std;
@@ -62,7 +62,7 @@ int main()
     cout << "Matrix:\n";
     PrintMatrixElements(Matrix, 3, 3);
     cout << endl;
-    short NumToCheck = InputLib::ReadIntNumber("Please Enter the number to lock for in matrix?: ");
+    short NumToCheck = InputValidateLib::ReadIntNumber("Please Enter the number to lock for in matrix?: ");
     cout << endl;
     PrintEsistOrNot(IsNumberExistInMatrix(Matrix, 3, 3, NumToCheck));
     return 0;

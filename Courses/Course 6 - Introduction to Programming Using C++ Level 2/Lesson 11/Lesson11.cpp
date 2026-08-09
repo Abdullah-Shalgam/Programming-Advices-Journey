@@ -1,5 +1,5 @@
 #include <iostream>
-#include "InputLib.h"
+#include "InputValidateLib.h"
 
 using namespace std;
 
@@ -13,7 +13,7 @@ int ReadNumber()
 
 int main()
 {
-    int Num = InputLib::ReadNumber("Please Enter a number: ");
+    int Num = InputValidateLib::ReadNumber("Please Enter a number: ");
     cout << Num << endl;
     Num = ReadNumber();
     cout << Num;

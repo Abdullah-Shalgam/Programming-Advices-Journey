@@ -4,7 +4,7 @@
 #include <cstdio>
 #include <iomanip>
 #include <sstream>
-#include "InputLib.h"
+#include "InputValidateLib.h"
 
 using namespace std;
 
@@ -153,7 +153,7 @@ bool DeleteClientByAccountNumber(string AccountNumber, vector <stClient> &vClien
     if (FindClientByAccountNumber(AccountNumber, vClientRecord, Client))
     {
         PrintClientDetails(Client);
-        Answer = InputLib::ReadCharacter("Are you sure you want delete this client? (y/n): ");
+        Answer = InputValidateLib::ReadCharacter("Are you sure you want delete this client? (y/n): ");
         if (tolower(Answer) == 'y')
         {
             MarkClientForDeleteByAccountNumber(AccountNumber, vClientRecord);
@@ -174,7 +174,7 @@ bool DeleteClientByAccountNumber(string AccountNumber, vector <stClient> &vClien
 int main()
 {
     vector <stClient> vClientRecord = LoadFillContentToVector(ClientsFileName);
-    string AccountNumber = InputLib::ReadText("Please Enter Account Number?: ");
+    string AccountNumber = InputValidateLib::ReadText("Please Enter Account Number?: ");
     
     DeleteClientByAccountNumber(AccountNumber, vClientRecord);
 

@@ -1,5 +1,5 @@
 #include <iostream>
-#include "InputLib.h"
+#include "InputValidateLib.h"
 
 using namespace std;
 
@@ -18,7 +18,7 @@ void PrintFibonacciUsingRecurssion(int Number, int Prev2 = 1, int Prev1 = 0)
 
 int main()
 {
-    int Number = InputLib::ReadIntNumber("Please enter the end of fibonacci: ");
+    int Number = InputValidateLib::ReadIntNumber("Please enter the end of fibonacci: ");
     cout << "\nFirst "<< Number << " Fibonacci Numbers is:\n\n";
     PrintFibonacciUsingRecurssion(Number, 1, 0);
     return 0;

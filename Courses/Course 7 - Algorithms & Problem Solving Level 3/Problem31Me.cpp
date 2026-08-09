@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 #include <cctype>
-#include "InputLib.h"
+#include "InputValidateLib.h"
 
 using namespace std;
 
@@ -39,7 +39,7 @@ short CountCharacterInText(string Text, char c, bool MatchCase = true)
 
 int main()
 {
-    string S1 = InputLib::ReadText("Please Enter Your stirng?:\n");
+    string S1 = InputValidateLib::ReadText("Please Enter Your stirng?:\n");
     char c = ReadLetter();
     cout << "\nletter '" << c <<"' Count = " << CountCharacterInText(S1, c);
     cout << "\nletter '" << c << "' Or '" << InvertCharacterCase(c) << "' Count = " << CountCharacterInText(S1, c, false);

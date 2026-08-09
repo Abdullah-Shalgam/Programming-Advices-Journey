@@ -6,7 +6,7 @@
 #include <sstream>
 #include <cstdlib>
 #include <conio.h>
-#include "InputLib.h"
+#include "InputValidateLib.h"
 
 using namespace std;
 
@@ -79,13 +79,13 @@ stClient ReadNewClient(const vector<stClient> &vClientRecord)
     stClient Client;
     do
     {
-        Client.AccountNumber = InputLib::ReadText("Enter Account Number?: ");
+        Client.AccountNumber = InputValidateLib::ReadText("Enter Account Number?: ");
     } while (CleintExistsByAccountNumber(Client.AccountNumber, vClientRecord));
     
     Client.PinCode = GetValidPIN();
-    Client.Name = InputLib::ReadText("Enter Name?: ");
-    Client.PhoneNumber = InputLib::ReadText("Enter Phone?: ");
-    Client.AccountBalance = InputLib::ReadFloatPositiveNumber("Enter Account Balance?: ");
+    Client.Name = InputValidateLib::ReadText("Enter Name?: ");
+    Client.PhoneNumber = InputValidateLib::ReadText("Enter Phone?: ");
+    Client.AccountBalance = InputValidateLib::ReadDblPositiveNumber("Enter Account Balance?: ");
     return Client;
 }
 
@@ -212,10 +212,10 @@ stClient ChangeClientRecord(string AccountNumber)
     stClient Client;
 
     Client.AccountNumber = AccountNumber;
-    Client.PinCode = InputLib::ReadText("Enter PinCode?: ");
-    Client.Name = InputLib::ReadText("Enter Name?: ");
-    Client.PhoneNumber = InputLib::ReadText("Enter Phone?: ");
-    Client.AccountBalance = InputLib::ReadFloatPositiveNumber("Enter Account Balance?: ");
+    Client.PinCode = InputValidateLib::ReadText("Enter PinCode?: ");
+    Client.Name = InputValidateLib::ReadText("Enter Name?: ");
+    Client.PhoneNumber = InputValidateLib::ReadText("Enter Phone?: ");
+    Client.AccountBalance = InputValidateLib::ReadDblPositiveNumber("Enter Account Balance?: ");
 
     return Client;
 }
@@ -275,7 +275,7 @@ bool DeleteClientByAccountNumber(string AccountNumber, vector <stClient> &vClien
     if (FindClientByAccountNumber(AccountNumber, vClientRecord, Client))
     {
         PrintClientDetails(Client);
-        Answer = InputLib::getYesNoAnswer("Are you sure you want delete this client? (y/n): ");
+        Answer = InputValidateLib::getYesNoAnswer("Are you sure you want delete this client? (y/n): ");
         if (Answer == 'y')
         {
             MarkClientForDeleteByAccountNumber(AccountNumber, vClientRecord);
@@ -300,7 +300,7 @@ bool UpdateClientByAccountNumber(string AccountNumber, vector <stClient> &vClien
     if (FindClientByAccountNumber(AccountNumber, vClientRecord, Client))
     {
         PrintClientDetails(Client);
-        Answer = InputLib::getYesNoAnswer("Are you sure you want update this client? (y/n): ");
+        Answer = InputValidateLib::getYesNoAnswer("Are you sure you want update this client? (y/n): ");
         if (Answer == 'y')
         {
             cout << "\n\n";
@@ -327,7 +327,7 @@ bool UpdateClientByAccountNumber(string AccountNumber, vector <stClient> &vClien
 
 bool DepositBalanceToClientAccount(float Amount, stClient &Client, vector<stClient> &vClientRecord, string Msg)
 {
-    char Answer = InputLib::getYesNoAnswer("\n\nAre you sure you want to perform this transaction? (y/n): ");
+    char Answer = InputValidateLib::getYesNoAnswer("\n\nAre you sure you want to perform this transaction? (y/n): ");
     if (Answer == 'y')
     {
         Client.AccountBalance += Amount;
@@ -386,7 +386,7 @@ void AddNewClients(vector <stClient> &vClientRecord)
         cout << "\n----------------------------------------\n";
         cout << "Adding New Client:-\n\n";
         AddNewClient(vClientRecord);
-        AddNew = InputLib::getYesNoAnswer("\nClient Added Successfully, do you want to add more clients?: ");
+        AddNew = InputValidateLib::getYesNoAnswer("\nClient Added Successfully, do you want to add more clients?: ");
     } while (AddNew == 'y');
 }
 
@@ -395,7 +395,7 @@ void DeleteClient(vector <stClient> &vClientRecord)
     cout << "----------------------------------------\n";
     cout << Tabs(1) << "Delete Client Screen" << Tabs(1);
     cout << "\n----------------------------------------\n\n";
-    DeleteClientByAccountNumber(InputLib::ReadText("Please Enter Account Number?: "), vClientRecord);
+    DeleteClientByAccountNumber(InputValidateLib::ReadText("Please Enter Account Number?: "), vClientRecord);
 }
 
 void UpdateClientInfo(vector <stClient> &vClientRecord)
@@ -403,7 +403,7 @@ void UpdateClientInfo(vector <stClient> &vClientRecord)
     cout << "-------------------------------------------\n";
     cout << Tabs(1) << "Update Client Info Screen" << Tabs(1);
     cout << "\n-------------------------------------------\n\n";
-    UpdateClientByAccountNumber(InputLib::ReadText("Please Enter Account Number?: "), vClientRecord);
+    UpdateClientByAccountNumber(InputValidateLib::ReadText("Please Enter Account Number?: "), vClientRecord);
 }
 
 void FindClient(const vector <stClient> &vClientRecord)
@@ -412,7 +412,7 @@ void FindClient(const vector <stClient> &vClientRecord)
     cout << "--------------------------------------\n";
     cout << Tabs(1) << "Find Client Screen" << Tabs(1);
     cout << "\n--------------------------------------\n\n";
-    string AccountNumber = InputLib::ReadText("Please Enter Account Number?: ");
+    string AccountNumber = InputValidateLib::ReadText("Please Enter Account Number?: ");
     if (FindClientByAccountNumber(AccountNumber, vClientRecord, Client))
     {
         PrintClientDetails(Client);
@@ -429,19 +429,19 @@ void Deposit(vector<stClient> &vClientRecord)
     cout << "-------------------------------\n";
     cout << Tabs(1) << "Deposit Screen" << Tabs(1);
     cout << "\n-------------------------------\n\n";
-    AccountNumber = InputLib::ReadText("Please Enter Account Number?: ");
+    AccountNumber = InputValidateLib::ReadText("Please Enter Account Number?: ");
     short ClientIndex = FindClientIndexByAccountNumber(AccountNumber, vClientRecord);
     
     while (ClientIndex == -1)
     {
         printf("\nClient With Account Number (%s) Not Found!.\n\n", AccountNumber.c_str());
-        AccountNumber = InputLib::ReadText("Please Enter Account Number?: ");
+        AccountNumber = InputValidateLib::ReadText("Please Enter Account Number?: ");
         ClientIndex = FindClientIndexByAccountNumber(AccountNumber, vClientRecord);
     }
 
     PrintClientDetails(vClientRecord[ClientIndex]);
 
-    float DepositAmount = InputLib::ReadFloatPositiveNumber("Please enter deposit amount?: ");
+    float DepositAmount = InputValidateLib::ReadDblPositiveNumber("Please enter deposit amount?: ");
     DepositBalanceToClientAccount(DepositAmount, vClientRecord[ClientIndex], vClientRecord, "\n\nDeposit Done Successfully New Balance is: ");
 }
 
@@ -451,23 +451,23 @@ void Withdraw(vector<stClient> &vClientRecord)
     cout << "--------------------------------\n";
     cout << Tabs(1) << "Withdraw Screen" << Tabs(1);
     cout << "\n--------------------------------\n\n";
-    AccountNumber = InputLib::ReadText("Please Enter Account Number?: ");
+    AccountNumber = InputValidateLib::ReadText("Please Enter Account Number?: ");
     short ClientIndex = FindClientIndexByAccountNumber(AccountNumber, vClientRecord);
     
     while (ClientIndex == -1)
     {
         printf("\nClient With Account Number (%s) Not Found!.\n\n", AccountNumber.c_str());
-        AccountNumber = InputLib::ReadText("Please Enter Account Number?: ");
+        AccountNumber = InputValidateLib::ReadText("Please Enter Account Number?: ");
         ClientIndex = FindClientIndexByAccountNumber(AccountNumber, vClientRecord);
     }
 
     PrintClientDetails(vClientRecord[ClientIndex]);
 
-    float WithdrawAmount = InputLib::ReadFloatPositiveNumber("Please enter withdraw amount?: ");
+    float WithdrawAmount = InputValidateLib::ReadDblPositiveNumber("Please enter withdraw amount?: ");
      while (vClientRecord[ClientIndex].AccountBalance < WithdrawAmount)
     {
         cout << "\nAmount Exceeds the balance, you can withdraw up to : " << vClientRecord[ClientIndex].AccountBalance;
-        WithdrawAmount = InputLib::ReadFloatPositiveNumber("\n\nPlease enter withdraw amount?: ");
+        WithdrawAmount = InputValidateLib::ReadDblPositiveNumber("\n\nPlease enter withdraw amount?: ");
     }
     DepositBalanceToClientAccount(WithdrawAmount * -1, vClientRecord[ClientIndex], vClientRecord, "\n\nWithdraw Done Successfully New Balance is: ");
 }
@@ -549,7 +549,7 @@ void TransactionsMenu(vector<stClient> &vClientRecord)
     do
     {
         ShowTransactionsMenuScreen();
-        Answer = InputLib::ReadIntNumberInRange(1, 4, "Choose what do you want to do? [1 to 4]: ");
+        Answer = InputValidateLib::ReadIntNumberInRange(1, 4, "Choose what do you want to do? [1 to 4]: ");
         TransactionsDoUserChoice((enumTransactions) Answer, vClientRecord);
     } while (Answer != 4);
 }
@@ -611,7 +611,7 @@ void StartTheProgram()
     do
     {
         ShowMainMenuScreen();
-        Answer = InputLib::ReadIntNumberInRange(1, 7, "Choose what do you want to do? [1 to 7]: ");
+        Answer = InputValidateLib::ReadIntNumberInRange(1, 7, "Choose what do you want to do? [1 to 7]: ");
         MenuDoUserChoice((enMenu) Answer, vClientRecord);
     } while (Answer != 7);
 }

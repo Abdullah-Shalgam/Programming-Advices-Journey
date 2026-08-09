@@ -1,5 +1,5 @@
 #include <iostream>
-#include "InputLib.h"
+#include "InputValidateLib.h"
 
 using namespace std;
 
@@ -18,6 +18,6 @@ void PrintFibonacciUsingLoop(short Number)
 
 int main()
 {
-    PrintFibonacciUsingLoop(InputLib::ReadIntNumber("Please enter the end of fibonacci: "));
+    PrintFibonacciUsingLoop(InputValidateLib::ReadIntNumber("Please enter the end of fibonacci: "));
     return 0;
 }

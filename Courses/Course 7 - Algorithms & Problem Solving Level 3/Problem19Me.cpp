@@ -1,7 +1,7 @@
 #include <iostream>
 #include <ctime>
 #include <iomanip>
-#include "InputLib.h"
+#include "InputValidateLib.h"
 #include "MathLib.h"
 
 using namespace std;

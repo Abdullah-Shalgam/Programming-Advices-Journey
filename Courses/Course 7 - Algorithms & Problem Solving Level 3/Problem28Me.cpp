@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 #include <cctype>
-#include "InputLib.h"
+#include "InputValidateLib.h"
 
 using namespace std;
 
@@ -21,7 +21,7 @@ string InvertTextCase(string Text)
 
 int main()
 {
-    string S1 = InputLib::ReadText("Please Enter Your stirng?:\n");
+    string S1 = InputValidateLib::ReadText("Please Enter Your stirng?:\n");
     cout << "\nString after Inverting All Letters Case:\n";
     S1 = InvertTextCase(S1);
     cout << S1;

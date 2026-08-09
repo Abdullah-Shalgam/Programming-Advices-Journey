@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include "InputLib.h"
+#include "InputValidateLib.h"
 
 using namespace std;
 
@@ -72,7 +72,7 @@ string FormatDate(stDate Date, string DateFormate = "dd/mm/yyyy")
 
 int main()
 {
-    string DateString = InputLib::ReadText("Please Enter DateString dd/mm/yyyy : ");
+    string DateString = InputValidateLib::ReadText("Please Enter DateString dd/mm/yyyy : ");
     stDate Date = StringToDateStruct(DateString);
     cout << "\n";
 

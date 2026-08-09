@@ -1,5 +1,5 @@
 #include <iostream>
-#include "InputLib.h"
+#include "InputValidateLib.h"
 
 enum enP_N_Z {Positive = 1, Negative = 2, Zero = 3};
 
@@ -23,8 +23,8 @@ string P_N_Z_ToString(enP_N_Z PNZ)
 
 int main()
 {
-    cout << P_N_Z_ToString(PositiveOrNegativeNumber(InputLib::ReadNumber("Please enter a number: \n")));
+    cout << P_N_Z_ToString(PositiveOrNegativeNumber(InputValidateLib::ReadNumber("Please enter a number: \n")));
     cout << endl;
-    cout << P_N_Z_ToString(PositiveOrNegativeOrZero(InputLib::ReadNumber("Please enter a number: \n")));
+    cout << P_N_Z_ToString(PositiveOrNegativeOrZero(InputValidateLib::ReadNumber("Please enter a number: \n")));
     return 0;
 }

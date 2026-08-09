@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include "InputLib.h"
+#include "InputValidateLib.h"
 
 using namespace std;
 
@@ -89,7 +89,7 @@ string FormatDate(string DateString, string FormatType, string Delim, bool IsSpe
 
 int main()
 {
-    string DateString = InputLib::ReadText("Please Enter DateString dd/mm/yyyy : ");
+    string DateString = InputValidateLib::ReadText("Please Enter DateString dd/mm/yyyy : ");
     cout << "\n";
 
     cout << FormatDate(DateString, "dd/mm/yyyy", "/");

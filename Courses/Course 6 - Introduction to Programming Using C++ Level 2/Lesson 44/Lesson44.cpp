@@ -1,11 +1,11 @@
 #include <iostream>
-#include "InputLib.h"
+#include "InputValidateLib.h"
 
 using namespace std;
 
 int main()
 {
-    int Num = InputLib::ReadIntNumber("Please enter how many students you want: ");
+    int Num = InputValidateLib::ReadIntNumber("Please enter how many students you want: ");
     float * pArrMark;
     pArrMark = new float[Num];
     for (short i = 0; i < Num; i++)

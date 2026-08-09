@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include "InputLib.h"
+#include "InputValidateLib.h"
 
 using namespace std;
 
@@ -28,8 +28,8 @@ vector <string> SplitText(string Text, string Delim = " ")
 
 int main()
 {
-    string S1 = InputLib::ReadText("Please Enter Your Stirng?:\n");
-    string Delim = InputLib::ReadText("Please Enter the split Delimiter?:\n");
+    string S1 = InputValidateLib::ReadText("Please Enter Your Stirng?:\n");
+    string Delim = InputValidateLib::ReadText("Please Enter the split Delimiter?:\n");
     vector <string> vSpText;
     vSpText = SplitText(S1, Delim);
     cout << "Tokken = " << vSpText.size() << endl;

@@ -1,6 +1,6 @@
 #include <iostream>
 #include <string>
-#include "InputLib.h"
+#include "InputValidateLib.h"
 
 using namespace std;
 
@@ -27,9 +27,9 @@ stDate ReadFullDate()
 {
     stDate Date;
 
-    Date.Year = InputLib::ReadIntPositiveNumber("Please enter a Year: ");
-    Date.Month = InputLib::ReadIntPositiveNumber("Please enter a Month: ");
-    Date.Day = InputLib::ReadIntPositiveNumber("Please enter a Day: ");
+    Date.Year = InputValidateLib::ReadIntPositiveNumber("Please enter a Year: ");
+    Date.Month = InputValidateLib::ReadIntPositiveNumber("Please enter a Month: ");
+    Date.Day = InputValidateLib::ReadIntPositiveNumber("Please enter a Day: ");
 
     return Date;
 }

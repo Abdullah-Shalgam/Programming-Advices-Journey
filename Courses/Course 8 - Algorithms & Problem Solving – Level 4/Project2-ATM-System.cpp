@@ -9,7 +9,7 @@
 #include <cstdlib>
 #include <conio.h>
 #include <regex>
-#include "InputLib.h"
+#include "InputValidateLib.h"
 
 using namespace std;
 
@@ -158,7 +158,7 @@ void ShowATMWelcomeBanner()
 
 void ShowPrintedReceipt(string TransactionType, double Amount)
 {
-    char Answer = InputLib::getYesNoAnswer("\nWould you like to print a transaction receipt? (y/n): ");
+    char Answer = InputValidateLib::getYesNoAnswer("\nWould you like to print a transaction receipt? (y/n): ");
     if (toupper(Answer) != 'Y') return;
 
     cout << "\n\n\t[ Printing Receipt... Please Wait ]\n";
@@ -403,7 +403,7 @@ bool PerformWithdraw(double WithdrawAmount)
         return false;
     }
 
-    char Answer = InputLib::getYesNoAnswer("\n\nAre you sure you want to perform this transaction? (y/n): ");
+    char Answer = InputValidateLib::getYesNoAnswer("\n\nAre you sure you want to perform this transaction? (y/n): ");
     
     if (toupper(Answer) == 'Y')
     {
@@ -428,7 +428,7 @@ bool PerformWithdraw(double WithdrawAmount)
 
 bool PerformDeposit(double DepositAmount)
 {
-    char Answer = InputLib::getYesNoAnswer("\n\nAre you sure you want to perform this transaction? (y/n): ");
+    char Answer = InputValidateLib::getYesNoAnswer("\n\nAre you sure you want to perform this transaction? (y/n): ");
     
     if (toupper(Answer) == 'Y')
     {
@@ -471,7 +471,7 @@ bool PerformUpdateAccountName(string AccountName)
         return false;
     }
 
-    char Answer = InputLib::getYesNoAnswer("\n\nAre you sure you want to perform this update? (y/n): ");
+    char Answer = InputValidateLib::getYesNoAnswer("\n\nAre you sure you want to perform this update? (y/n): ");
     
     if (toupper(Answer) == 'Y')
     {
@@ -490,7 +490,7 @@ bool PerformUpdateAccountName(string AccountName)
 
 bool PerformUpdatePinCode(string NewPin)
 {
-    char Answer = InputLib::getYesNoAnswer("\n\nAre you sure you want to perform this update? (y/n): ");
+    char Answer = InputValidateLib::getYesNoAnswer("\n\nAre you sure you want to perform this update? (y/n): ");
     
     if (toupper(Answer) == 'Y')
     {
@@ -509,7 +509,7 @@ bool PerformUpdatePinCode(string NewPin)
 
 bool PerformUpdatePhoneNumber(string PhoneNumber)
 {
-    char Answer = InputLib::getYesNoAnswer("\n\nAre you sure you want to perform this update? (y/n): ");
+    char Answer = InputValidateLib::getYesNoAnswer("\n\nAre you sure you want to perform this update? (y/n): ");
     
     if (toupper(Answer) == 'Y')
     {
@@ -588,7 +588,7 @@ void ShowQuickWithdrawScreen()
         PrintHeaderLine('=');
         cout << "Your Balance is: $" << fixed << setprecision(2) << CurrentClient.AccountBalance << "\n\n";
 
-        Choice = InputLib::ReadIntNumberInRange(1, 9, "Choose what to withdraw [1 to 9]: ");
+        Choice = InputValidateLib::ReadIntNumberInRange(1, 9, "Choose what to withdraw [1 to 9]: ");
 
         if (Choice == 9) return;
 
@@ -612,7 +612,7 @@ void ShowNormalWithdrawScreen()
         PrintHeaderLine('=');
         cout << "Your Balance is: $" << fixed << setprecision(2) << CurrentClient.AccountBalance << "\n\n";
 
-        WithdrawAmount = InputLib::ReadFloatPositiveNumber("Enter an amount multiple of 5's: ");
+        WithdrawAmount = InputValidateLib::ReadDblPositiveNumber("Enter an amount multiple of 5's: ");
 
         if ((int)WithdrawAmount % 5 != 0)
         {
@@ -638,7 +638,7 @@ void ShowDepositScreen()
     PrintHeaderLine('=');
     cout << "Your Balance is: $" << fixed << setprecision(2) << CurrentClient.AccountBalance << "\n\n";
 
-    double DepositAmount = InputLib::ReadFloatPositiveNumber("Enter Deposit Amount: ");
+    double DepositAmount = InputValidateLib::ReadDblPositiveNumber("Enter Deposit Amount: ");
     PerformDeposit(DepositAmount);
 }
 
@@ -688,7 +688,7 @@ void ShowUpdateAccountNameScreen()
         PrintHeaderLine('=');
         cout << "Current Account Name: " << CurrentClient.Name << "\n\n";
 
-        AccountName = InputLib::ReadText("Enter New Account Name: ");
+        AccountName = InputValidateLib::ReadText("Enter New Account Name: ");
 
         if (PerformUpdateAccountName(AccountName))
             break;
@@ -751,7 +751,7 @@ void ShowUpdatePhoneNumberScreen()
     PrintHeaderLine('=');
     cout << "Current Phone Number: " << CurrentClient.PhoneNumber << "\n\n";
 
-    string PhoneNumber = InputLib::ReadText("Enter New Phone Number: ");
+    string PhoneNumber = InputValidateLib::ReadText("Enter New Phone Number: ");
     PerformUpdatePhoneNumber(PhoneNumber);
 }
 
@@ -792,7 +792,7 @@ void ShowUpdateInfoMenu()
     cout << "\t[4] Back to ATM Main Menu.\n";
     PrintHeaderLine('=');
 
-    short choice = InputLib::ReadIntNumberInRange(1, 4, "Choose what do you want to do? [1 to 4]: ");
+    short choice = InputValidateLib::ReadIntNumberInRange(1, 4, "Choose what do you want to do? [1 to 4]: ");
     PerformUpdateInfoOption((enUpdateInfoOptions)choice);
 }
 
@@ -846,7 +846,7 @@ void ShowMainMenu()
     cout << "\t[7] Logout.\n";
     PrintHeaderLine('=');
     
-    short choice = InputLib::ReadIntNumberInRange(1, 7, "Choose what do you want to do? [1 to 7]: ");
+    short choice = InputValidateLib::ReadIntNumberInRange(1, 7, "Choose what do you want to do? [1 to 7]: ");
     PerformMainMenuOption((enMainMenuOptions)choice);
 }
 
@@ -870,7 +870,7 @@ void Login()
             cout << "Warning: You have " << RemainingAttempts << " attempt(s) left before account lockout!\n\n";
         }
 
-        AccountNumber = InputLib::ReadText("Enter Account Number: ");
+        AccountNumber = InputValidateLib::ReadText("Enter Account Number: ");
         PinCode       = GetValidPIN("Enter PIN Code (4 digits): ");
 
         ShowSpinner("Authenticating Credentials", 2);

@@ -1,5 +1,5 @@
 #include <iostream>
-#include "InputLib.h"
+#include "InputValidateLib.h"
 #include "MyStringLib.h"
 
 using namespace std;
@@ -41,7 +41,7 @@ void PrintEachWordFromText2(string Text)
 
 int main()
 {
-    string S1 = InputLib::ReadText("Please Enter Your Stirng?:\n");
+    string S1 = InputValidateLib::ReadText("Please Enter Your Stirng?:\n");
     cout << endl;
     PrintEachWordFromText2(S1);
     return 0;

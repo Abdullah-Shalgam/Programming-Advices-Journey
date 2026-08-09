@@ -1,5 +1,5 @@
 #include <iostream>
-#include "InputLib.h"
+#include "InputValidateLib.h"
 
 using namespace std;
 
@@ -21,7 +21,7 @@ void PrintVowelsInText(string Text)
 
 int main()
 {
-    string S1 = InputLib::ReadText("Please Enter Your String?:\n");
+    string S1 = InputValidateLib::ReadText("Please Enter Your String?:\n");
     cout << endl;
     PrintVowelsInText(S1);
     return 0;

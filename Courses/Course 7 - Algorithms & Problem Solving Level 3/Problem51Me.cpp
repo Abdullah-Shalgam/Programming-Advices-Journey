@@ -4,7 +4,7 @@
 #include <cstdio>
 #include <iomanip>
 #include <sstream>
-#include "InputLib.h"
+#include "InputValidateLib.h"
 
 using namespace std;
 
@@ -118,10 +118,10 @@ stClient ChangeClientRecord(string AccountNumber)
     stClient Client;
 
     Client.AccountNumber = AccountNumber;
-    Client.PinCode = InputLib::ReadText("Enter PinCode?: ");
-    Client.Name = InputLib::ReadText("Enter Name?: ");
-    Client.PhoneNumber = InputLib::ReadText("Enter Phone?: ");
-    Client.AccountBalance = InputLib::ReadFloatPositiveNumber("Enter Account Balance?: ");
+    Client.PinCode = InputValidateLib::ReadText("Enter PinCode?: ");
+    Client.Name = InputValidateLib::ReadText("Enter Name?: ");
+    Client.PhoneNumber = InputValidateLib::ReadText("Enter Phone?: ");
+    Client.AccountBalance = InputValidateLib::ReadDblPositiveNumber("Enter Account Balance?: ");
 
     return Client;
 }
@@ -154,7 +154,7 @@ bool UpdateClientByAccountNumber(string AccountNumber, vector <stClient> &vClien
     if (FindClientByAccountNumber(AccountNumber, vClientRecord, Client))
     {
         PrintClientDetails(Client);
-        Answer = InputLib::ReadCharacter("Are you sure you want update this client? (y/n): ");
+        Answer = InputValidateLib::ReadCharacter("Are you sure you want update this client? (y/n): ");
         if (tolower(Answer) == 'y')
         {
             cout << "\n\n";
@@ -182,7 +182,7 @@ bool UpdateClientByAccountNumber(string AccountNumber, vector <stClient> &vClien
 int main()
 {
     vector <stClient> vClientRecord = LoadFillContentToVector(ClientsFileName);
-    string AccountNumber = InputLib::ReadText("Please Enter Account Number?: ");
+    string AccountNumber = InputValidateLib::ReadText("Please Enter Account Number?: ");
     
     UpdateClientByAccountNumber(AccountNumber, vClientRecord);
 

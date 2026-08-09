@@ -1,6 +1,6 @@
 #include <iostream>
 #include <string>
-#include "InputLib.h"
+#include "InputValidateLib.h"
 
 using namespace std;
 
@@ -64,9 +64,9 @@ stDate GetDateFromDayOrderInYear(short DayOrderInYear, short year)
 
 int main()
 {
-    short targetYear = InputLib::ReadIntPositiveNumber("Please enter a year: ");
-    short targetMonth = InputLib::ReadIntNumberInRange(1, 12, "\nPlease enter a month: ");
-    short targetDay = InputLib::ReadIntNumberInRange
+    short targetYear = InputValidateLib::ReadIntPositiveNumber("Please enter a year: ");
+    short targetMonth = InputValidateLib::ReadIntNumberInRange(1, 12, "\nPlease enter a month: ");
+    short targetDay = InputValidateLib::ReadIntNumberInRange
     (1, GetTotalDaysInMonth(targetYear, targetMonth), "\nPlease enter a day: ");
     
     short DayOrderInYear = GetNumberOfDaysFromTheBeginingOfTheYear(targetYear, targetMonth, targetDay);

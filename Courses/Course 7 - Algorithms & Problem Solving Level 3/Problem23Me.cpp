@@ -1,5 +1,5 @@
 #include <iostream>
-#include "InputLib.h"
+#include "InputValidateLib.h"
 
 using namespace std;
 
@@ -16,6 +16,6 @@ void PrintFirstLetterOfEachWord(string Text)
 
 int main()
 {
-    PrintFirstLetterOfEachWord(InputLib::ReadText("Please enter the Text: \n"));
+    PrintFirstLetterOfEachWord(InputValidateLib::ReadText("Please enter the Text: \n"));
     return 0;
 }

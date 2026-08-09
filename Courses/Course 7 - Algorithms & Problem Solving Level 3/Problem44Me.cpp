@@ -1,5 +1,5 @@
 #include <iostream>
-#include "InputLib.h"
+#include "InputValidateLib.h"
 
 using namespace std;
 
@@ -18,7 +18,7 @@ string DeleteAllPunctuationsFromText(string S1)
 
 int main()
 {
-    string S1 = InputLib::ReadText("Please Enter Your Stirng?:\n");
+    string S1 = InputValidateLib::ReadText("Please Enter Your Stirng?:\n");
     cout << "\nString After Delete All Punctuations:-\n";
     cout << DeleteAllPunctuationsFromText(S1);
     return 0;

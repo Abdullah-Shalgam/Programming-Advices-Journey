@@ -1,5 +1,5 @@
 #include <iostream>
-#include "InputLib.h"
+#include "InputValidateLib.h"
 #include <string>
 #include <format>
 
@@ -39,10 +39,10 @@ string GetWeekDayName(short d)
 
 int main()
 {
-    short targetYear = InputLib::ReadIntPositiveNumber("Please enter a year: ");
-    short targetMonth = InputLib::ReadIntNumberInRange(1, 12, "\nPlease enter a month: ");
+    short targetYear = InputValidateLib::ReadIntPositiveNumber("Please enter a year: ");
+    short targetMonth = InputValidateLib::ReadIntNumberInRange(1, 12, "\nPlease enter a month: ");
 
-    short targetDay = InputLib::ReadIntNumberInRange
+    short targetDay = InputValidateLib::ReadIntNumberInRange
     (1, GetTotalDaysInMonth(targetYear, targetMonth), "\nPlease enter a day: ");
 
     short DayOrder = GetDayOrder(targetYear, targetMonth, targetDay);
