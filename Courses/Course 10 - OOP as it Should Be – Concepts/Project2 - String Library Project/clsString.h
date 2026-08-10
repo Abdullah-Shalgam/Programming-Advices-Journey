@@ -223,7 +223,7 @@ public:
         while ((Pos = Text.find(Delimiter)) != string::npos)
         {
             sWord = Text.substr(0, Pos);
-            if (sWord != "") vSpText.push_back(sWord);
+            vSpText.push_back(sWord);
             Text.erase(0, Pos + Delimiter.length());
         }
         if (Text != "") vSpText.push_back(Text);

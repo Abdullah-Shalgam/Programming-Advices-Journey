@@ -4,6 +4,7 @@
 #include <cctype>
 #include <cstdlib>
 #include <cerrno>
+#include <conio.h>
 #include "InputValidateLib.h"
 
 using namespace std;
@@ -208,4 +209,50 @@ bool InputValidateLib::IsDateBetween(DateLib Date, DateLib From, DateLib To)
 bool InputValidateLib::IsValideDate(DateLib Date)
 {
     return DateLib::IsValidDate(Date);
+}
+
+string InputValidateLib::_ReadPinMasked(string Msg)
+{
+    string pin = "";
+    char ch;
+    cout << Msg;
+    while (true)
+    {
+        ch = _getch();
+        if (ch == 13) 
+        {
+            if (!pin.empty()) 
+                break;
+        }
+        else if (ch == 8) 
+        {
+            if (!pin.empty())
+            {
+                pin.pop_back();
+                cout << "\b \b";
+            }
+        }
+        else if (isdigit(ch) && pin.length() < 4)
+        {
+            pin += ch;
+            cout << '*';
+        }
+    }
+    cout << endl;
+    return pin;
+}
+
+string InputValidateLib::GetValidPIN(string Msg, string ErrMsg)
+{
+    string pin;
+    while (true)
+    {
+        pin = _ReadPinMasked(Msg);
+        if (pin.length() != 4)
+        {
+            cout << ErrMsg;
+            continue;
+        }
+        return pin;
+    }
 }

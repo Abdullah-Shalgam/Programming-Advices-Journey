@@ -4,6 +4,9 @@
 
 class InputValidateLib 
 {
+private:
+    static string _ReadPinMasked(string Msg = "Enter PIN Code: ");
+
 public:
     // Basic Input Validations with Default Messages & Error Messages
     static int ReadIntNumber(std::string Msg = "Please enter a number: ", std::string ErrMsg = "Invalid Number, Enter again: ");
@@ -23,6 +26,9 @@ public:
     // Date Utilities
     static bool IsDateBetween(DateLib Date, DateLib Date1, DateLib Date2);
     static bool IsValideDate(DateLib Date);
+
+    // PinCode Valedation
+    static string GetValidPIN(std::string Msg = "Enter PinCode (4 digits): ", std::string ErrMsg = "\nError: PIN must be exactly 4 digits.\n\n");
 
     // Template Function
     template <typename T>
