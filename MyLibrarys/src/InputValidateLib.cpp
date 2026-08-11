@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <limits>
+#include <climits>
 #include <cctype>
 #include <cstdlib>
 #include <cerrno>
@@ -8,6 +9,8 @@
 #include "InputValidateLib.h"
 
 using namespace std;
+
+// ─────────────── Int Validations ───────────────
 
 int InputValidateLib::ReadIntNumber(string Msg, string ErrMsg)
 {
@@ -24,37 +27,11 @@ int InputValidateLib::ReadIntNumber(string Msg, string ErrMsg)
             cout << Msg;
             continue;
         }
-        char* processedCharactersEnd;
+        char *processedCharactersEnd;
         validatedNumber = strtol(inputLine.c_str(), &processedCharactersEnd, 10);
         if (processedCharactersEnd != inputLine.c_str() && *processedCharactersEnd == '\0')
         {
             return static_cast<int>(validatedNumber);
-        }
-        cout << ErrMsg << "\n";
-        cout << Msg;
-    }
-}
-
-double InputValidateLib::ReadDblNumber(string Msg, string ErrMsg)
-{
-    string inputLine;
-    double validatedNumber;
-    cout << Msg;
-    while (true)
-    {
-        if (!getline(cin >> ws, inputLine))
-        {
-            cin.clear();
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            cout << ErrMsg << "\n";
-            cout << Msg;
-            continue;
-        }
-        char* processedCharactersEnd;
-        validatedNumber = strtof(inputLine.c_str(), &processedCharactersEnd);
-        if (processedCharactersEnd != inputLine.c_str() && *processedCharactersEnd == '\0')
-        {
-            return validatedNumber;
         }
         cout << ErrMsg << "\n";
         cout << Msg;
@@ -74,6 +51,62 @@ int InputValidateLib::ReadIntPositiveNumber(string Msg, string ErrMsg)
     }
 }
 
+int InputValidateLib::ReadIntNumberInRange(int From, int To, string Msg, string ErrMsg)
+{
+    while (true)
+    {
+        int Number = ReadIntNumber(Msg, ErrMsg);
+        if (IsNumberBetween(Number, From, To))
+        {
+            return Number;
+        }
+        cout << ErrMsg << "\n";
+    }
+}
+
+// ─────────────── Short Validations ───────────────
+
+short InputValidateLib::ReadShortNumber(string Msg, string ErrMsg)
+{
+    while (true)
+    {
+        int Number = ReadIntNumber(Msg, ErrMsg);
+        if (Number >= SHRT_MIN && Number <= SHRT_MAX)
+        {
+            return static_cast<short>(Number);
+        }
+        cout << ErrMsg << "\n";
+    }
+}
+
+short InputValidateLib::ReadShortPositiveNumber(string Msg, string ErrMsg)
+{
+    while (true)
+    {
+        short Number = ReadShortNumber(Msg, ErrMsg);
+        if (Number >= 0)
+        {
+            return Number;
+        }
+        cout << ErrMsg << "\n";
+    }
+}
+
+short InputValidateLib::ReadShortNumberInRange(short From, short To, string Msg, string ErrMsg)
+{
+    while (true)
+    {
+        short Number = ReadShortNumber(Msg, ErrMsg);
+        if (IsNumberBetween(Number, From, To))
+        {
+            return Number;
+        }
+        cout << ErrMsg << "\n";
+    }
+}
+
+// ─────────────── Long Long Validations ───────────────
+
 long long InputValidateLib::ReadLongLongPositiveNumber(string Msg, string ErrMsg)
 {
     string inputLine;
@@ -88,13 +121,41 @@ long long InputValidateLib::ReadLongLongPositiveNumber(string Msg, string ErrMsg
             cout << Msg;
             continue;
         }
-        char* processedCharactersEnd;
+        char *processedCharactersEnd;
         errno = 0;
         long long validatedNumber = strtoll(inputLine.c_str(), &processedCharactersEnd, 10);
-        if (processedCharactersEnd != inputLine.c_str() && 
-            *processedCharactersEnd == '\0' && 
-            errno != ERANGE && 
+        if (processedCharactersEnd != inputLine.c_str() &&
+            *processedCharactersEnd == '\0' &&
+            errno != ERANGE &&
             validatedNumber >= 0)
+        {
+            return validatedNumber;
+        }
+        cout << ErrMsg << "\n";
+        cout << Msg;
+    }
+}
+
+// ─────────────── Double Validations ───────────────
+
+double InputValidateLib::ReadDblNumber(string Msg, string ErrMsg)
+{
+    string inputLine;
+    double validatedNumber;
+    cout << Msg;
+    while (true)
+    {
+        if (!getline(cin >> ws, inputLine))
+        {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << ErrMsg << "\n";
+            cout << Msg;
+            continue;
+        }
+        char *processedCharactersEnd;
+        validatedNumber = strtof(inputLine.c_str(), &processedCharactersEnd);
+        if (processedCharactersEnd != inputLine.c_str() && *processedCharactersEnd == '\0')
         {
             return validatedNumber;
         }
@@ -116,19 +177,6 @@ double InputValidateLib::ReadDblPositiveNumber(string Msg, string ErrMsg)
     }
 }
 
-int InputValidateLib::ReadIntNumberInRange(int From, int To, string Msg, string ErrMsg)
-{
-    while (true)
-    {
-        int Number = ReadIntNumber(Msg, ErrMsg);
-        if (IsNumberBetween(Number, From, To))
-        {
-            return Number;
-        }
-        cout << ErrMsg << "\n";
-    }
-}
-
 double InputValidateLib::ReadDblNumberInRange(double From, double To, string Msg, string ErrMsg)
 {
     while (true)
@@ -141,6 +189,8 @@ double InputValidateLib::ReadDblNumberInRange(double From, double To, string Msg
         cout << ErrMsg << "\n";
     }
 }
+
+// ─────────────── Text & Character Validations ───────────────
 
 string InputValidateLib::ReadText(string Msg, string ErrMsg)
 {
@@ -196,6 +246,8 @@ char InputValidateLib::getYesNoAnswer(string Msg, string ErrMsg)
     }
 }
 
+// ─────────────── Date Utilities ───────────────
+
 bool InputValidateLib::IsDateBetween(DateLib Date, DateLib From, DateLib To)
 {
     if (DateLib::IsDate1BeforeDate2(To, From))
@@ -211,6 +263,8 @@ bool InputValidateLib::IsValideDate(DateLib Date)
     return DateLib::IsValidDate(Date);
 }
 
+// ─────────────── PIN Code Validation ───────────────
+
 string InputValidateLib::_ReadPinMasked(string Msg)
 {
     string pin = "";
@@ -219,12 +273,12 @@ string InputValidateLib::_ReadPinMasked(string Msg)
     while (true)
     {
         ch = _getch();
-        if (ch == 13) 
+        if (ch == 13) // Enter
         {
-            if (!pin.empty()) 
+            if (!pin.empty())
                 break;
         }
-        else if (ch == 8) 
+        else if (ch == 8) // Backspace
         {
             if (!pin.empty())
             {

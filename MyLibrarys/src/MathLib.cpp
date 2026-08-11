@@ -21,7 +21,7 @@ int MathLib::ReversedNumber(int Num)
     return Reversed;
 }
 
-void MathLib::Swap2Numbers(int& num1, int& num2) 
+void MathLib::Swap2Numbers(int &num1, int &num2)
 {
     int temp = num1;
     num1 = num2;
@@ -53,5 +53,5 @@ bool MathLib::isPerfect(int Num)
 
 bool MathLib::IsPalindrome(int Num)
 {
-    return (Num == ReversedNumber(Num)); 
+    return (Num == ReversedNumber(Num));
 }

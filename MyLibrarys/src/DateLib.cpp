@@ -10,13 +10,13 @@
 DateLib::DateLib()
 {
     time_t t = time(0);
-    tm* now = localtime(&t);
+    tm *now = localtime(&t);
     _Day = now->tm_mday;
     _Month = now->tm_mon + 1;
     _Year = now->tm_year + 1900;
 }
 
-DateLib::DateLib(const string& DateString)
+DateLib::DateLib(const string &DateString)
 {
     *this = StringToDate(DateString);
 }
@@ -44,7 +44,7 @@ void DateLib::SetYear(short Year) { _Year = Year; }
 short DateLib::GetYear() const { return _Year; }
 
 // 3. Printing & String Conversions
-string DateLib::DateToString(const DateLib& Date)
+string DateLib::DateToString(const DateLib &Date)
 {
     return to_string(Date.GetDay()) + "/" + to_string(Date.GetMonth()) + "/" + to_string(Date.GetYear());
 }
@@ -54,7 +54,7 @@ string DateLib::DateToString() const
     return DateToString(*this);
 }
 
-DateLib DateLib::StringToDate(const string& DateString, const string& Delim)
+DateLib DateLib::StringToDate(const string &DateString, const string &Delim)
 {
     vector<string> vDate = MyStringLib::SplitString(DateString, Delim);
     return DateLib(stoi(vDate[0]), stoi(vDate[1]), stoi(vDate[2]));
@@ -65,7 +65,7 @@ void DateLib::Print() const
     cout << DateToString() << endl;
 }
 
-string DateLib::FormatDate(const DateLib& Date, string DateFormat)
+string DateLib::FormatDate(const DateLib &Date, string DateFormat)
 {
     string FormattedDateString = DateFormat;
     FormattedDateString = MyStringLib::ReplaceWord(FormattedDateString, "dd", to_string(Date.GetDay()));
@@ -74,7 +74,7 @@ string DateLib::FormatDate(const DateLib& Date, string DateFormat)
     return FormattedDateString;
 }
 
-string DateLib::FormatDate(const string& DateFormat) const
+string DateLib::FormatDate(const string &DateFormat) const
 {
     return FormatDate(*this, DateFormat);
 }
@@ -83,17 +83,20 @@ string DateLib::FormatDate(const string& DateFormat) const
 DateLib DateLib::GetSystemDate()
 {
     time_t t = time(0);
-    tm* now = localtime(&t);
+    tm *now = localtime(&t);
     return DateLib(now->tm_mday, now->tm_mon + 1, now->tm_year + 1900);
 }
 
-bool DateLib::IsValidDate(const DateLib& Date)
+bool DateLib::IsValidDate(const DateLib &Date)
 {
-    if (Date.GetDay() < 1 || Date.GetDay() > 31) return false;
-    if (Date.GetMonth() < 1 || Date.GetMonth() > 12) return false;
+    if (Date.GetDay() < 1 || Date.GetDay() > 31)
+        return false;
+    if (Date.GetMonth() < 1 || Date.GetMonth() > 12)
+        return false;
 
     short DaysInMonth = NumberOfDaysInAMonth(Date.GetMonth(), Date.GetYear());
-    if (Date.GetDay() > DaysInMonth) return false;
+    if (Date.GetDay() > DaysInMonth)
+        return false;
 
     return true;
 }
@@ -135,8 +138,9 @@ int DateLib::NumberOfSecondsInAYear() const { return NumberOfSecondsInAYear(_Yea
 
 short DateLib::NumberOfDaysInAMonth(short Month, short Year)
 {
-    if (Month < 1 || Month > 12) return 0;
-    int days[12] = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+    if (Month < 1 || Month > 12)
+        return 0;
+    int days[12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
     return (Month == 2) ? (isLeapYear(Year) ? 29 : 28) : days[Month - 1];
 }
 
@@ -170,7 +174,7 @@ short DateLib::DayOfWeekOrder() const
 
 string DateLib::DayShortName(short DayOfWeekOrder)
 {
-    string arrDayNames[] = { "Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat" };
+    string arrDayNames[] = {"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"};
     return arrDayNames[DayOfWeekOrder];
 }
 
@@ -181,7 +185,7 @@ string DateLib::DayShortName() const
 
 string DateLib::MonthShortName(short MonthNumber)
 {
-    string Months[12] = { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" };
+    string Months[12] = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
     return Months[MonthNumber - 1];
 }
 
@@ -310,52 +314,52 @@ void DateLib::AddDays(short Days)
 }
 
 // 8. Date Comparisons
-bool DateLib::IsDate1BeforeDate2(const DateLib& Date1, const DateLib& Date2)
+bool DateLib::IsDate1BeforeDate2(const DateLib &Date1, const DateLib &Date2)
 {
-    return (Date1.GetYear() < Date2.GetYear()) ? true :
-        ((Date1.GetYear() == Date2.GetYear()) ? (Date1.GetMonth() < Date2.GetMonth() ? true :
-        (Date1.GetMonth() == Date2.GetMonth() ? Date1.GetDay() < Date2.GetDay() : false)) : false);
+    return (Date1.GetYear() < Date2.GetYear()) ? true : ((Date1.GetYear() == Date2.GetYear()) ? (Date1.GetMonth() < Date2.GetMonth() ? true : (Date1.GetMonth() == Date2.GetMonth() ? Date1.GetDay() < Date2.GetDay() : false)) : false);
 }
 
-bool DateLib::IsDateBeforeDate2(const DateLib& Date2) const
+bool DateLib::IsDateBeforeDate2(const DateLib &Date2) const
 {
     return IsDate1BeforeDate2(*this, Date2);
 }
 
-bool DateLib::IsDate1EqualDate2(const DateLib& Date1, const DateLib& Date2)
+bool DateLib::IsDate1EqualDate2(const DateLib &Date1, const DateLib &Date2)
 {
     return (Date1.GetYear() == Date2.GetYear() && Date1.GetMonth() == Date2.GetMonth() && Date1.GetDay() == Date2.GetDay());
 }
 
-bool DateLib::IsDateEqualDate2(const DateLib& Date2) const
+bool DateLib::IsDateEqualDate2(const DateLib &Date2) const
 {
     return IsDate1EqualDate2(*this, Date2);
 }
 
-bool DateLib::IsDate1AfterDate2(const DateLib& Date1, const DateLib& Date2)
+bool DateLib::IsDate1AfterDate2(const DateLib &Date1, const DateLib &Date2)
 {
     return (!IsDate1BeforeDate2(Date1, Date2) && !IsDate1EqualDate2(Date1, Date2));
 }
 
-bool DateLib::IsDateAfterDate2(const DateLib& Date2) const
+bool DateLib::IsDateAfterDate2(const DateLib &Date2) const
 {
     return IsDate1AfterDate2(*this, Date2);
 }
 
-DateLib::enCompareDates DateLib::CompareDates(const DateLib& Date1, const DateLib& Date2)
+DateLib::enCompareDates DateLib::CompareDates(const DateLib &Date1, const DateLib &Date2)
 {
-    if (IsDate1BeforeDate2(Date1, Date2)) return enCompareDates::Before;
-    if (IsDate1EqualDate2(Date1, Date2)) return enCompareDates::Equal;
+    if (IsDate1BeforeDate2(Date1, Date2))
+        return enCompareDates::Before;
+    if (IsDate1EqualDate2(Date1, Date2))
+        return enCompareDates::Equal;
     return enCompareDates::After;
 }
 
-DateLib::enCompareDates DateLib::CompareDates(const DateLib& Date2) const
+DateLib::enCompareDates DateLib::CompareDates(const DateLib &Date2) const
 {
     return CompareDates(*this, Date2);
 }
 
 // 9. Date Boundary Checks
-bool DateLib::IsLastDayInMonth(const DateLib& Date)
+bool DateLib::IsLastDayInMonth(const DateLib &Date)
 {
     return (Date.GetDay() == NumberOfDaysInAMonth(Date.GetMonth(), Date.GetYear()));
 }
@@ -405,7 +409,7 @@ void DateLib::AddOneDay()
     *this = AddOneDay(*this);
 }
 
-void DateLib::SwapDates(DateLib& Date1, DateLib& Date2)
+void DateLib::SwapDates(DateLib &Date1, DateLib &Date2)
 {
     DateLib TempDate = Date1;
     Date1 = Date2;
@@ -432,18 +436,18 @@ int DateLib::GetDifferenceInDays(DateLib Date1, DateLib Date2, bool IncludeEndDa
     return IncludeEndDay ? ++Days * SwapFlagValue : Days * SwapFlagValue;
 }
 
-int DateLib::GetDifferenceInDays(const DateLib& Date2, bool IncludeEndDay) const
+int DateLib::GetDifferenceInDays(const DateLib &Date2, bool IncludeEndDay) const
 {
     return GetDifferenceInDays(*this, Date2, IncludeEndDay);
 }
 
-int DateLib::CalculateMyAgeInDays(const DateLib& DateOfBirth)
+int DateLib::CalculateMyAgeInDays(const DateLib &DateOfBirth)
 {
     return GetDifferenceInDays(DateOfBirth, DateLib::GetSystemDate(), true);
 }
 
 // 11. Increase Dates
-DateLib DateLib::IncreaseDateByOneWeek(DateLib& Date)
+DateLib DateLib::IncreaseDateByOneWeek(DateLib &Date)
 {
     for (int i = 1; i <= 7; i++)
     {
@@ -457,7 +461,7 @@ void DateLib::IncreaseDateByOneWeek()
     IncreaseDateByOneWeek(*this);
 }
 
-DateLib DateLib::IncreaseDateByXWeeks(short Weeks, DateLib& Date)
+DateLib DateLib::IncreaseDateByXWeeks(short Weeks, DateLib &Date)
 {
     for (short i = 1; i <= Weeks; i++)
     {
@@ -471,7 +475,7 @@ void DateLib::IncreaseDateByXWeeks(short Weeks)
     IncreaseDateByXWeeks(Weeks, *this);
 }
 
-DateLib DateLib::IncreaseDateByOneMonth(DateLib& Date)
+DateLib DateLib::IncreaseDateByOneMonth(DateLib &Date)
 {
     if (Date.GetMonth() == 12)
     {
@@ -497,7 +501,7 @@ void DateLib::IncreaseDateByOneMonth()
     IncreaseDateByOneMonth(*this);
 }
 
-DateLib DateLib::IncreaseDateByXDays(short Days, DateLib& Date)
+DateLib DateLib::IncreaseDateByXDays(short Days, DateLib &Date)
 {
     for (short i = 1; i <= Days; i++)
     {
@@ -511,7 +515,7 @@ void DateLib::IncreaseDateByXDays(short Days)
     IncreaseDateByXDays(Days, *this);
 }
 
-DateLib DateLib::IncreaseDateByXMonths(short Months, DateLib& Date)
+DateLib DateLib::IncreaseDateByXMonths(short Months, DateLib &Date)
 {
     for (short i = 1; i <= Months; i++)
     {
@@ -525,7 +529,7 @@ void DateLib::IncreaseDateByXMonths(short Months)
     IncreaseDateByXMonths(Months, *this);
 }
 
-DateLib DateLib::IncreaseDateByOneYear(DateLib& Date)
+DateLib DateLib::IncreaseDateByOneYear(DateLib &Date)
 {
     Date.SetYear(Date.GetYear() + 1);
     short DaysInMonth = NumberOfDaysInAMonth(Date.GetMonth(), Date.GetYear());
@@ -541,7 +545,7 @@ void DateLib::IncreaseDateByOneYear()
     IncreaseDateByOneYear(*this);
 }
 
-DateLib DateLib::IncreaseDateByXYears(short Years, DateLib& Date)
+DateLib DateLib::IncreaseDateByXYears(short Years, DateLib &Date)
 {
     Date.SetYear(Date.GetYear() + Years);
     short DaysInMonth = NumberOfDaysInAMonth(Date.GetMonth(), Date.GetYear());
@@ -557,7 +561,7 @@ void DateLib::IncreaseDateByXYears(short Years)
     IncreaseDateByXYears(Years, *this);
 }
 
-DateLib DateLib::IncreaseDateByOneDecade(DateLib& Date)
+DateLib DateLib::IncreaseDateByOneDecade(DateLib &Date)
 {
     return IncreaseDateByXYears(10, Date);
 }
@@ -567,7 +571,7 @@ void DateLib::IncreaseDateByOneDecade()
     IncreaseDateByOneDecade(*this);
 }
 
-DateLib DateLib::IncreaseDateByXDecades(short Decades, DateLib& Date)
+DateLib DateLib::IncreaseDateByXDecades(short Decades, DateLib &Date)
 {
     return IncreaseDateByXYears(Decades * 10, Date);
 }
@@ -577,7 +581,7 @@ void DateLib::IncreaseDateByXDecades(short Decades)
     IncreaseDateByXDecades(Decades, *this);
 }
 
-DateLib DateLib::IncreaseDateByOneCentury(DateLib& Date)
+DateLib DateLib::IncreaseDateByOneCentury(DateLib &Date)
 {
     return IncreaseDateByXYears(100, Date);
 }
@@ -587,7 +591,7 @@ void DateLib::IncreaseDateByOneCentury()
     IncreaseDateByOneCentury(*this);
 }
 
-DateLib DateLib::IncreaseDateByOneMillennium(DateLib& Date)
+DateLib DateLib::IncreaseDateByOneMillennium(DateLib &Date)
 {
     return IncreaseDateByXYears(1000, Date);
 }
@@ -627,7 +631,7 @@ void DateLib::DecreaseDateByOneDay()
     *this = DecreaseDateByOneDay(*this);
 }
 
-DateLib DateLib::DecreaseDateByXDays(short Days, DateLib& Date)
+DateLib DateLib::DecreaseDateByXDays(short Days, DateLib &Date)
 {
     for (short i = 1; i <= Days; i++)
     {
@@ -641,7 +645,7 @@ void DateLib::DecreaseDateByXDays(short Days)
     DecreaseDateByXDays(Days, *this);
 }
 
-DateLib DateLib::DecreaseDateByOneWeek(DateLib& Date)
+DateLib DateLib::DecreaseDateByOneWeek(DateLib &Date)
 {
     return DecreaseDateByXDays(7, Date);
 }
@@ -651,7 +655,7 @@ void DateLib::DecreaseDateByOneWeek()
     DecreaseDateByOneWeek(*this);
 }
 
-DateLib DateLib::DecreaseDateByXWeeks(short Weeks, DateLib& Date)
+DateLib DateLib::DecreaseDateByXWeeks(short Weeks, DateLib &Date)
 {
     for (short i = 1; i <= Weeks; i++)
     {
@@ -665,7 +669,7 @@ void DateLib::DecreaseDateByXWeeks(short Weeks)
     DecreaseDateByXWeeks(Weeks, *this);
 }
 
-DateLib DateLib::DecreaseDateByOneMonth(DateLib& Date)
+DateLib DateLib::DecreaseDateByOneMonth(DateLib &Date)
 {
     if (Date.GetMonth() == 1)
     {
@@ -689,7 +693,7 @@ void DateLib::DecreaseDateByOneMonth()
     DecreaseDateByOneMonth(*this);
 }
 
-DateLib DateLib::DecreaseDateByXMonths(short Months, DateLib& Date)
+DateLib DateLib::DecreaseDateByXMonths(short Months, DateLib &Date)
 {
     for (short i = 1; i <= Months; i++)
     {
@@ -703,7 +707,7 @@ void DateLib::DecreaseDateByXMonths(short Months)
     DecreaseDateByXMonths(Months, *this);
 }
 
-DateLib DateLib::DecreaseDateByOneYear(DateLib& Date)
+DateLib DateLib::DecreaseDateByOneYear(DateLib &Date)
 {
     Date.SetYear(Date.GetYear() - 1);
     short DaysInMonth = NumberOfDaysInAMonth(Date.GetMonth(), Date.GetYear());
@@ -719,7 +723,7 @@ void DateLib::DecreaseDateByOneYear()
     DecreaseDateByOneYear(*this);
 }
 
-DateLib DateLib::DecreaseDateByXYears(short Years, DateLib& Date)
+DateLib DateLib::DecreaseDateByXYears(short Years, DateLib &Date)
 {
     Date.SetYear(Date.GetYear() - Years);
     short DaysInMonth = NumberOfDaysInAMonth(Date.GetMonth(), Date.GetYear());
@@ -735,7 +739,7 @@ void DateLib::DecreaseDateByXYears(short Years)
     DecreaseDateByXYears(Years, *this);
 }
 
-DateLib DateLib::DecreaseDateByOneDecade(DateLib& Date)
+DateLib DateLib::DecreaseDateByOneDecade(DateLib &Date)
 {
     return DecreaseDateByXYears(10, Date);
 }
@@ -745,7 +749,7 @@ void DateLib::DecreaseDateByOneDecade()
     DecreaseDateByOneDecade(*this);
 }
 
-DateLib DateLib::DecreaseDateByXDecades(short Decades, DateLib& Date)
+DateLib DateLib::DecreaseDateByXDecades(short Decades, DateLib &Date)
 {
     return DecreaseDateByXYears(Decades * 10, Date);
 }
@@ -755,7 +759,7 @@ void DateLib::DecreaseDateByXDecades(short Decades)
     DecreaseDateByXDecades(Decades, *this);
 }
 
-DateLib DateLib::DecreaseDateByOneCentury(DateLib& Date)
+DateLib DateLib::DecreaseDateByOneCentury(DateLib &Date)
 {
     return DecreaseDateByXYears(100, Date);
 }
@@ -765,7 +769,7 @@ void DateLib::DecreaseDateByOneCentury()
     DecreaseDateByOneCentury(*this);
 }
 
-DateLib DateLib::DecreaseDateByOneMillennium(DateLib& Date)
+DateLib DateLib::DecreaseDateByOneMillennium(DateLib &Date)
 {
     return DecreaseDateByXYears(1000, Date);
 }
@@ -776,7 +780,7 @@ void DateLib::DecreaseDateByOneMillennium()
 }
 
 // 13. Business Days & Vacations
-bool DateLib::IsEndOfWeek(const DateLib& Date)
+bool DateLib::IsEndOfWeek(const DateLib &Date)
 {
     return DayOfWeekOrder(Date.GetDay(), Date.GetMonth(), Date.GetYear()) == 6;
 }
@@ -786,7 +790,7 @@ bool DateLib::IsEndOfWeek() const
     return IsEndOfWeek(*this);
 }
 
-bool DateLib::IsWeekEnd(const DateLib& Date)
+bool DateLib::IsWeekEnd(const DateLib &Date)
 {
     short DayIndex = DayOfWeekOrder(Date.GetDay(), Date.GetMonth(), Date.GetYear());
     return (DayIndex == 5 || DayIndex == 6);
@@ -797,7 +801,7 @@ bool DateLib::IsWeekEnd() const
     return IsWeekEnd(*this);
 }
 
-bool DateLib::IsBusinessDay(const DateLib& Date)
+bool DateLib::IsBusinessDay(const DateLib &Date)
 {
     return !IsWeekEnd(Date);
 }
@@ -807,7 +811,7 @@ bool DateLib::IsBusinessDay() const
     return IsBusinessDay(*this);
 }
 
-short DateLib::DaysUntilTheEndOfWeek(const DateLib& Date)
+short DateLib::DaysUntilTheEndOfWeek(const DateLib &Date)
 {
     return 6 - DayOfWeekOrder(Date.GetDay(), Date.GetMonth(), Date.GetYear());
 }
@@ -817,7 +821,7 @@ short DateLib::DaysUntilTheEndOfWeek() const
     return DaysUntilTheEndOfWeek(*this);
 }
 
-short DateLib::DaysUntilTheEndOfMonth(const DateLib& Date1)
+short DateLib::DaysUntilTheEndOfMonth(const DateLib &Date1)
 {
     DateLib EndOfMonthDate;
     EndOfMonthDate.SetDay(NumberOfDaysInAMonth(Date1.GetMonth(), Date1.GetYear()));
@@ -832,7 +836,7 @@ short DateLib::DaysUntilTheEndOfMonth() const
     return DaysUntilTheEndOfMonth(*this);
 }
 
-short DateLib::DaysUntilTheEndOfYear(const DateLib& Date1)
+short DateLib::DaysUntilTheEndOfYear(const DateLib &Date1)
 {
     DateLib EndOfYearDate;
     EndOfYearDate.SetDay(31);
@@ -861,7 +865,7 @@ short DateLib::CalculateBusinessDays(DateLib DateFrom, DateLib DateTo)
     return Days;
 }
 
-short DateLib::CalculateVacationDays(const DateLib& DateFrom, const DateLib& DateTo)
+short DateLib::CalculateVacationDays(const DateLib &DateFrom, const DateLib &DateTo)
 {
     return CalculateBusinessDays(DateFrom, DateTo);
 }
