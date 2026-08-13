@@ -11,7 +11,8 @@ using namespace std;
 class clsUtil
 {
 public:
-    enum class enCharType {
+    enum class enCharType
+    {
         SmallCharacter = 1,
         CapitalCharacter = 2,
         Digit = 3,
@@ -49,7 +50,7 @@ public:
         return Text;
     }
 
-    static string DecryptionText(string Text, short EncryptionKey)
+    static string DecryptText(string Text, short EncryptionKey)
     {
         for (size_t i = 0; i < Text.length(); i++)
         {
@@ -79,9 +80,12 @@ public:
         case enCharType::SpecialCharacter:
         {
             int SpecialCharacterRange = RandomNumber(1, 4);
-            if (SpecialCharacterRange == 1) return char(RandomNumber(33, 47));
-            if (SpecialCharacterRange == 2) return char(RandomNumber(58, 64));
-            if (SpecialCharacterRange == 3) return char(RandomNumber(91, 96));
+            if (SpecialCharacterRange == 1)
+                return char(RandomNumber(33, 47));
+            if (SpecialCharacterRange == 2)
+                return char(RandomNumber(58, 64));
+            if (SpecialCharacterRange == 3)
+                return char(RandomNumber(91, 96));
             return char(RandomNumber(123, 126));
         }
         case enCharType::Digit:
@@ -107,7 +111,8 @@ public:
         for (short i = 1; i <= 4; i++)
         {
             Key += GenerateWord(CharType, 4);
-            if (i != 4) Key += '-';
+            if (i != 4)
+                Key += '-';
         }
         return Key;
     }
@@ -121,7 +126,7 @@ public:
     }
 
     template <typename T>
-    static void Swap(T& A, T& B)
+    static void Swap(T &A, T &B)
     {
         T Temp = A;
         A = B;

@@ -60,9 +60,10 @@ public:
     static void ShowSpinner(string Message = "Processing, please wait...", int cycles = 3);
     static void ShowProgressBar(string Message = "Loading data, please wait...");
     static void FlashWarningText(string Message = "WARNING");
+    static string Truncate(const string &Text, short MaxLen, const string &Ellipsis = "...");
     static void ResetTheScreen();
     static string EncryptText(string Text, short EncryptionKey);
-    static string DecryptionText(string Text, short EncryptionKey);
+    static string DecryptText(string Text, short EncryptionKey);
     static int RandomNumber(int From, int To);
     static char GetRandomCharacter(enCharType CharType);
     static string GenerateWord(enCharType CharType, short Length);

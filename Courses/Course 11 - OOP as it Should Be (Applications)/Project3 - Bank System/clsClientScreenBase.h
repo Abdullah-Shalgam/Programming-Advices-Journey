@@ -93,7 +93,8 @@ protected:
         {
             ostringstream ssKey, ssVal;
             ssKey << left << setw(18) << Key;
-            ssVal << left << setw(35) << Value;
+
+            ssVal << left << setw(35) << UtilLib::Truncate(Value, 35);
 
             cout << Indent << UtilLib::GetColor(UtilLib::enColor::Cyan) << "| "
                  << UtilLib::GetColor(UtilLib::enColor::Yellow);

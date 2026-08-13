@@ -4,96 +4,72 @@
 #include <conio.h>
 #include "clsScreen.h"
 #include "InputValidateLib.h"
+#include "UtilLib.h"
 
 // Screens
-#include "clsClientsListScreen.h"
-#include "clsAddNewClientScreen.h"
-#include "clsDeleteClientScreen.h"
-#include "clsUpdateClientScreen.h"
-#include "clsFindClientScreen.h"
-#include "clsTransactionsScreen.h"
-#include "clsManageUsersScreen.h"
+#include "clsUsersListScreen.h"
+#include "clsAddNewUserScreen.h"
+#include "clsDeleteUserScreen.h"
+#include "clsUpdateUserScreen.h"
+#include "clsFindUserScreen.h"
 
 using namespace std;
 
-class clsMainScreen : protected clsScreen
+class clsManageUsersScreen : protected clsScreen
 {
 private:
-    enum class enMainMenuOptions
+    enum enManageUsersMenuOptions
     {
-        eListClients = 1,
-        eAddNewClient = 2,
-        eDeleteClient = 3,
-        eUpdateClient = 4,
-        eFindClient = 5,
-        eShowTransactionsMenu = 6,
-        eManageUsers = 7,
-        eLogout = 8
+        eListUsers = 1,
+        eAddNewUser = 2,
+        eDeleteUser = 3,
+        eUpdateUser = 4,
+        eFindUser = 5,
+        eShowMainMenu = 6
     };
 
-    clsMainScreen() : clsScreen(122) {}
+    clsManageUsersScreen() : clsScreen(122) {}
 
     // ----------------------------------------------------------
     // Navigation & Screen Dispatchers
     // ----------------------------------------------------------
 
-    void _GoBackToMainMenu()
+    void _GoBackToManageUsersMenu()
     {
         cout << "\n\n"
-             << UtilLib::ColorText("  [>] Press any key to return to Main Menu...", UtilLib::enColor::Yellow);
+             << UtilLib::ColorText("  [>] Press any key to return to Manage Users Menu...", UtilLib::enColor::Yellow);
         _getch();
         _Show();
     }
 
-    void _ShowAllClientsScreen()
+    void _ShowListUsersScreen()
     {
-        _ShowProgressBar("Fetching client records from database...");
-        clsClientsListScreen::ShowClientsList();
+        _ShowProgressBar("Fetching user records from database...");
+        clsUsersListScreen::ShowUsersList();
     }
 
-    void _ShowAddNewClientsScreen()
+    void _ShowAddNewUserScreen()
     {
-        _ShowProgressBar("Initializing client registration system...");
-        clsAddNewClientScreen::ShowAddNewClient();
+        _ShowProgressBar("Initializing user registration system...");
+        clsAddNewUserScreen::ShowAddNewUser();
     }
 
-    void _ShowDeleteClientScreen()
+    void _ShowDeleteUserScreen()
     {
-        _ShowProgressBar("Initializing client removal system...");
-        clsDeleteClientScreen::ShowDeleteClient();
+        _ShowProgressBar("Initializing user removal system...");
+        clsDeleteUserScreen::ShowDeleteUser();
     }
 
-    void _ShowUpdateClientScreen()
+    void _ShowUpdateUserScreen()
     {
-        _ShowProgressBar("Initializing client update module...");
-        clsUpdateClientScreen::ShowUpdateClient();
+        _ShowProgressBar("Initializing user update module...");
+        clsUpdateUserScreen::ShowUpdateUser();
     }
 
-    void _ShowFindClientScreen()
+    void _ShowFindUserScreen()
     {
-        _ShowProgressBar("Initializing client search module...");
-        clsFindClientScreen::ShowFindClient();
-    }
-
-    void _ShowTransactionsMenu()
-    {
-        clsTransactionsScreen::ShowTransactionsMenu();
-        _Show();
-    }
-
-    void _ShowManageUsersMenu()
-    {
-        clsManageUsersScreen::ShowManageUsersMenu();
-        _Show();
-    }
-
-    void _ShowEndScreen()
-    {
-        _ResetTheScreen();
-        _DrawScreenHeader("SYSTEM SHUTDOWN", "Session Logout");
-        _PrintAnimatedSuccess("  [!] Logging out safely... Thank you for using Bank System!", 25);
-        _ShowLoadingSpinner("Closing secure connection...", 2);
-        cout << "\n";
+        _ShowProgressBar("Initializing user search module...");
+        clsFindUserScreen::ShowFindUser();
     }
 
     // ----------------------------------------------------------
@@ -170,28 +146,19 @@ private:
         };
 
         PrintFrameLine('=');
-        PrintCenteredTitle("SYSTEM MAIN DASHBOARD");
+        PrintCenteredTitle("MANAGE USERS DASHBOARD");
         PrintFrameLine('=');
 
-        // Section 1: Client Management
-        PrintSectionHeader("-- CLIENT MANAGEMENT SERVICES --", UtilLib::enColor::BrightGreen);
-        PrintOption("1", "Show Client List");
-        PrintOption("2", "Add New Client");
-        PrintOption("3", "Delete Client");
-        PrintOption("4", "Update Client Info");
-        PrintOption("5", "Find Client");
+        PrintSectionHeader("-- USER MANAGEMENT SERVICES --", UtilLib::enColor::BrightGreen);
+        PrintOption("1", "List Users");
+        PrintOption("2", "Add New User");
+        PrintOption("3", "Delete User");
+        PrintOption("4", "Update User");
+        PrintOption("5", "Find User");
 
         PrintSeparator('-');
 
-        // Section 2: Operations & Admin
-        PrintSectionHeader("-- BANK OPERATIONS & ADMIN --", UtilLib::enColor::BrightYellow);
-        PrintOption("6", "Transactions Menu");
-        PrintOption("7", "Manage Users");
-
-        PrintSeparator('-');
-
-        // Section 3: Session
-        PrintOption("8", "Logout & Exit Session", UtilLib::enColor::BrightRed);
+        PrintOption("6", "Main Menu", UtilLib::enColor::BrightRed);
 
         PrintFrameLine('=');
         cout << "\n";
@@ -201,52 +168,36 @@ private:
     // Main Command Processing Loop
     // ----------------------------------------------------------
 
-    void _PerformMainMenuOption(enMainMenuOptions MainMenuOption)
+    void _PerformManageUsersMenuOption(enManageUsersMenuOptions Option)
     {
-        switch (MainMenuOption)
+        switch (Option)
         {
-        case enMainMenuOptions::eListClients:
+        case enManageUsersMenuOptions::eListUsers:
             _ResetTheScreen();
-            _ShowAllClientsScreen();
-            _GoBackToMainMenu();
+            _ShowListUsersScreen();
+            _GoBackToManageUsersMenu();
             break;
-
-        case enMainMenuOptions::eAddNewClient:
+        case enManageUsersMenuOptions::eAddNewUser:
             _ResetTheScreen();
-            _ShowAddNewClientsScreen();
-            _GoBackToMainMenu();
+            _ShowAddNewUserScreen();
+            _GoBackToManageUsersMenu();
             break;
-
-        case enMainMenuOptions::eDeleteClient:
+        case enManageUsersMenuOptions::eDeleteUser:
             _ResetTheScreen();
-            _ShowDeleteClientScreen();
-            _GoBackToMainMenu();
+            _ShowDeleteUserScreen();
+            _GoBackToManageUsersMenu();
             break;
-
-        case enMainMenuOptions::eUpdateClient:
+        case enManageUsersMenuOptions::eUpdateUser:
             _ResetTheScreen();
-            _ShowUpdateClientScreen();
-            _GoBackToMainMenu();
+            _ShowUpdateUserScreen();
+            _GoBackToManageUsersMenu();
             break;
-
-        case enMainMenuOptions::eFindClient:
+        case enManageUsersMenuOptions::eFindUser:
             _ResetTheScreen();
-            _ShowFindClientScreen();
-            _GoBackToMainMenu();
+            _ShowFindUserScreen();
+            _GoBackToManageUsersMenu();
             break;
-
-        case enMainMenuOptions::eShowTransactionsMenu:
-            _ResetTheScreen();
-            _ShowTransactionsMenu();
-            break;
-
-        case enMainMenuOptions::eManageUsers:
-            _ResetTheScreen();
-            _ShowManageUsersMenu();
-            break;
-
-        case enMainMenuOptions::eLogout:
-            _ShowEndScreen();
+        case enManageUsersMenuOptions::eShowMainMenu:
             break;
         }
     }
@@ -254,18 +205,18 @@ private:
     void _Show()
     {
         _ResetTheScreen();
-        _DrawScreenHeader("MAIN DASHBOARD", "Select an option from the menu below");
+        _DrawScreenHeader("MANAGE USERS DASHBOARD", "Administer System Access & User Permissions");
         _DrawMenuBox();
 
-        string Prompt = "  [?] Choose Option [1 to 8]: ";
-        short Choice = InputValidateLib::ReadShortNumberInRange(1, 8, Prompt, "  [!] Invalid Option! Enter Number between 1 and 8: ");
-        _PerformMainMenuOption((enMainMenuOptions)Choice);
+        string Prompt = "  [?] Choose Option [1 to 6]: ";
+        short Choice = InputValidateLib::ReadShortNumberInRange(1, 6, Prompt, "  [!] Invalid Option! Enter Number between 1 and 6: ");
+        _PerformManageUsersMenuOption((enManageUsersMenuOptions)Choice);
     }
 
 public:
-    static void ShowMainMenu()
+    static void ShowManageUsersMenu()
     {
-        clsMainScreen MainScreen;
-        MainScreen._Show();
+        clsManageUsersScreen ManageUsersScreen;
+        ManageUsersScreen._Show();
     }
 };

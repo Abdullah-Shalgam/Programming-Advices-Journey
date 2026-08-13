@@ -35,7 +35,8 @@ public:
     static bool IsDateBetween(DateLib Date, DateLib Date1, DateLib Date2);
     static bool IsValideDate(DateLib Date);
 
-    // ─── PIN Code Validation ───
+    // ─── Password / Masked Text Utilities ───
+    static std::string ReadPassword(std::string Msg = "Enter Password: ", short MinLength = 4, std::string ErrMsg = "\nError: Invalid Password!\n\n");
     static std::string GetValidPIN(std::string Msg = "Enter PinCode (4 digits): ", std::string ErrMsg = "\nError: PIN must be exactly 4 digits.\n\n");
 
     // ─── Template Functions ───

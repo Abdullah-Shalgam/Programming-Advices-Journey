@@ -33,6 +33,8 @@ private:
             {
                 cout << "\n\n";
                 _PrintAnimatedSuccess("  [!] Client Record Deleted Permanently!", 20);
+
+                _PrintClientCard(Client, "CLIENT CARD DETAILS AFTER DELETION");
             }
             else
             {

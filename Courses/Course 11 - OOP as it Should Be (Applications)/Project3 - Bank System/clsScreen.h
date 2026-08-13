@@ -2,6 +2,7 @@
 #include <iostream>
 #include <string>
 #include <ctime>
+#include <iomanip>
 #include "UtilLib.h"
 
 using namespace std;
@@ -51,20 +52,32 @@ protected:
         cout << UtilLib::GetColor(UtilLib::enColor::Reset);
     }
 
+    void _PrintCenteredLine(string Text, UtilLib::enColor TextColor = UtilLib::enColor::Yellow)
+    {
+        int TextLength = (int)Text.length();
+
+        int LeftPadding = (_ScreenWidth - TextLength) / 2;
+        if (LeftPadding < 0)
+            LeftPadding = 0;
+
+        cout << string(LeftPadding, ' ')
+             << UtilLib::GetColor(TextColor) << Text << UtilLib::GetColor(UtilLib::enColor::Reset)
+             << endl;
+    }
+
     void _DrawScreenHeader(const string &Title, const string &SubTitle = "", const string &UserName = "")
     {
         _DrawStatusBar(UserName);
 
         cout << "\n";
-        UtilLib::PrintCentered(UtilLib::ColorText(Title, UtilLib::enColor::BrightYellow), _ScreenWidth);
+        _PrintCenteredLine(Title, UtilLib::enColor::BrightYellow);
 
         if (!SubTitle.empty())
         {
-            cout << "\n";
-            UtilLib::PrintCentered(UtilLib::ColorText(SubTitle, UtilLib::enColor::Yellow), _ScreenWidth);
+            _PrintCenteredLine(SubTitle, UtilLib::enColor::Yellow);
         }
 
-        cout << "\n\n";
+        cout << "\n";
         cout << UtilLib::GetColor(UtilLib::enColor::Cyan);
         UtilLib::PrintHeaderLine('=', _ScreenWidth);
         cout << UtilLib::GetColor(UtilLib::enColor::Reset) << "\n\n";

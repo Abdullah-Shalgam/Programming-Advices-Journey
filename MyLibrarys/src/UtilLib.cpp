@@ -33,6 +33,21 @@ void UtilLib::PrintCentered(string text, short width)
     cout << string(padding, ' ') << text << "\n";
 }
 
+string UtilLib::Truncate(const string &Text, short MaxLen, const string &Ellipsis)
+{
+    if (MaxLen <= 0)
+        return "";
+
+    if ((short)Text.length() > MaxLen)
+    {
+        if (MaxLen <= (short)Ellipsis.length())
+            return Text.substr(0, MaxLen);
+
+        return Text.substr(0, MaxLen - (short)Ellipsis.length()) + Ellipsis;
+    }
+    return Text;
+}
+
 void UtilLib::ResetTheScreen()
 {
     cout << UtilLib::GetColor(UtilLib::enColor::Reset) << flush;
@@ -48,7 +63,7 @@ string UtilLib::EncryptText(string Text, short EncryptionKey)
     return Text;
 }
 
-string UtilLib::DecryptionText(string Text, short EncryptionKey)
+string UtilLib::DecryptText(string Text, short EncryptionKey)
 {
     for (size_t i = 0; i < Text.length(); i++)
     {

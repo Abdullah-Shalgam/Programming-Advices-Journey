@@ -60,11 +60,11 @@ private:
             _PrintClientCard(NewClient, "NEW CLIENT CARD DETAILS");
             break;
 
-        case clsBankClient::enSaveResults::svFaildEmptyObject:
+        case clsBankClient::enSaveResults::svFailedEmptyObject:
             _ShowWarningMessage("ERROR: Save failed because the client object is empty!");
             break;
 
-        case clsBankClient::enSaveResults::svFaildAccountNumberExists:
+        case clsBankClient::enSaveResults::svFailedAccountNumberExists:
             _ShowWarningMessage("ERROR: Save failed because the Account Number already exists!");
             break;
         }

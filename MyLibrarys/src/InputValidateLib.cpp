@@ -263,22 +263,73 @@ bool InputValidateLib::IsValideDate(DateLib Date)
     return DateLib::IsValidDate(Date);
 }
 
-// ─────────────── PIN Code Validation ───────────────
+// ─── Password / Masked Text Utilities ───
+
+string InputValidateLib::ReadPassword(string Msg, short MinLength, string ErrMsg)
+{
+    string password = "";
+    char ch;
+
+    while (true)
+    {
+        password = "";
+        cout << Msg;
+
+        while (true)
+        {
+            ch = _getch();
+
+            if (ch == 13)
+            {
+                cout << endl;
+                break;
+            }
+            else if (ch == 8)
+            {
+                if (!password.empty())
+                {
+                    password.pop_back();
+                    cout << "\b \b";
+                }
+            }
+            else if (ch == 0 || ch == -32)
+            {
+                _getch();
+            }
+            else if (isprint(static_cast<unsigned char>(ch)))
+            {
+                password += ch;
+                cout << '*';
+            }
+        }
+
+        if (password.length() < MinLength)
+        {
+            cout << "  [!] Security Warning: Password must be at least " << MinLength << " characters long!\n\n";
+            continue;
+        }
+
+        return password;
+    }
+}
 
 string InputValidateLib::_ReadPinMasked(string Msg)
 {
     string pin = "";
     char ch;
+
     cout << Msg;
+
     while (true)
     {
         ch = _getch();
-        if (ch == 13) // Enter
+
+        if (ch == 13)
         {
             if (!pin.empty())
                 break;
         }
-        else if (ch == 8) // Backspace
+        else if (ch == 8)
         {
             if (!pin.empty())
             {
@@ -292,6 +343,7 @@ string InputValidateLib::_ReadPinMasked(string Msg)
             cout << '*';
         }
     }
+
     cout << endl;
     return pin;
 }

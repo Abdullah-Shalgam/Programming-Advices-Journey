@@ -34,7 +34,7 @@ int main()
     string OriginalText = "Hello C++ Developer!";
     short Key = 5;
     string EncryptedText = clsUtil::EncryptText(OriginalText, Key);
-    string DecryptedText = clsUtil::DecryptionText(EncryptedText, Key);
+    string DecryptedText = clsUtil::DecryptText(EncryptedText, Key);
 
     cout << "Original Text  : " << OriginalText << "\n";
     cout << "Encrypted Text : " << EncryptedText << "\n";
@@ -60,26 +60,30 @@ int main()
     int NumbersArr[ArrLength];
     clsUtil::FillArrayWithRandomNumbers(NumbersArr, ArrLength, 10, 99);
     cout << "Random Numbers Array  : ";
-    for (int i = 0; i < ArrLength; i++) cout << NumbersArr[i] << " ";
+    for (int i = 0; i < ArrLength; i++)
+        cout << NumbersArr[i] << " ";
     cout << "\n";
 
     clsUtil::ShuffleArray(NumbersArr, ArrLength);
     cout << "Shuffled Numbers Array : ";
-    for (int i = 0; i < ArrLength; i++) cout << NumbersArr[i] << " ";
+    for (int i = 0; i < ArrLength; i++)
+        cout << NumbersArr[i] << " ";
     cout << "\n\n";
 
     // مصفوفة كلمات
     string WordsArr[ArrLength];
     clsUtil::FillArrayWithRandomWords(WordsArr, ArrLength, clsUtil::enCharType::CapitalCharacter, 4);
     cout << "Random Words Array    : ";
-    for (int i = 0; i < ArrLength; i++) cout << WordsArr[i] << " ";
+    for (int i = 0; i < ArrLength; i++)
+        cout << WordsArr[i] << " ";
     cout << "\n\n";
 
     // مصفوفة مفاتيح (Keys)
     string KeysArr[ArrLength];
     clsUtil::FillArrayWithRandomKeys(KeysArr, ArrLength, clsUtil::enCharType::CapitalCharacter);
     cout << "Random Keys Array     :\n";
-    for (int i = 0; i < ArrLength; i++) cout << "Key [" << i + 1 << "] : " << KeysArr[i] << "\n";
+    for (int i = 0; i < ArrLength; i++)
+        cout << "Key [" << i + 1 << "] : " << KeysArr[i] << "\n";
 
     return 0;
 }

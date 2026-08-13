@@ -1,28 +1,28 @@
 #pragma once
 #include <iostream>
-#include "clsClientScreenBase.h"
-#include "clsBankClient.h"
+#include "clsUserScreenBase.h"
+#include "clsUser.h"
 #include "InputValidateLib.h"
 #include "UtilLib.h"
 
 using namespace std;
 
-class clsUpdateClientScreen : protected clsClientScreenBase
+class clsUpdateUserScreen : protected clsUserScreenBase
 {
 private:
     enum enUpdateFields
     {
-        eNone = 0,           // 0
-        eFirstName = 1 << 0, // 1
-        eLastName = 1 << 1,  // 2
-        eEmail = 1 << 2,     // 4
-        ePhone = 1 << 3,     // 8
-        ePinCode = 1 << 4,   // 16
-        eBalance = 1 << 5,   // 32
-        eAll = 63            // 63
+        eNone = 0,             // 0
+        eFirstName = 1 << 0,   // 1
+        eLastName = 1 << 1,    // 2
+        eEmail = 1 << 2,       // 4
+        ePhone = 1 << 3,       // 8
+        ePassword = 1 << 4,    // 16
+        ePermissions = 1 << 5, // 32
+        eAll = 63              // 63
     };
 
-    clsUpdateClientScreen() : clsClientScreenBase(122) {}
+    clsUpdateUserScreen() : clsUserScreenBase(122) {}
 
     void _DrawFieldsMenu()
     {
@@ -42,8 +42,8 @@ private:
         PrintOption("2", "Last Name");
         PrintOption("3", "Email Address");
         PrintOption("4", "Phone Number");
-        PrintOption("5", "PIN Code");
-        PrintOption("6", "Account Balance");
+        PrintOption("5", "Password");
+        PrintOption("6", "Permissions");
         PrintOption("7", "Update ALL Fields");
         PrintOption("8", "Done Selecting & Proceed");
 
@@ -106,13 +106,13 @@ private:
                      << UtilLib::GetColor(UtilLib::enColor::Reset);
                 break;
             case 5:
-                UpdateMask |= enUpdateFields::ePinCode;
-                cout << UtilLib::GetColor(UtilLib::enColor::Green) << "  [+] PIN Code added.\n"
+                UpdateMask |= enUpdateFields::ePassword;
+                cout << UtilLib::GetColor(UtilLib::enColor::Green) << "  [+] Password added.\n"
                      << UtilLib::GetColor(UtilLib::enColor::Reset);
                 break;
             case 6:
-                UpdateMask |= enUpdateFields::eBalance;
-                cout << UtilLib::GetColor(UtilLib::enColor::Green) << "  [+] Balance added.\n"
+                UpdateMask |= enUpdateFields::ePermissions;
+                cout << UtilLib::GetColor(UtilLib::enColor::Green) << "  [+] Permissions added.\n"
                      << UtilLib::GetColor(UtilLib::enColor::Reset);
                 break;
             }
@@ -122,7 +122,7 @@ private:
         return UpdateMask;
     }
 
-    void _ReadClientInfoByMask(clsBankClient &Client, unsigned short Mask)
+    void _ReadUserInfoByMask(clsUser &User, unsigned short Mask)
     {
         cout << "\n"
              << UtilLib::GetColor(UtilLib::enColor::BrightYellow) << "  [+] ENTER NEW DATA FOR SELECTED FIELDS:" << UtilLib::GetColor(UtilLib::enColor::Reset) << "\n";
@@ -130,32 +130,33 @@ private:
 
         if (Mask & enUpdateFields::eFirstName)
         {
-            Client.SetFirstName(InputValidateLib::ReadText("  [>] Enter New First Name   : "));
+            User.SetFirstName(InputValidateLib::ReadText("  [>] Enter New First Name   : "));
         }
 
         if (Mask & enUpdateFields::eLastName)
         {
-            Client.SetLastName(InputValidateLib::ReadText("  [>] Enter New Last Name    : "));
+            User.SetLastName(InputValidateLib::ReadText("  [>] Enter New Last Name    : "));
         }
 
         if (Mask & enUpdateFields::eEmail)
         {
-            Client.SetEmail(InputValidateLib::ReadText("  [>] Enter New Email Address: "));
+            User.SetEmail(InputValidateLib::ReadText("  [>] Enter New Email Address: "));
         }
 
         if (Mask & enUpdateFields::ePhone)
         {
-            Client.SetPhone(InputValidateLib::ReadText("  [>] Enter New Phone Number : "));
+            User.SetPhone(InputValidateLib::ReadText("  [>] Enter New Phone Number : "));
         }
 
-        if (Mask & enUpdateFields::ePinCode)
+        if (Mask & enUpdateFields::ePassword)
         {
-            Client.SetPinCode(InputValidateLib::GetValidPIN("  [>] Enter New PIN Code     : "));
+            User.SetPassword(InputValidateLib::ReadText("  [>] Enter New Password     : "));
         }
 
-        if (Mask & enUpdateFields::eBalance)
+        if (Mask & enUpdateFields::ePermissions)
         {
-            Client.SetAccountBalance(InputValidateLib::ReadDblPositiveNumber("  [>] Enter New Balance      : "));
+            cout << "\n";
+            User.SetPermissions(_ReadPermissionsToSet());
         }
 
         cout << UtilLib::GetColor(UtilLib::enColor::Cyan) << "  --------------------------------------------------------" << UtilLib::GetColor(UtilLib::enColor::Reset) << "\n";
@@ -164,12 +165,12 @@ private:
     void _Show()
     {
         _ResetTheScreen();
-        _DrawScreenHeader("UPDATE CLIENT DASHBOARD", "Modify Existing Client Details Selectively");
+        _DrawScreenHeader("UPDATE USER DASHBOARD", "Modify Existing User Details Selectively");
 
-        clsBankClient Client = _GetExistingClient("  [>] Enter Account Number: ");
-        _PrintClientCard(Client, "CURRENT CLIENT CARD DETAILS");
+        clsUser User = _GetExistingUser("  [>] Enter Username: ");
+        _PrintUserCard(User, "CURRENT USER CARD DETAILS");
 
-        string PromptMsg = UtilLib::GetColor(UtilLib::enColor::BrightYellow) + "  [?] Are you sure you want to update this client? (y/n): " + UtilLib::GetColor(UtilLib::enColor::Reset);
+        string PromptMsg = UtilLib::GetColor(UtilLib::enColor::BrightYellow) + "  [?] Are you sure you want to update this user? (y/n): " + UtilLib::GetColor(UtilLib::enColor::Reset);
 
         char Answer = InputValidateLib::getYesNoAnswer(PromptMsg);
 
@@ -177,38 +178,38 @@ private:
         {
             unsigned short UpdateMask = _ReadUpdateMask();
 
-            _ReadClientInfoByMask(Client, UpdateMask);
+            _ReadUserInfoByMask(User, UpdateMask);
 
             cout << "\n";
-            _ShowProgressBar("Updating client record in database...");
+            _ShowProgressBar("Updating user record in database...");
 
-            clsBankClient::enSaveResults SaveResult = Client.Save();
+            clsUser::enSaveResults SaveResult = User.Save();
 
             switch (SaveResult)
             {
-            case clsBankClient::enSaveResults::svSucceeded:
+            case clsUser::enSaveResults::svSucceeded:
                 cout << "\n\n";
-                _PrintAnimatedSuccess("  [!] Client Record Updated Successfully!", 20);
-                _PrintClientCard(Client, "UPDATED CLIENT CARD DETAILS");
+                _PrintAnimatedSuccess("  [!] User Record Updated Successfully!", 20);
+                _PrintUserCard(User, "UPDATED USER CARD DETAILS");
                 break;
 
-            case clsBankClient::enSaveResults::svFailedEmptyObject:
-                _ShowWarningMessage("ERROR: Update failed because the client object is empty!");
+            case clsUser::enSaveResults::svFailedEmptyObject:
+                _ShowWarningMessage("ERROR: Update failed because the user object is empty!");
                 break;
             }
         }
         else
         {
             cout << UtilLib::GetColor(UtilLib::enColor::Yellow)
-                 << "\n  [i] Update operation cancelled. Client record remains unchanged.\n"
+                 << "\n  [i] Update operation cancelled. User record remains unchanged.\n"
                  << UtilLib::GetColor(UtilLib::enColor::Reset);
         }
     }
 
 public:
-    static void ShowUpdateClient()
+    static void ShowUpdateUser()
     {
-        clsUpdateClientScreen UpdateClientScreen;
-        UpdateClientScreen._Show();
+        clsUpdateUserScreen UpdateUserScreen;
+        UpdateUserScreen._Show();
     }
 };

@@ -8,10 +8,10 @@
 
 using namespace std;
 
-class clsClientListScreen : protected clsClientScreenBase
+class clsClientsListScreen : protected clsClientScreenBase
 {
 private:
-    clsClientListScreen() : clsClientScreenBase(122) {}
+    clsClientsListScreen() : clsClientScreenBase(122) {}
 
     void _PrintTableHeader()
     {
@@ -34,22 +34,22 @@ private:
     void _PrintClientRecordLine(const clsBankClient &Client)
     {
         cout << UtilLib::GetColor(UtilLib::enColor::Cyan) << "| " << UtilLib::GetColor(UtilLib::enColor::BrightCyan);
-        cout << left << setw(15) << Client.GetAccountNumber();
+        cout << left << setw(15) << UtilLib::Truncate(Client.GetAccountNumber(), 13);
 
-        cout << UtilLib::GetColor(UtilLib::enColor::Cyan) << "| " << UtilLib::GetColor(UtilLib::enColor::Reset);
-        cout << left << setw(27) << Client.GetFullName();
+        cout << UtilLib::GetColor(UtilLib::enColor::Cyan) << " | " << UtilLib::GetColor(UtilLib::enColor::Reset);
+        cout << left << setw(22) << UtilLib::Truncate(Client.GetFullName(), 20);
 
-        cout << UtilLib::GetColor(UtilLib::enColor::Cyan) << "| " << UtilLib::GetColor(UtilLib::enColor::Reset);
-        cout << left << setw(12) << Client.GetPhone();
+        cout << UtilLib::GetColor(UtilLib::enColor::Cyan) << " | " << UtilLib::GetColor(UtilLib::enColor::Reset);
+        cout << left << setw(12) << UtilLib::Truncate(Client.GetPhone(), 10);
 
-        cout << UtilLib::GetColor(UtilLib::enColor::Cyan) << "| " << UtilLib::GetColor(UtilLib::enColor::Reset);
-        cout << left << setw(30) << Client.GetEmail();
+        cout << UtilLib::GetColor(UtilLib::enColor::Cyan) << " | " << UtilLib::GetColor(UtilLib::enColor::Reset);
+        cout << left << setw(25) << UtilLib::Truncate(Client.GetEmail(), 23);
 
-        cout << UtilLib::GetColor(UtilLib::enColor::Cyan) << "| " << UtilLib::GetColor(UtilLib::enColor::Yellow);
-        cout << left << setw(10) << Client.GetPinCode();
+        cout << UtilLib::GetColor(UtilLib::enColor::Cyan) << " | " << UtilLib::GetColor(UtilLib::enColor::BrightYellow);
+        cout << left << setw(10) << UtilLib::Truncate(Client.GetPinCode(), 8);
 
-        cout << UtilLib::GetColor(UtilLib::enColor::Cyan) << "| " << UtilLib::GetColor(UtilLib::enColor::BrightGreen);
-        cout << left << setw(15) << _FormatBalance(Client.GetAccountBalance());
+        cout << UtilLib::GetColor(UtilLib::enColor::Cyan) << " | " << UtilLib::GetColor(UtilLib::enColor::BrightGreen);
+        cout << left << setw(12) << Client.GetAccountBalance();
 
         cout << UtilLib::GetColor(UtilLib::enColor::Cyan) << "|" << UtilLib::GetColor(UtilLib::enColor::Reset);
     }
@@ -102,7 +102,7 @@ private:
 public:
     static void ShowClientsList()
     {
-        clsClientListScreen ClientListScreen;
+        clsClientsListScreen ClientListScreen;
         ClientListScreen._Show();
     }
 };

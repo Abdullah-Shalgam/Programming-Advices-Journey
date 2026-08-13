@@ -7,9 +7,7 @@
 #include <sstream>
 #include <iomanip>
 #include "clsPerson.h"
-#include "UtilLib.h"
 #include "MyStringLib.h"
-#include "InputValidateLib.h"
 
 using namespace std;
 
@@ -18,6 +16,8 @@ const string ClientsFileName = "Clients.txt";
 class clsBankClient : public clsPerson
 {
 private:
+    static const short _EncryptionKey = 10;
+
     enum class enMode
     {
         EmptyMode = 0,
@@ -31,11 +31,17 @@ private:
     double _AccountBalance;
     bool _MarkedForDelete = false;
 
+    clsBankClient(enMode Mode, const string &FirstName, const string &LastName, const string &Email, const string &Phone, const string &AccountNumber, const string &PinCode, const double AccountBalance) : clsPerson(FirstName, LastName, Email, Phone), _Mode(Mode), _AccountNumber(AccountNumber), _PinCode(PinCode), _AccountBalance(AccountBalance)
+    {
+    }
+
     static clsBankClient _ConvertLineToClientObject(const string &line, const string &separator = "#//#")
     {
         vector<string> vClientData = MyStringLib::SplitString(line, separator);
 
-        return {enMode::UpdateMode, vClientData[0], vClientData[1], vClientData[2], vClientData[3], vClientData[4], vClientData[5], stod(vClientData[6])};
+        string DecryptedPinCode = UtilLib::DecryptText(vClientData[5], _EncryptionKey);
+
+        return {enMode::UpdateMode, vClientData[0], vClientData[1], vClientData[2], vClientData[3], vClientData[4], DecryptedPinCode, stod(vClientData[6])};
     }
 
     static string _ConvertClientObjectToLine(const clsBankClient &Client, const string &separator = "#//#")
@@ -43,12 +49,14 @@ private:
         ostringstream ss;
         ss << fixed << setprecision(6) << Client.GetAccountBalance();
 
+        string EncryptedPinCode = UtilLib::EncryptText(Client.GetPinCode(), _EncryptionKey);
+
         return Client.GetFirstName() + separator +
                Client.GetLastName() + separator +
                Client.GetEmail() + separator +
                Client.GetPhone() + separator +
                Client.GetAccountNumber() + separator +
-               Client.GetPinCode() + separator +
+               EncryptedPinCode + separator +
                ss.str();
     }
 
@@ -136,10 +144,6 @@ private:
     }
 
 public:
-    clsBankClient(enMode Mode, const string &FirstName, const string &LastName, const string &Email, const string &Phone, const string &AccountNumber, const string &PinCode, const double AccountBalance) : clsPerson(FirstName, LastName, Email, Phone), _Mode(Mode), _AccountNumber(AccountNumber), _PinCode(PinCode), _AccountBalance(AccountBalance)
-    {
-    }
-
     bool IsEmpty()
     {
         return (_Mode == enMode::EmptyMode);
@@ -211,9 +215,9 @@ public:
 
     enum enSaveResults
     {
-        svFaildEmptyObject = 0,
+        svFailedEmptyObject = 0,
         svSucceeded = 1,
-        svFaildAccountNumberExists = 2
+        svFailedAccountNumberExists = 2
     };
 
     enSaveResults Save()
@@ -222,10 +226,7 @@ public:
         {
 
         case enMode::EmptyMode:
-        {
-            if (IsEmpty())
-                return enSaveResults::svFaildEmptyObject;
-        }
+            return enSaveResults::svFailedEmptyObject;
 
         case enMode::UpdateMode:
         {
@@ -237,7 +238,7 @@ public:
         {
             if (IsClientExist(_AccountNumber))
             {
-                return enSaveResults::svFaildAccountNumberExists;
+                return enSaveResults::svFailedAccountNumberExists;
             }
 
             _AddNew(ClientsFileName);
@@ -246,18 +247,13 @@ public:
         }
 
         default:
-            return enSaveResults::svFaildEmptyObject;
+            return enSaveResults::svFailedEmptyObject;
         }
     }
 
     static bool IsClientExist(const string &AccountNumber)
     {
         return (!Find(AccountNumber).IsEmpty());
-    }
-
-    static bool IsClientExist(const string &AccountNumber, const string &PinCode)
-    {
-        return (!Find(AccountNumber, PinCode).IsEmpty());
     }
 
     static clsBankClient GetAddNewClientObject(const string &AccountNumber)
@@ -283,8 +279,23 @@ public:
         return TotalBalances;
     }
 
+    bool Deposit(double Amount)
+    {
+        _AccountBalance += Amount;
+        return (Save() == enSaveResults::svSucceeded);
+    }
+
+    bool Withdraw(double Amount)
+    {
+        _AccountBalance -= Amount;
+        return (Save() == enSaveResults::svSucceeded);
+    }
+
     bool Delete()
     {
+        if (IsEmpty())
+            return false;
+
         vector<clsBankClient> vClients = _LoadClientsDataFromFile(ClientsFileName);
 
         if (_MarkForDelete(vClients))
