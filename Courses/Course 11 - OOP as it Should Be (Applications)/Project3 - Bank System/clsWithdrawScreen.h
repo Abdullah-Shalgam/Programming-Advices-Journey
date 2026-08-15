@@ -42,6 +42,11 @@ private:
 
         if (tolower(Answer) == 'y')
         {
+            if (!_ConfirmUserPassword("AUTHORIZE FINANCIAL WITHDRAWAL"))
+            {
+                return;
+            }
+
             cout << "\n";
             _ShowProgressBar("Processing withdraw transaction & updating database...");
 

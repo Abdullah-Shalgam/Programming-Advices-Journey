@@ -17,15 +17,32 @@ private:
     {
         _PrintFullWidthLine('=');
 
-        cout << UtilLib::GetColor(UtilLib::enColor::Bold) << UtilLib::GetColor(UtilLib::enColor::BrightYellow);
-        cout << "| " << left << setw(15) << "Account Number";
-        cout << "| " << left << setw(27) << "Client Name";
-        cout << "| " << left << setw(12) << "Phone";
-        cout << "| " << left << setw(30) << "Email";
-        cout << "| " << left << setw(10) << "Pin Code";
-        cout << "| " << left << setw(15) << "Balance";
-        cout << "|";
-        cout << UtilLib::GetColor(UtilLib::enColor::Reset) << endl;
+        cout << UtilLib::GetColor(UtilLib::enColor::Cyan) << "| "
+             << UtilLib::GetColor(UtilLib::enColor::Bold) << UtilLib::GetColor(UtilLib::enColor::BrightYellow)
+             << left << setw(14) << "Acc Number"
+
+             << UtilLib::GetColor(UtilLib::enColor::Cyan) << " | "
+             << UtilLib::GetColor(UtilLib::enColor::Bold) << UtilLib::GetColor(UtilLib::enColor::BrightYellow)
+             << left << setw(25) << "Client Name"
+
+             << UtilLib::GetColor(UtilLib::enColor::Cyan) << " | "
+             << UtilLib::GetColor(UtilLib::enColor::Bold) << UtilLib::GetColor(UtilLib::enColor::BrightYellow)
+             << left << setw(10) << "Phone"
+
+             << UtilLib::GetColor(UtilLib::enColor::Cyan) << " | "
+             << UtilLib::GetColor(UtilLib::enColor::Bold) << UtilLib::GetColor(UtilLib::enColor::BrightYellow)
+             << left << setw(27) << "Email"
+
+             << UtilLib::GetColor(UtilLib::enColor::Cyan) << " | "
+             << UtilLib::GetColor(UtilLib::enColor::Bold) << UtilLib::GetColor(UtilLib::enColor::BrightYellow)
+             << left << setw(10) << "Pin Code"
+
+             << UtilLib::GetColor(UtilLib::enColor::Cyan) << " | "
+             << UtilLib::GetColor(UtilLib::enColor::Bold) << UtilLib::GetColor(UtilLib::enColor::BrightYellow)
+             << left << setw(17) << "Balance"
+
+             << UtilLib::GetColor(UtilLib::enColor::Cyan) << " |"
+             << UtilLib::GetColor(UtilLib::enColor::Reset) << endl;
 
         _PrintFullWidthLine('=');
         cout << endl;
@@ -33,25 +50,32 @@ private:
 
     void _PrintClientRecordLine(const clsBankClient &Client)
     {
-        cout << UtilLib::GetColor(UtilLib::enColor::Cyan) << "| " << UtilLib::GetColor(UtilLib::enColor::BrightCyan);
-        cout << left << setw(15) << UtilLib::Truncate(Client.GetAccountNumber(), 13);
+        cout << UtilLib::GetColor(UtilLib::enColor::Cyan) << "| "
+             << UtilLib::GetColor(UtilLib::enColor::BrightCyan)
+             << left << setw(14) << UtilLib::Truncate(Client.GetAccountNumber(), 14)
 
-        cout << UtilLib::GetColor(UtilLib::enColor::Cyan) << " | " << UtilLib::GetColor(UtilLib::enColor::Reset);
-        cout << left << setw(22) << UtilLib::Truncate(Client.GetFullName(), 20);
+             << UtilLib::GetColor(UtilLib::enColor::Cyan) << " | "
+             << UtilLib::GetColor(UtilLib::enColor::Reset)
+             << left << setw(25) << UtilLib::Truncate(Client.GetFullName(), 25)
 
-        cout << UtilLib::GetColor(UtilLib::enColor::Cyan) << " | " << UtilLib::GetColor(UtilLib::enColor::Reset);
-        cout << left << setw(12) << UtilLib::Truncate(Client.GetPhone(), 10);
+             << UtilLib::GetColor(UtilLib::enColor::Cyan) << " | "
+             << UtilLib::GetColor(UtilLib::enColor::Reset)
+             << left << setw(10) << UtilLib::Truncate(Client.GetPhone(), 12)
 
-        cout << UtilLib::GetColor(UtilLib::enColor::Cyan) << " | " << UtilLib::GetColor(UtilLib::enColor::Reset);
-        cout << left << setw(25) << UtilLib::Truncate(Client.GetEmail(), 23);
+             << UtilLib::GetColor(UtilLib::enColor::Cyan) << " | "
+             << UtilLib::GetColor(UtilLib::enColor::Reset)
+             << left << setw(27) << UtilLib::Truncate(Client.GetEmail(), 26)
 
-        cout << UtilLib::GetColor(UtilLib::enColor::Cyan) << " | " << UtilLib::GetColor(UtilLib::enColor::BrightYellow);
-        cout << left << setw(10) << UtilLib::Truncate(Client.GetPinCode(), 8);
+             << UtilLib::GetColor(UtilLib::enColor::Cyan) << " | "
+             << UtilLib::GetColor(UtilLib::enColor::BrightYellow)
+             << left << setw(10) << UtilLib::Truncate(Client.GetPinCode(), 10)
 
-        cout << UtilLib::GetColor(UtilLib::enColor::Cyan) << " | " << UtilLib::GetColor(UtilLib::enColor::BrightGreen);
-        cout << left << setw(12) << Client.GetAccountBalance();
+             << UtilLib::GetColor(UtilLib::enColor::Cyan) << " | "
+             << UtilLib::GetColor(UtilLib::enColor::BrightGreen)
+             << left << setw(17) << UtilLib::Truncate(_FormatBalance(Client.GetAccountBalance()), 15)
 
-        cout << UtilLib::GetColor(UtilLib::enColor::Cyan) << "|" << UtilLib::GetColor(UtilLib::enColor::Reset);
+             << UtilLib::GetColor(UtilLib::enColor::Cyan) << " |"
+             << UtilLib::GetColor(UtilLib::enColor::Reset);
     }
 
     void _PrintFooterSummary(size_t TotalClients, double TotalBalance)
@@ -67,8 +91,11 @@ private:
         cout << endl;
     }
 
-    void _Show()
+    bool _Show()
     {
+        if (!_CheckAccessRights(clsUser::enMainMenuPermissions::pListClients))
+            return false;
+
         vector<clsBankClient> vClients = clsBankClient::GetClientsList();
 
         string Title = "CLIENTS LIST DASHBOARD";
@@ -97,12 +124,14 @@ private:
             }
             _PrintFooterSummary(vClients.size(), TotalBalance);
         }
+
+        return true;
     }
 
 public:
-    static void ShowClientsList()
+    static bool ShowClientsList()
     {
         clsClientsListScreen ClientListScreen;
-        ClientListScreen._Show();
+        return ClientListScreen._Show();
     }
 };

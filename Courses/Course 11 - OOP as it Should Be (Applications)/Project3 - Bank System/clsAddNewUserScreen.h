@@ -19,10 +19,10 @@ private:
              << UtilLib::ColorText("  [+] ENTER USER INFORMATION:", UtilLib::enColor::BrightYellow) << "\n";
         UtilLib::PrintHeaderLine('-', 56);
 
-        User.SetFirstName(InputValidateLib::ReadText("  [>] Enter First Name    : "));
-        User.SetLastName(InputValidateLib::ReadText("  [>] Enter Last Name     : "));
-        User.SetEmail(InputValidateLib::ReadText("  [>] Enter Email Address : "));
-        User.SetPhone(InputValidateLib::ReadText("  [>] Enter Phone Number  : "));
+        User.SetFirstName(InputValidateLib::ReadLimitedText(25, "  [>] Enter First Name    : "));
+        User.SetLastName(InputValidateLib::ReadLimitedText(25, "  [>] Enter Last Name     : "));
+        User.SetEmail(InputValidateLib::ReadLimitedText(28, "  [>] Enter Email Address : "));
+        User.SetPhone(InputValidateLib::ReadLimitedText(10, "  [>] Enter Phone Number  : "));
 
         User.SetPassword(InputValidateLib::ReadPassword("  [>] Enter Password      : "));
         User.SetPermissions(_ReadPermissionsToSet());
@@ -36,17 +36,22 @@ private:
         _DrawScreenHeader("ADD NEW USER DASHBOARD", "Register New System User Record");
 
         cout << UtilLib::ColorText("  [?] USER VERIFICATION:", UtilLib::enColor::BrightYellow) << "\n";
-        string UserName = InputValidateLib::ReadText("  [>] Enter Username: ");
+        string UserName = InputValidateLib::ReadLimitedText(12, "  [>] Enter Username: ");
 
         while (clsUser::IsUserExist(UserName))
         {
             cout << UtilLib::ColorText("  [!] Username [" + UserName + "] is already taken! Please try another.\n", UtilLib::enColor::BrightRed);
-            UserName = InputValidateLib::ReadText("  [>] Enter New Username: ");
+            UserName = InputValidateLib::ReadLimitedText(12, "  [>] Enter New Username: ");
         }
 
         clsUser NewUser = clsUser::GetAddNewUserObject(UserName);
 
         _ReadUserInfo(NewUser);
+
+        if (!_ConfirmUserPassword("CREATE NEW SYSTEM USER ACCOUNT"))
+        {
+            return;
+        }
 
         cout << "\n";
         _ShowProgressBar("Saving new user to database...");

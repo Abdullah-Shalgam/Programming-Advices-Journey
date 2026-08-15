@@ -7,6 +7,15 @@ void UtilLib::Srand()
     srand((unsigned)time(NULL));
 }
 
+string UtilLib::GetSystemDateTime()
+{
+    time_t now = time(0);
+    tm *ltm = localtime(&now);
+    char buffer[30];
+    strftime(buffer, sizeof(buffer), "%Y-%m-%d | %H:%M:%S", ltm);
+    return string(buffer);
+}
+
 string UtilLib::Tabs(int Count)
 {
     string t = "";

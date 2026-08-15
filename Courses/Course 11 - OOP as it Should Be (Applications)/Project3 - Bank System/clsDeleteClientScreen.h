@@ -12,8 +12,11 @@ class clsDeleteClientScreen : protected clsClientScreenBase
 private:
     clsDeleteClientScreen() : clsClientScreenBase(122) {}
 
-    void _Show()
+    bool _Show()
     {
+        if (!_CheckAccessRights(clsUser::enMainMenuPermissions::pDeleteClient))
+            return false;
+
         _ResetTheScreen();
         _DrawScreenHeader("DELETE CLIENT DASHBOARD", "Remove Existing Client Record Permanently");
 
@@ -26,6 +29,11 @@ private:
 
         if (tolower(Answer) == 'y')
         {
+            if (!_ConfirmUserPassword("PERMANENTLY DELETE CLIENT ACCOUNT"))
+            {
+                return true;
+            }
+
             cout << "\n";
             _ShowProgressBar("Deleting client record permanently from database...");
 
@@ -47,12 +55,14 @@ private:
                  << "\n  [i] Deletion operation cancelled. Client record remains safe.\n"
                  << UtilLib::GetColor(UtilLib::enColor::Reset);
         }
+
+        return true;
     }
 
 public:
-    static void ShowDeleteClient()
+    static bool ShowDeleteClient()
     {
         clsDeleteClientScreen DeleteClientScreen;
-        DeleteClientScreen._Show();
+        return DeleteClientScreen._Show();
     }
 };

@@ -2,6 +2,7 @@
 #include <iostream>
 #include <iomanip>
 #include <sstream>
+#include <vector>
 #include "clsScreen.h"
 #include "clsUser.h"
 #include "InputValidateLib.h"
@@ -14,47 +15,42 @@ class clsUserScreenBase : protected clsScreen
 protected:
     clsUserScreenBase(short ScreenWidth = 122) : clsScreen(ScreenWidth) {}
 
-    void _PrintFullWidthLine(char LineChar = '=', UtilLib::enColor Color = UtilLib::enColor::Cyan)
-    {
-        cout << UtilLib::GetColor(Color);
-        UtilLib::PrintHeaderLine(LineChar, _ScreenWidth);
-        cout << UtilLib::GetColor(UtilLib::enColor::Reset);
-    }
-
-    void _PrintCenteredLineWithBorders(const string &Text, UtilLib::enColor TextColor = UtilLib::enColor::Reset)
-    {
-        int InsideWidth = _ScreenWidth - 2;
-        int TextLen = (int)Text.length();
-        int LeftSpaces = (InsideWidth - TextLen) / 2;
-        int RightSpaces = InsideWidth - TextLen - LeftSpaces;
-
-        cout << UtilLib::GetColor(UtilLib::enColor::Cyan) << "|";
-        cout << string(LeftSpaces, ' ');
-        cout << UtilLib::ColorText(Text, TextColor);
-        cout << string(RightSpaces, ' ');
-        cout << UtilLib::GetColor(UtilLib::enColor::Cyan) << "|"
-             << UtilLib::GetColor(UtilLib::enColor::Reset) << endl;
-    }
-
     clsUser _GetExistingUser(string PromptMessage = "  [>] Enter Username: ")
     {
         cout << UtilLib::GetColor(UtilLib::enColor::BrightYellow) << "  [?] USER SEARCH:" << UtilLib::GetColor(UtilLib::enColor::Reset) << "\n";
-        string UserName = InputValidateLib::ReadText(PromptMessage);
+        string UserName = InputValidateLib::ReadLimitedText(12, PromptMessage);
 
         while (!clsUser::IsUserExist(UserName))
         {
             cout << UtilLib::GetColor(UtilLib::enColor::BrightRed)
                  << "  [!] Username [" << UserName << "] was not found! Please try again.\n"
                  << UtilLib::GetColor(UtilLib::enColor::Reset);
-            UserName = InputValidateLib::ReadText(PromptMessage);
+            UserName = InputValidateLib::ReadLimitedText(12, PromptMessage);
         }
 
         return clsUser::Find(UserName);
     }
 
-    string _GetPermissionsText(int Permissions)
+    bool _IsFullAccess(int Permissions)
     {
         if (Permissions == clsUser::enMainMenuPermissions::eAll)
+            return true;
+
+        int AllPermissionsMask = clsUser::enMainMenuPermissions::pListClients |
+                                 clsUser::enMainMenuPermissions::pAddNewClient |
+                                 clsUser::enMainMenuPermissions::pDeleteClient |
+                                 clsUser::enMainMenuPermissions::pUpdateClients |
+                                 clsUser::enMainMenuPermissions::pFindClient |
+                                 clsUser::enMainMenuPermissions::pTransactions |
+                                 clsUser::enMainMenuPermissions::pManageUsers |
+                                 clsUser::enMainMenuPermissions::pLoginRegister;
+
+        return (Permissions == AllPermissionsMask);
+    }
+
+    string _GetPermissionsText(int Permissions)
+    {
+        if (_IsFullAccess(Permissions))
             return "Full Access";
 
         string PermText = "";
@@ -69,10 +65,12 @@ protected:
             PermText += "Update, ";
         if (Permissions & clsUser::enMainMenuPermissions::pFindClient)
             PermText += "Find, ";
-        if (Permissions & clsUser::enMainMenuPermissions::pTranactions)
+        if (Permissions & clsUser::enMainMenuPermissions::pTransactions)
             PermText += "Transactions, ";
         if (Permissions & clsUser::enMainMenuPermissions::pManageUsers)
             PermText += "Manage Users, ";
+        if (Permissions & clsUser::enMainMenuPermissions::pLoginRegister)
+            PermText += "Login Register, ";
 
         if (!PermText.empty())
             PermText = PermText.substr(0, PermText.length() - 2);
@@ -117,10 +115,16 @@ protected:
             Permissions |= clsUser::enMainMenuPermissions::pFindClient;
 
         if (tolower(InputValidateLib::getYesNoAnswer("  [>] Transactions Menu? (y/n): ")) == 'y')
-            Permissions |= clsUser::enMainMenuPermissions::pTranactions;
+            Permissions |= clsUser::enMainMenuPermissions::pTransactions;
 
         if (tolower(InputValidateLib::getYesNoAnswer("  [>] Manage Users Menu? (y/n): ")) == 'y')
             Permissions |= clsUser::enMainMenuPermissions::pManageUsers;
+
+        if (tolower(InputValidateLib::getYesNoAnswer("  [>] Login Register Audit Log? [y/n]: ")) == 'y')
+            Permissions |= clsUser::enMainMenuPermissions::pLoginRegister;
+
+        if (_IsFullAccess(Permissions))
+            return clsUser::enMainMenuPermissions::eAll;
 
         return Permissions;
     }
@@ -131,6 +135,7 @@ protected:
         const int LeftMargin = (_ScreenWidth - BoxWidth) / 2;
         const string Indent(LeftMargin, ' ');
         const string TopBottomLine = string(BoxWidth, '=');
+        const string MiddleSeparator = "|" + string(BoxWidth - 2, '-') + "|";
 
         const int InnerWidth = BoxWidth - 4;
         int TitleLen = (int)CardTitle.length();
@@ -148,6 +153,7 @@ protected:
         cout << "\n";
         cout << Indent << UtilLib::GetColor(UtilLib::enColor::Cyan) << TopBottomLine << endl;
 
+        // Header Title
         cout << Indent << UtilLib::GetColor(UtilLib::enColor::Cyan) << "| "
              << UtilLib::GetColor(UtilLib::enColor::BrightYellow);
         UtilLib::TypeWriterText(FormattedTitle, 8);
@@ -178,8 +184,64 @@ protected:
         PrintCardRow("Phone", User.GetPhone());
         PrintCardRow("Password", User.GetPassword(), UtilLib::enColor::Yellow);
 
-        PrintCardRow("Permissions", _GetPermissionsText(User.GetPermissions()), UtilLib::enColor::BrightGreen);
+        cout << Indent << UtilLib::GetColor(UtilLib::enColor::Cyan) << MiddleSeparator << endl;
 
-        cout << Indent << TopBottomLine << UtilLib::GetColor(UtilLib::enColor::Reset) << "\n\n";
+        string PermHeaderTitle = "GRANTED SYSTEM PERMISSIONS";
+        int PermHeaderLeft = (InnerWidth - (int)PermHeaderTitle.length()) / 2;
+        int PermHeaderRight = InnerWidth - (int)PermHeaderTitle.length() - PermHeaderLeft;
+        string FormattedPermHeader = string(PermHeaderLeft, ' ') + PermHeaderTitle + string(PermHeaderRight, ' ');
+
+        cout << Indent << UtilLib::GetColor(UtilLib::enColor::Cyan) << "| "
+             << UtilLib::GetColor(UtilLib::enColor::BrightYellow) << FormattedPermHeader
+             << UtilLib::GetColor(UtilLib::enColor::Cyan) << " |" << endl;
+
+        cout << Indent << UtilLib::GetColor(UtilLib::enColor::Cyan) << MiddleSeparator << endl;
+
+        struct stPermissionItem
+        {
+            int Flag;
+            string Name;
+        };
+
+        vector<stPermissionItem> vPermissions = {
+            {clsUser::enMainMenuPermissions::pListClients, "Show Client List"},
+            {clsUser::enMainMenuPermissions::pAddNewClient, "Add New Client"},
+            {clsUser::enMainMenuPermissions::pDeleteClient, "Delete Client"},
+            {clsUser::enMainMenuPermissions::pUpdateClients, "Update Client"},
+            {clsUser::enMainMenuPermissions::pFindClient, "Find Client"},
+            {clsUser::enMainMenuPermissions::pTransactions, "Transactions Menu"},
+            {clsUser::enMainMenuPermissions::pManageUsers, "Manage Users Menu"},
+            {clsUser::enMainMenuPermissions::pLoginRegister, "Login Register"}};
+
+        int UserPerm = User.GetPermissions();
+        bool HasFullAccess = _IsFullAccess(User.GetPermissions());
+
+        auto PrintPermRow = [&](string Tag, string Text, UtilLib::enColor TagColor, UtilLib::enColor TextColor)
+        {
+            cout << Indent << UtilLib::GetColor(UtilLib::enColor::Cyan) << "| "
+                 << "  " << UtilLib::GetColor(TagColor) << Tag << " "
+                 << UtilLib::GetColor(TextColor) << left << setw(49) << Text
+                 << UtilLib::GetColor(UtilLib::enColor::Cyan) << " |" << endl;
+        };
+
+        if (HasFullAccess)
+        {
+            PrintPermRow("[*]", "FULL ACCESS (All System Permissions)", UtilLib::enColor::BrightYellow, UtilLib::enColor::BrightGreen);
+        }
+
+        for (const auto &Perm : vPermissions)
+        {
+            bool IsGranted = HasFullAccess || (UserPerm & Perm.Flag);
+            if (IsGranted)
+            {
+                PrintPermRow("[+]", Perm.Name, UtilLib::enColor::BrightGreen, UtilLib::enColor::Green);
+            }
+            else
+            {
+                PrintPermRow("[-]", Perm.Name, UtilLib::enColor::BrightRed, UtilLib::enColor::DarkGray);
+            }
+        }
+
+        cout << Indent << UtilLib::GetColor(UtilLib::enColor::Cyan) << TopBottomLine << UtilLib::GetColor(UtilLib::enColor::Reset) << "\n\n";
     }
 };

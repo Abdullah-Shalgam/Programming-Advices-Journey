@@ -1,7 +1,9 @@
 #pragma once
+
 #include <iostream>
 #include <iomanip>
 #include <conio.h>
+
 #include "clsScreen.h"
 #include "InputValidateLib.h"
 #include "UtilLib.h"
@@ -18,7 +20,7 @@ using namespace std;
 class clsManageUsersScreen : protected clsScreen
 {
 private:
-    enum enManageUsersMenuOptions
+    enum class enManageUsersMenuOptions
     {
         eListUsers = 1,
         eAddNewUser = 2,
@@ -177,26 +179,31 @@ private:
             _ShowListUsersScreen();
             _GoBackToManageUsersMenu();
             break;
+
         case enManageUsersMenuOptions::eAddNewUser:
             _ResetTheScreen();
             _ShowAddNewUserScreen();
             _GoBackToManageUsersMenu();
             break;
+
         case enManageUsersMenuOptions::eDeleteUser:
             _ResetTheScreen();
             _ShowDeleteUserScreen();
             _GoBackToManageUsersMenu();
             break;
+
         case enManageUsersMenuOptions::eUpdateUser:
             _ResetTheScreen();
             _ShowUpdateUserScreen();
             _GoBackToManageUsersMenu();
             break;
+
         case enManageUsersMenuOptions::eFindUser:
             _ResetTheScreen();
             _ShowFindUserScreen();
             _GoBackToManageUsersMenu();
             break;
+
         case enManageUsersMenuOptions::eShowMainMenu:
             break;
         }
@@ -204,12 +211,15 @@ private:
 
     void _Show()
     {
+        if (!_CheckAccessRights(clsUser::enMainMenuPermissions::pManageUsers))
+            return;
+
         _ResetTheScreen();
         _DrawScreenHeader("MANAGE USERS DASHBOARD", "Administer System Access & User Permissions");
         _DrawMenuBox();
 
-        string Prompt = "  [?] Choose Option [1 to 6]: ";
-        short Choice = InputValidateLib::ReadShortNumberInRange(1, 6, Prompt, "  [!] Invalid Option! Enter Number between 1 and 6: ");
+        string Prompt = "  [?] Choose Option [1 to 7]: ";
+        short Choice = InputValidateLib::ReadShortNumberInRange(1, 7, Prompt, "  [!] Invalid Option! Enter Number between 1 and 7: ");
         _PerformManageUsersMenuOption((enManageUsersMenuOptions)Choice);
     }
 

@@ -26,14 +26,11 @@ private:
             return;
         }
 
-        // 2- مكان مخصص للشرط المستقبلي (عدم حذف المستخدم الحالي المسجل الدخول)
-        /*
-        if (User.GetUserName() == CurrentUser.GetUserName())
+        if (User.GetUserName() == Global::CurrentUser.GetUserName())
         {
             _ShowWarningMessage("ERROR: You cannot delete the currently logged-in user account!");
             return;
         }
-        */
 
         _PrintUserCard(User, "USER CARD DETAILS TO DELETE");
 
@@ -44,8 +41,13 @@ private:
 
         char Answer = InputValidateLib::getYesNoAnswer(PromptMsg);
 
-        if (Answer == 'y')
+        if (tolower(Answer) == 'y')
         {
+            if (!_ConfirmUserPassword("PERMANENTLY DELETE SYSTEM USER"))
+            {
+                return;
+            }
+
             cout << "\n";
             _ShowProgressBar("Deleting user record permanently from database...");
 

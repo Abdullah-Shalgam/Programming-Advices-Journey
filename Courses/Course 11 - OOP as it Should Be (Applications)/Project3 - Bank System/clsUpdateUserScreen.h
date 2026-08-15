@@ -130,27 +130,27 @@ private:
 
         if (Mask & enUpdateFields::eFirstName)
         {
-            User.SetFirstName(InputValidateLib::ReadText("  [>] Enter New First Name   : "));
+            User.SetFirstName(InputValidateLib::ReadLimitedText(25, "  [>] Enter New First Name   : "));
         }
 
         if (Mask & enUpdateFields::eLastName)
         {
-            User.SetLastName(InputValidateLib::ReadText("  [>] Enter New Last Name    : "));
+            User.SetLastName(InputValidateLib::ReadLimitedText(25, "  [>] Enter New Last Name    : "));
         }
 
         if (Mask & enUpdateFields::eEmail)
         {
-            User.SetEmail(InputValidateLib::ReadText("  [>] Enter New Email Address: "));
+            User.SetEmail(InputValidateLib::ReadLimitedText(28, "  [>] Enter New Email Address: "));
         }
 
         if (Mask & enUpdateFields::ePhone)
         {
-            User.SetPhone(InputValidateLib::ReadText("  [>] Enter New Phone Number : "));
+            User.SetPhone(InputValidateLib::ReadLimitedText(10, "  [>] Enter New Phone Number : "));
         }
 
         if (Mask & enUpdateFields::ePassword)
         {
-            User.SetPassword(InputValidateLib::ReadText("  [>] Enter New Password     : "));
+            User.SetPassword(InputValidateLib::ReadLimitedText(10, "  [>] Enter New Password     : "));
         }
 
         if (Mask & enUpdateFields::ePermissions)
@@ -179,6 +179,11 @@ private:
             unsigned short UpdateMask = _ReadUpdateMask();
 
             _ReadUserInfoByMask(User, UpdateMask);
+
+            if (!_ConfirmUserPassword("MODIFY USER CREDENTIALS & PERMISSIONS"))
+            {
+                return;
+            }
 
             cout << "\n";
             _ShowProgressBar("Updating user record in database...");

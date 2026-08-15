@@ -130,22 +130,22 @@ private:
 
         if (Mask & enUpdateFields::eFirstName)
         {
-            Client.SetFirstName(InputValidateLib::ReadText("  [>] Enter New First Name   : "));
+            Client.SetFirstName(InputValidateLib::ReadLimitedText(25, "  [>] Enter New First Name   : "));
         }
 
         if (Mask & enUpdateFields::eLastName)
         {
-            Client.SetLastName(InputValidateLib::ReadText("  [>] Enter New Last Name    : "));
+            Client.SetLastName(InputValidateLib::ReadLimitedText(25, "  [>] Enter New Last Name    : "));
         }
 
         if (Mask & enUpdateFields::eEmail)
         {
-            Client.SetEmail(InputValidateLib::ReadText("  [>] Enter New Email Address: "));
+            Client.SetEmail(InputValidateLib::ReadLimitedText(28, "  [>] Enter New Email Address: "));
         }
 
         if (Mask & enUpdateFields::ePhone)
         {
-            Client.SetPhone(InputValidateLib::ReadText("  [>] Enter New Phone Number : "));
+            Client.SetPhone(InputValidateLib::ReadLimitedText(10, "  [>] Enter New Phone Number : "));
         }
 
         if (Mask & enUpdateFields::ePinCode)
@@ -161,8 +161,11 @@ private:
         cout << UtilLib::GetColor(UtilLib::enColor::Cyan) << "  --------------------------------------------------------" << UtilLib::GetColor(UtilLib::enColor::Reset) << "\n";
     }
 
-    void _Show()
+    bool _Show()
     {
+        if (!_CheckAccessRights(clsUser::enMainMenuPermissions::pUpdateClients))
+            return false;
+
         _ResetTheScreen();
         _DrawScreenHeader("UPDATE CLIENT DASHBOARD", "Modify Existing Client Details Selectively");
 
@@ -178,6 +181,11 @@ private:
             unsigned short UpdateMask = _ReadUpdateMask();
 
             _ReadClientInfoByMask(Client, UpdateMask);
+
+            if (!_ConfirmUserPassword("UPDATE SENSITIVE CLIENT DATA"))
+            {
+                return true;
+            }
 
             cout << "\n";
             _ShowProgressBar("Updating client record in database...");
@@ -203,12 +211,14 @@ private:
                  << "\n  [i] Update operation cancelled. Client record remains unchanged.\n"
                  << UtilLib::GetColor(UtilLib::enColor::Reset);
         }
+
+        return true;
     }
 
 public:
-    static void ShowUpdateClient()
+    static bool ShowUpdateClient()
     {
         clsUpdateClientScreen UpdateClientScreen;
-        UpdateClientScreen._Show();
+        return UpdateClientScreen._Show();
     }
 };

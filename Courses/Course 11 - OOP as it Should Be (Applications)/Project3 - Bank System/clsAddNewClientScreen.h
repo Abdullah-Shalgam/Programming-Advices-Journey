@@ -18,34 +18,42 @@ private:
              << UtilLib::GetColor(UtilLib::enColor::BrightYellow) << "  [+] ENTER CLIENT INFORMATION:" << UtilLib::GetColor(UtilLib::enColor::Reset) << "\n";
         cout << UtilLib::GetColor(UtilLib::enColor::Cyan) << "  --------------------------------------------------------" << UtilLib::GetColor(UtilLib::enColor::Reset) << "\n";
 
-        Client.SetFirstName(InputValidateLib::ReadText("  [>] Enter First Name          : "));
-        Client.SetLastName(InputValidateLib::ReadText("  [>] Enter Last Name           : "));
-        Client.SetEmail(InputValidateLib::ReadText("  [>] Enter Email Address       : "));
-        Client.SetPhone(InputValidateLib::ReadText("  [>] Enter Phone Number        : "));
+        Client.SetFirstName(InputValidateLib::ReadLimitedText(25, "  [>] Enter First Name          : "));
+        Client.SetLastName(InputValidateLib::ReadLimitedText(25, "  [>] Enter Last Name           : "));
+        Client.SetEmail(InputValidateLib::ReadLimitedText(28, "  [>] Enter Email Address       : "));
+        Client.SetPhone(InputValidateLib::ReadLimitedText(10, "  [>] Enter Phone Number        : "));
         Client.SetPinCode(InputValidateLib::GetValidPIN("  [>] Enter PIN Code (4 digits) : "));
         Client.SetAccountBalance(InputValidateLib::ReadDblPositiveNumber("  [>] Enter Initial Balance     : "));
 
         cout << UtilLib::GetColor(UtilLib::enColor::Cyan) << "  --------------------------------------------------------" << UtilLib::GetColor(UtilLib::enColor::Reset) << "\n";
     }
 
-    void _Show()
+    bool _Show()
     {
+        if (!_CheckAccessRights(clsUser::enMainMenuPermissions::pAddNewClient))
+            return false;
+
         _ResetTheScreen();
         _DrawScreenHeader("ADD NEW CLIENT DASHBOARD", "Register New Bank Account Record");
 
         cout << UtilLib::GetColor(UtilLib::enColor::BrightYellow) << "  [?] ACCOUNT VERIFICATION:" << UtilLib::GetColor(UtilLib::enColor::Reset) << "\n";
-        string AccountNumber = InputValidateLib::ReadText("  [>] Enter Account Number: ");
+        string AccountNumber = InputValidateLib::ReadLimitedText(10, "  [>] Enter Account Number: ");
 
         while (clsBankClient::IsClientExist(AccountNumber))
         {
             cout << UtilLib::GetColor(UtilLib::enColor::BrightRed)
                  << "  [!] Account Number [" << AccountNumber << "] is already taken! Please try another.\n"
                  << UtilLib::GetColor(UtilLib::enColor::Reset);
-            AccountNumber = InputValidateLib::ReadText("  [>] Enter New Account Number: ");
+            AccountNumber = InputValidateLib::ReadLimitedText(10, "  [>] Enter New Account Number: ");
         }
 
         clsBankClient NewClient = clsBankClient::GetAddNewClientObject(AccountNumber);
         _ReadClientInfo(NewClient);
+
+        if (!_ConfirmUserPassword("CREATE NEW CLIENT ACCOUNT REGISTRATION"))
+        {
+            return true;
+        }
 
         cout << "\n";
         _ShowProgressBar("Saving new client to database...");
@@ -68,12 +76,14 @@ private:
             _ShowWarningMessage("ERROR: Save failed because the Account Number already exists!");
             break;
         }
+
+        return true;
     }
 
 public:
-    static void ShowAddNewClient()
+    static bool ShowAddNewClient()
     {
         clsAddNewClientScreen AddNewClientScreen;
-        AddNewClientScreen._Show();
+        return AddNewClientScreen._Show();
     }
 };

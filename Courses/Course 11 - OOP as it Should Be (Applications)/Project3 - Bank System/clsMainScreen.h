@@ -1,9 +1,12 @@
 #pragma once
+
 #include <iostream>
 #include <iomanip>
 #include <conio.h>
+
 #include "clsScreen.h"
 #include "InputValidateLib.h"
+#include "UtilLib.h"
 
 // Screens
 #include "clsClientsListScreen.h"
@@ -13,6 +16,8 @@
 #include "clsFindClientScreen.h"
 #include "clsTransactionsScreen.h"
 #include "clsManageUsersScreen.h"
+#include "clsLoginRegisterScreen.h"
+#include "clsLogoutScreen.h"
 
 using namespace std;
 
@@ -28,7 +33,8 @@ private:
         eFindClient = 5,
         eShowTransactionsMenu = 6,
         eManageUsers = 7,
-        eLogout = 8
+        eLoginRegister = 8,
+        eLogout = 9
     };
 
     clsMainScreen() : clsScreen(122) {}
@@ -45,34 +51,34 @@ private:
         _Show();
     }
 
-    void _ShowAllClientsScreen()
+    bool _ShowAllClientsScreen()
     {
         _ShowProgressBar("Fetching client records from database...");
-        clsClientsListScreen::ShowClientsList();
+        return clsClientsListScreen::ShowClientsList();
     }
 
-    void _ShowAddNewClientsScreen()
+    bool _ShowAddNewClientsScreen()
     {
         _ShowProgressBar("Initializing client registration system...");
-        clsAddNewClientScreen::ShowAddNewClient();
+        return clsAddNewClientScreen::ShowAddNewClient();
     }
 
-    void _ShowDeleteClientScreen()
+    bool _ShowDeleteClientScreen()
     {
         _ShowProgressBar("Initializing client removal system...");
-        clsDeleteClientScreen::ShowDeleteClient();
+        return clsDeleteClientScreen::ShowDeleteClient();
     }
 
-    void _ShowUpdateClientScreen()
+    bool _ShowUpdateClientScreen()
     {
         _ShowProgressBar("Initializing client update module...");
-        clsUpdateClientScreen::ShowUpdateClient();
+        return clsUpdateClientScreen::ShowUpdateClient();
     }
 
-    void _ShowFindClientScreen()
+    bool _ShowFindClientScreen()
     {
         _ShowProgressBar("Initializing client search module...");
-        clsFindClientScreen::ShowFindClient();
+        return clsFindClientScreen::ShowFindClient();
     }
 
     void _ShowTransactionsMenu()
@@ -87,13 +93,15 @@ private:
         _Show();
     }
 
-    void _ShowEndScreen()
+    bool _ShowLoginRegisterScreen()
     {
-        _ResetTheScreen();
-        _DrawScreenHeader("SYSTEM SHUTDOWN", "Session Logout");
-        _PrintAnimatedSuccess("  [!] Logging out safely... Thank you for using Bank System!", 25);
-        _ShowLoadingSpinner("Closing secure connection...", 2);
-        cout << "\n";
+        _ShowProgressBar("Opening Login Register Audit Log...");
+        return clsLoginRegisterScreen::ShowLoginRegister();
+    }
+
+    void _ShowLogoutScreen()
+    {
+        clsLogoutScreen::ShowLogoutScreen();
     }
 
     // ----------------------------------------------------------
@@ -183,15 +191,16 @@ private:
 
         PrintSeparator('-');
 
-        // Section 2: Operations & Admin
-        PrintSectionHeader("-- BANK OPERATIONS & ADMIN --", UtilLib::enColor::BrightYellow);
+        // Section 2: Operations & Audit
+        PrintSectionHeader("-- BANK OPERATIONS & AUDIT --", UtilLib::enColor::BrightYellow);
         PrintOption("6", "Transactions Menu");
         PrintOption("7", "Manage Users");
+        PrintOption("8", "Login Register");
 
         PrintSeparator('-');
 
         // Section 3: Session
-        PrintOption("8", "Logout & Exit Session", UtilLib::enColor::BrightRed);
+        PrintOption("9", "Logout & Exit Session", UtilLib::enColor::BrightRed);
 
         PrintFrameLine('=');
         cout << "\n";
@@ -207,32 +216,32 @@ private:
         {
         case enMainMenuOptions::eListClients:
             _ResetTheScreen();
-            _ShowAllClientsScreen();
-            _GoBackToMainMenu();
+            if (_ShowAllClientsScreen())
+                _GoBackToMainMenu();
             break;
 
         case enMainMenuOptions::eAddNewClient:
             _ResetTheScreen();
-            _ShowAddNewClientsScreen();
-            _GoBackToMainMenu();
+            if (_ShowAddNewClientsScreen())
+                _GoBackToMainMenu();
             break;
 
         case enMainMenuOptions::eDeleteClient:
             _ResetTheScreen();
-            _ShowDeleteClientScreen();
-            _GoBackToMainMenu();
+            if (_ShowDeleteClientScreen())
+                _GoBackToMainMenu();
             break;
 
         case enMainMenuOptions::eUpdateClient:
             _ResetTheScreen();
-            _ShowUpdateClientScreen();
-            _GoBackToMainMenu();
+            if (_ShowUpdateClientScreen())
+                _GoBackToMainMenu();
             break;
 
         case enMainMenuOptions::eFindClient:
             _ResetTheScreen();
-            _ShowFindClientScreen();
-            _GoBackToMainMenu();
+            if (_ShowFindClientScreen())
+                _GoBackToMainMenu();
             break;
 
         case enMainMenuOptions::eShowTransactionsMenu:
@@ -245,8 +254,14 @@ private:
             _ShowManageUsersMenu();
             break;
 
+        case enMainMenuOptions::eLoginRegister:
+            _ResetTheScreen();
+            if (_ShowLoginRegisterScreen())
+                _GoBackToMainMenu();
+            break;
+
         case enMainMenuOptions::eLogout:
-            _ShowEndScreen();
+            _ShowLogoutScreen();
             break;
         }
     }
@@ -257,8 +272,8 @@ private:
         _DrawScreenHeader("MAIN DASHBOARD", "Select an option from the menu below");
         _DrawMenuBox();
 
-        string Prompt = "  [?] Choose Option [1 to 8]: ";
-        short Choice = InputValidateLib::ReadShortNumberInRange(1, 8, Prompt, "  [!] Invalid Option! Enter Number between 1 and 8: ");
+        string Prompt = "  [?] Choose Option [1 to 9]: ";
+        short Choice = InputValidateLib::ReadShortNumberInRange(1, 9, Prompt, "  [!] Invalid Option! Enter Number between 1 and 9: ");
         _PerformMainMenuOption((enMainMenuOptions)Choice);
     }
 

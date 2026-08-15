@@ -12,8 +12,11 @@ class clsFindClientScreen : protected clsClientScreenBase
 private:
     clsFindClientScreen() : clsClientScreenBase(122) {}
 
-    void _Show()
+    bool _Show()
     {
+        if (!_CheckAccessRights(clsUser::enMainMenuPermissions::pFindClient))
+            return false;
+
         _ResetTheScreen();
         _DrawScreenHeader("FIND CLIENT DASHBOARD", "Search & Display Existing Client Record");
 
@@ -26,12 +29,14 @@ private:
         _PrintAnimatedSuccess("  [!] Client Record Found & Retrieved Successfully!", 20);
 
         _PrintClientCard(Client, "CLIENT CARD DETAILS");
+
+        return true;
     }
 
 public:
-    static void ShowFindClient()
+    static bool ShowFindClient()
     {
         clsFindClientScreen FindClientScreen;
-        FindClientScreen._Show();
+        return FindClientScreen._Show();
     }
 };

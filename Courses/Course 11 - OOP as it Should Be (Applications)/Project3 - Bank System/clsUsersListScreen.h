@@ -17,15 +17,32 @@ private:
     {
         _PrintFullWidthLine('=');
 
-        cout << UtilLib::GetColor(UtilLib::enColor::Bold) << UtilLib::GetColor(UtilLib::enColor::BrightYellow);
-        cout << "| " << left << setw(15) << "User Name";
-        cout << "| " << left << setw(27) << "Full Name";
-        cout << "| " << left << setw(11) << "Phone";
-        cout << "| " << left << setw(35) << "Email";
-        cout << "| " << left << setw(9) << "Password";
-        cout << "| " << left << setw(12) << "Permissions";
-        cout << "|";
-        cout << UtilLib::GetColor(UtilLib::enColor::Reset) << endl;
+        cout << UtilLib::GetColor(UtilLib::enColor::Cyan) << "| "
+             << UtilLib::GetColor(UtilLib::enColor::Bold) << UtilLib::GetColor(UtilLib::enColor::BrightYellow)
+             << left << setw(12) << "User Name"
+
+             << UtilLib::GetColor(UtilLib::enColor::Cyan) << " | "
+             << UtilLib::GetColor(UtilLib::enColor::Bold) << UtilLib::GetColor(UtilLib::enColor::BrightYellow)
+             << left << setw(25) << "Full Name"
+
+             << UtilLib::GetColor(UtilLib::enColor::Cyan) << " | "
+             << UtilLib::GetColor(UtilLib::enColor::Bold) << UtilLib::GetColor(UtilLib::enColor::BrightYellow)
+             << left << setw(10) << "Phone"
+
+             << UtilLib::GetColor(UtilLib::enColor::Cyan) << " | "
+             << UtilLib::GetColor(UtilLib::enColor::Bold) << UtilLib::GetColor(UtilLib::enColor::BrightYellow)
+             << left << setw(28) << "Email"
+
+             << UtilLib::GetColor(UtilLib::enColor::Cyan) << " | "
+             << UtilLib::GetColor(UtilLib::enColor::Bold) << UtilLib::GetColor(UtilLib::enColor::BrightYellow)
+             << left << setw(10) << "Password"
+
+             << UtilLib::GetColor(UtilLib::enColor::Cyan) << " | "
+             << UtilLib::GetColor(UtilLib::enColor::Bold) << UtilLib::GetColor(UtilLib::enColor::BrightYellow)
+             << left << setw(18) << "Permissions"
+
+             << UtilLib::GetColor(UtilLib::enColor::Cyan) << " |"
+             << UtilLib::GetColor(UtilLib::enColor::Reset) << endl;
 
         _PrintFullWidthLine('=');
         cout << endl;
@@ -33,25 +50,32 @@ private:
 
     void _PrintUserRecordLine(const clsUser &User)
     {
-        cout << UtilLib::GetColor(UtilLib::enColor::Cyan) << "| " << UtilLib::GetColor(UtilLib::enColor::BrightCyan);
-        cout << left << setw(15) << UtilLib::Truncate(User.GetUserName(), 13);
+        cout << UtilLib::GetColor(UtilLib::enColor::Cyan) << "| "
+             << UtilLib::GetColor(UtilLib::enColor::BrightCyan)
+             << left << setw(12) << UtilLib::Truncate(User.GetUserName(), 12)
 
-        cout << UtilLib::GetColor(UtilLib::enColor::Cyan) << " | " << UtilLib::GetColor(UtilLib::enColor::Reset);
-        cout << left << setw(25) << UtilLib::Truncate(User.GetFullName(), 23);
+             << UtilLib::GetColor(UtilLib::enColor::Cyan) << " | "
+             << UtilLib::GetColor(UtilLib::enColor::Reset)
+             << left << setw(25) << UtilLib::Truncate(User.GetFullName(), 25)
 
-        cout << UtilLib::GetColor(UtilLib::enColor::Cyan) << " | " << UtilLib::GetColor(UtilLib::enColor::Reset);
-        cout << left << setw(15) << UtilLib::Truncate(User.GetPhone(), 13);
+             << UtilLib::GetColor(UtilLib::enColor::Cyan) << " | "
+             << UtilLib::GetColor(UtilLib::enColor::Reset)
+             << left << setw(10) << UtilLib::Truncate(User.GetPhone(), 10)
 
-        cout << UtilLib::GetColor(UtilLib::enColor::Cyan) << " | " << UtilLib::GetColor(UtilLib::enColor::Reset);
-        cout << left << setw(30) << UtilLib::Truncate(User.GetEmail(), 28);
+             << UtilLib::GetColor(UtilLib::enColor::Cyan) << " | "
+             << UtilLib::GetColor(UtilLib::enColor::Reset)
+             << left << setw(28) << UtilLib::Truncate(User.GetEmail(), 28)
 
-        cout << UtilLib::GetColor(UtilLib::enColor::Cyan) << " | " << UtilLib::GetColor(UtilLib::enColor::BrightYellow);
-        cout << left << setw(12) << UtilLib::Truncate(User.GetPassword(), 10);
+             << UtilLib::GetColor(UtilLib::enColor::Cyan) << " | "
+             << UtilLib::GetColor(UtilLib::enColor::BrightYellow)
+             << left << setw(10) << UtilLib::Truncate(User.GetPassword(), 10)
 
-        cout << UtilLib::GetColor(UtilLib::enColor::Cyan) << " | " << UtilLib::GetColor(UtilLib::enColor::BrightGreen);
-        cout << left << setw(12) << UtilLib::Truncate(_GetPermissionsText(User.GetPermissions()), 12);
+             << UtilLib::GetColor(UtilLib::enColor::Cyan) << " | "
+             << UtilLib::GetColor(UtilLib::enColor::BrightGreen)
+             << left << setw(18) << UtilLib::Truncate(_GetPermissionsText(User.GetPermissions()), 18)
 
-        cout << UtilLib::GetColor(UtilLib::enColor::Cyan) << "|" << UtilLib::GetColor(UtilLib::enColor::Reset);
+             << UtilLib::GetColor(UtilLib::enColor::Cyan) << " |"
+             << UtilLib::GetColor(UtilLib::enColor::Reset);
     }
 
     void _PrintFooterSummary(size_t TotalUsers)

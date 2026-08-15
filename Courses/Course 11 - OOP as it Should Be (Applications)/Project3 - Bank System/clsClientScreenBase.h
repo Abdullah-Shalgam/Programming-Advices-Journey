@@ -21,39 +21,17 @@ protected:
         return "$ " + ss.str();
     }
 
-    void _PrintFullWidthLine(char LineChar = '=', UtilLib::enColor Color = UtilLib::enColor::Cyan)
-    {
-        cout << UtilLib::GetColor(Color);
-        UtilLib::PrintHeaderLine(LineChar, _ScreenWidth);
-        cout << UtilLib::GetColor(UtilLib::enColor::Reset);
-    }
-
-    void _PrintCenteredLineWithBorders(const string &Text, UtilLib::enColor TextColor = UtilLib::enColor::Reset)
-    {
-        int InsideWidth = _ScreenWidth - 2;
-        int TextLen = (int)Text.length();
-        int LeftSpaces = (InsideWidth - TextLen) / 2;
-        int RightSpaces = InsideWidth - TextLen - LeftSpaces;
-
-        cout << UtilLib::GetColor(UtilLib::enColor::Cyan) << "|";
-        cout << string(LeftSpaces, ' ');
-        cout << UtilLib::ColorText(Text, TextColor);
-        cout << string(RightSpaces, ' ');
-        cout << UtilLib::GetColor(UtilLib::enColor::Cyan) << "|"
-             << UtilLib::GetColor(UtilLib::enColor::Reset) << endl;
-    }
-
     clsBankClient _GetExistingClient(string PromptMessage = "  [>] Enter Account Number: ")
     {
         cout << UtilLib::GetColor(UtilLib::enColor::BrightYellow) << "  [?] ACCOUNT SEARCH:" << UtilLib::GetColor(UtilLib::enColor::Reset) << "\n";
-        string AccountNumber = InputValidateLib::ReadText(PromptMessage);
+        string AccountNumber = InputValidateLib::ReadLimitedText(10, PromptMessage);
 
         while (!clsBankClient::IsClientExist(AccountNumber))
         {
             cout << UtilLib::GetColor(UtilLib::enColor::BrightRed)
                  << "  [!] Account Number [" << AccountNumber << "] was not found! Please try again.\n"
                  << UtilLib::GetColor(UtilLib::enColor::Reset);
-            AccountNumber = InputValidateLib::ReadText(PromptMessage);
+            AccountNumber = InputValidateLib::ReadLimitedText(10, PromptMessage);
         }
 
         return clsBankClient::Find(AccountNumber);

@@ -28,6 +28,7 @@ public:
 
     // ─── Text & Character Validations ───
     static std::string ReadText(std::string Msg = "Please enter text: ", std::string ErrMsg = "Invalid Input, Enter again: ");
+    static std::string ReadLimitedText(short MaxLength, std::string Msg = "Please enter text: ", std::string ErrMsg = "Invalid Input, Enter again: ");
     static char ReadCharacter(std::string Msg = "Please enter a character: ", std::string ErrMsg = "Invalid Character, Enter again: ");
     static char getYesNoAnswer(std::string Msg = "Please enter (Y/N): ", std::string ErrMsg = "Invalid Answer! Please enter (Y/N): ");
 

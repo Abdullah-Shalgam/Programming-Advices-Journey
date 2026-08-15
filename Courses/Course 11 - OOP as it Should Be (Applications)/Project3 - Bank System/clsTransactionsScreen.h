@@ -1,7 +1,9 @@
 #pragma once
+
 #include <iostream>
 #include <iomanip>
 #include <conio.h>
+
 #include "clsScreen.h"
 #include "InputValidateLib.h"
 #include "UtilLib.h"
@@ -179,6 +181,9 @@ private:
 
     void _Show()
     {
+        if (!_CheckAccessRights(clsUser::enMainMenuPermissions::pTransactions))
+            return;
+
         _ResetTheScreen();
         _DrawScreenHeader("TRANSACTIONS DASHBOARD", "Manage Financial Operations & Balances");
         _DrawMenuBox();

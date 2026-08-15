@@ -36,6 +36,7 @@ public:
         Magenta = 35,
         Cyan = 36,
         White = 37,
+        DarkGray = 90,
         BrightRed = 91,
         BrightGreen = 92,
         BrightYellow = 93,
@@ -50,6 +51,7 @@ public:
     };
 
     static void Srand();
+    static string GetSystemDateTime();
     static string Tabs(int Count);
     static void PrintHeaderLine(char symbol = '=', short width = _ConsoleWidth);
     static void PrintCentered(string text, short width = _ConsoleWidth);

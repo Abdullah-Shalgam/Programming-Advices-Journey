@@ -1,8 +1,15 @@
 #pragma once
+
+#include "Global.h"
+
 #include <iostream>
 #include <string>
 #include <ctime>
 #include <iomanip>
+#include <conio.h>
+
+#include "clsUser.h"
+#include "InputValidateLib.h"
 #include "UtilLib.h"
 
 using namespace std;
@@ -17,35 +24,45 @@ protected:
         _ScreenWidth = ScreenWidth;
     }
 
-    string _GetSystemDateTime()
+    void _DrawStatusBar()
     {
-        time_t now = time(0);
-        tm *ltm = localtime(&now);
-        char buffer[30];
-        strftime(buffer, sizeof(buffer), "%Y-%m-%d | %H:%M:%S", ltm);
-        return string(buffer);
-    }
+        string LoggedInTime = Global::CurrentUserLoginTime;
+        string DateStr = LoggedInTime.empty() ? "" : "Login Time: " + LoggedInTime;
 
-    void _DrawStatusBar(const string &UserName = "")
-    {
-        string DateStr = "Date: " + _GetSystemDateTime();
+        string UserName = Global::CurrentUser.GetUserName();
         string UserStr = UserName.empty() ? "" : "User: " + UserName;
 
         cout << UtilLib::GetColor(UtilLib::enColor::Cyan);
         UtilLib::PrintHeaderLine('=', _ScreenWidth);
         cout << UtilLib::GetColor(UtilLib::enColor::Reset);
 
-        cout << UtilLib::GetColor(UtilLib::enColor::Yellow);
-        cout << left << setw(30) << (" " + DateStr);
+        string LeftPart = DateStr.empty() ? "" : " " + DateStr;
+        string RightPart = UserStr.empty() ? "" : UserStr + " ";
 
-        if (!UserStr.empty())
+        int LeftLen = (int)LeftPart.length();
+        int RightLen = (int)RightPart.length();
+
+        cout << UtilLib::GetColor(UtilLib::enColor::Yellow);
+
+        if (LeftLen > 0 || RightLen > 0)
         {
-            int Spaces = _ScreenWidth - 30 - (int)UserStr.length() - 1;
-            if (Spaces > 0)
-                cout << string(Spaces, ' ');
-            cout << UserStr;
+            int Spaces = _ScreenWidth - LeftLen - RightLen;
+            if (Spaces < 0)
+                Spaces = 1;
+
+            cout << LeftPart << string(Spaces, ' ') << RightPart << "\n";
         }
-        cout << UtilLib::GetColor(UtilLib::enColor::Reset) << "\n";
+        else
+        {
+            string SystemInfo = Global::AppName + " " + Global::AppVersion;
+            int LeftPadding = (_ScreenWidth - (int)SystemInfo.length()) / 2;
+            if (LeftPadding < 0)
+                LeftPadding = 0;
+
+            cout << string(LeftPadding, ' ') << SystemInfo << "\n";
+        }
+
+        cout << UtilLib::GetColor(UtilLib::enColor::Reset);
 
         cout << UtilLib::GetColor(UtilLib::enColor::Cyan);
         UtilLib::PrintHeaderLine('-', _ScreenWidth);
@@ -65,9 +82,98 @@ protected:
              << endl;
     }
 
-    void _DrawScreenHeader(const string &Title, const string &SubTitle = "", const string &UserName = "")
+    void _PrintFullWidthLine(char LineChar = '=', UtilLib::enColor Color = UtilLib::enColor::Cyan)
     {
-        _DrawStatusBar(UserName);
+        cout << UtilLib::GetColor(Color);
+        UtilLib::PrintHeaderLine(LineChar, _ScreenWidth);
+        cout << UtilLib::GetColor(UtilLib::enColor::Reset);
+    }
+
+    void _PrintCenteredLineWithBorders(const string &Text, UtilLib::enColor TextColor = UtilLib::enColor::Reset)
+    {
+        int InsideWidth = _ScreenWidth - 2;
+        int TextLen = (int)Text.length();
+
+        string DisplayText = (TextLen > InsideWidth) ? Text.substr(0, InsideWidth - 3) + "..." : Text;
+        TextLen = (int)DisplayText.length();
+
+        int LeftSpaces = (InsideWidth - TextLen) / 2;
+        if (LeftSpaces < 0)
+            LeftSpaces = 0;
+
+        int RightSpaces = InsideWidth - TextLen - LeftSpaces;
+        if (RightSpaces < 0)
+            RightSpaces = 0;
+
+        cout << UtilLib::GetColor(UtilLib::enColor::Cyan) << "|";
+        cout << string(LeftSpaces, ' ');
+        cout << UtilLib::ColorText(DisplayText, TextColor);
+        cout << string(RightSpaces, ' ');
+        cout << UtilLib::GetColor(UtilLib::enColor::Cyan) << "|"
+             << UtilLib::GetColor(UtilLib::enColor::Reset) << endl;
+    }
+
+    bool _ConfirmUserPassword(string ActionDescription = "CONFIRM SENSITIVE OPERATION", short MaxAttempts = 3)
+    {
+        short FailedAttempts = 0;
+        string EnteredPassword = "";
+
+        while (FailedAttempts < MaxAttempts)
+        {
+            cout << "\n";
+            cout << UtilLib::GetColor(UtilLib::enColor::BrightYellow)
+                 << "  [!] SECURITY CHECK REQUIRED: [" << ActionDescription << "]\n"
+                 << UtilLib::GetColor(UtilLib::enColor::Reset);
+
+            string Prompt = "  [?] Enter your current password to authorize: ";
+            EnteredPassword = InputValidateLib::ReadPassword(Prompt);
+
+            if (Global::CurrentUser.VerifyPassword(EnteredPassword))
+            {
+                cout << UtilLib::ColorText("  [+] Identity verified successfully!\n\n", UtilLib::enColor::BrightGreen);
+                return true;
+            }
+
+            FailedAttempts++;
+            short RemainingAttempts = MaxAttempts - FailedAttempts;
+            cout << "  [!] WARNING: You have (" << RemainingAttempts << ") attempt(s)";
+            cout << UtilLib::GetColor(UtilLib::enColor::BrightRed)
+                 << "  [!] WARNING: Invalid password! You have (" << RemainingAttempts << ") attempt(s) before Authorization Failed!." << ".\n"
+                 << UtilLib::GetColor(UtilLib::enColor::Reset);
+        }
+
+        cout << "\n";
+        _PrintFullWidthLine('=', UtilLib::enColor::BrightRed);
+        _PrintCenteredLine("  [!] SECURITY ALERT: Authorization Failed! Operation Aborted.", UtilLib::enColor::BrightRed);
+        _PrintFullWidthLine('=', UtilLib::enColor::BrightRed);
+        cout << "\n";
+
+        return false;
+    }
+
+    bool _CheckAccessRights(clsUser::enMainMenuPermissions Permission)
+    {
+        if (!Global::CurrentUser.CheckAccessPermission(Permission))
+        {
+            _ResetTheScreen();
+            _DrawScreenHeader("ACCESS DENIED", "You do not have permission to perform this action");
+
+            _PrintFullWidthLine('=', UtilLib::enColor::BrightRed);
+            _PrintCenteredLine("  [!] ACCESS DENIED! Please contact your administrator.", UtilLib::enColor::BrightRed);
+            _PrintFullWidthLine('=', UtilLib::enColor::BrightRed);
+
+            cout << "\n\n"
+                 << UtilLib::ColorText("  [>] Press any key to return to Main Menu...", UtilLib::enColor::Yellow);
+            _getch();
+
+            return false;
+        }
+        return true;
+    }
+
+    void _DrawScreenHeader(const string &Title, const string &SubTitle = "")
+    {
+        _DrawStatusBar();
 
         cout << "\n";
         _PrintCenteredLine(Title, UtilLib::enColor::BrightYellow);

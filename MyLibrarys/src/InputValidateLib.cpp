@@ -209,6 +209,19 @@ string InputValidateLib::ReadText(string Msg, string ErrMsg)
     }
 }
 
+string InputValidateLib::ReadLimitedText(short MaxLength, string Msg, string ErrMsg)
+{
+    while (true)
+    {
+        string textContent = ReadText(Msg, ErrMsg);
+        if (textContent.length() <= static_cast<size_t>(MaxLength))
+        {
+            return textContent;
+        }
+        cout << "  [!] Input exceeds maximum allowed length of " << MaxLength << " characters! Please try again.\n\n";
+    }
+}
+
 char InputValidateLib::ReadCharacter(string Msg, string ErrMsg)
 {
     string inputLine;
