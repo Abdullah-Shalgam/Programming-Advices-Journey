@@ -66,6 +66,7 @@ public:
     static void ResetTheScreen();
     static string EncryptText(string Text, short EncryptionKey);
     static string DecryptText(string Text, short EncryptionKey);
+    static string XOREncryptDecrypt(string Text, string Key);
     static int RandomNumber(int From, int To);
     static char GetRandomCharacter(enCharType CharType);
     static string GenerateWord(enCharType CharType, short Length);
@@ -73,7 +74,7 @@ public:
     static void GenerateKeys(short NumberOfKeys, enCharType CharType = enCharType::CapitalCharacter);
     static string ConvertNumToText(long long Num);
     static long long GetFractionalPartAsInt(double num, int precision);
-    static string ConvertNumToTextWithDecimals(double Number);
+    static string ConvertNumToTextWithDecimals(double Number, string MainCurrency = "Dollars", string SubCurrency = "Cents");
 
     static void FillArrayWithRandomNumbers(int Array[], int ArrayLength, int From, int To);
     static void FillArrayWithRandomWords(string Array[], int ArrayLength, enCharType CharType, short Length);

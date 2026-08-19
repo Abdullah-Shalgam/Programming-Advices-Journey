@@ -42,13 +42,8 @@ private:
 
         if (tolower(Answer) == 'y')
         {
-            if (!_ConfirmUserPassword("AUTHORIZE FINANCIAL WITHDRAWAL"))
-            {
-                return;
-            }
-
             cout << "\n";
-            _ShowProgressBar("Processing withdraw transaction & updating database...");
+            _ShowLoadingSpinner("Processing withdraw transaction & updating database...");
 
             if (Client.Withdraw(Amount))
             {
@@ -62,14 +57,14 @@ private:
                      << UtilLib::GetColor(UtilLib::enColor::Reset);
                 cout << UtilLib::GetColor(UtilLib::enColor::Cyan) << "  --------------------------------------------------------\n"
                      << UtilLib::GetColor(UtilLib::enColor::Reset);
-            }
 
+                PrintTransactionReceipt(Client, "Withdrawal", Amount);
+            }
             else
             {
                 _ShowWarningMessage("ERROR: Withdraw operation failed! Unable to save transaction to database.");
             }
         }
-
         else
         {
             cout << UtilLib::GetColor(UtilLib::enColor::Yellow)

@@ -43,7 +43,8 @@ protected:
                                  clsUser::enMainMenuPermissions::pFindClient |
                                  clsUser::enMainMenuPermissions::pTransactions |
                                  clsUser::enMainMenuPermissions::pManageUsers |
-                                 clsUser::enMainMenuPermissions::pLoginRegister;
+                                 clsUser::enMainMenuPermissions::pLoginRegister |
+                                 clsUser::enMainMenuPermissions::pCurrencyExchange;
 
         return (Permissions == AllPermissionsMask);
     }
@@ -71,6 +72,8 @@ protected:
             PermText += "Manage Users, ";
         if (Permissions & clsUser::enMainMenuPermissions::pLoginRegister)
             PermText += "Login Register, ";
+        if (Permissions & clsUser::enMainMenuPermissions::pCurrencyExchange)
+            PermText += "Currency, ";
 
         if (!PermText.empty())
             PermText = PermText.substr(0, PermText.length() - 2);
@@ -120,7 +123,10 @@ protected:
         if (tolower(InputValidateLib::getYesNoAnswer("  [>] Manage Users Menu? (y/n): ")) == 'y')
             Permissions |= clsUser::enMainMenuPermissions::pManageUsers;
 
-        if (tolower(InputValidateLib::getYesNoAnswer("  [>] Login Register Audit Log? [y/n]: ")) == 'y')
+        if (tolower(InputValidateLib::getYesNoAnswer("  [>] Currency Exchange? (y/n): ")) == 'y')
+            Permissions |= clsUser::enMainMenuPermissions::pCurrencyExchange;
+
+        if (tolower(InputValidateLib::getYesNoAnswer("  [>] Login Register Audit Log? (y/n): ")) == 'y')
             Permissions |= clsUser::enMainMenuPermissions::pLoginRegister;
 
         if (_IsFullAccess(Permissions))

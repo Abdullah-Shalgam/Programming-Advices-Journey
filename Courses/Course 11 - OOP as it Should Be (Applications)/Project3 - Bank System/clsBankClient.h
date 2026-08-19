@@ -12,11 +12,31 @@
 #include "MyStringLib.h"
 #include "UtilLib.h"
 
-using namespace std;
-
+/**
+ * @class clsBankClient
+ * @brief Core Domain Model representing a banking client.
+ *
+ * Handles bank client state, data persistence (CRUD operations via Flat-Files),
+ * dynamic balance updates, transfers, and transfer logging.
+ */
 class clsBankClient : public clsPerson
 {
-private:
+public:
+    // ----------------------------------------------------------
+    // Data Structures & Enums
+    // ----------------------------------------------------------
+
+    struct stTransferLogRecord
+    {
+        std::string DateTime;
+        std::string SenderAccountNumber;
+        std::string DestinationAccountNumber;
+        double Amount;
+        double SenderBalanceAfter;
+        double DestinationBalanceAfter;
+        std::string UserName;
+    };
+
     enum class enMode
     {
         EmptyMode = 0,
@@ -24,40 +44,62 @@ private:
         AddNewMode = 2
     };
 
+    enum class enSaveResults
+    {
+        svFailedEmptyObject = 0,
+        svSucceeded = 1,
+        svFailedAccountNumberExists = 2
+    };
+
+private:
     enMode _Mode;
-    string _AccountNumber;
-    string _PinCode;
+    std::string _AccountNumber;
+    std::string _PinCode;
     double _AccountBalance;
     bool _MarkedForDelete = false;
 
-    // Private Constructors
-    clsBankClient(enMode Mode, const string &FirstName, const string &LastName, const string &Email, const string &Phone, const string &AccountNumber, const string &PinCode, const double AccountBalance)
-        : clsPerson(FirstName, LastName, Email, Phone), _Mode(Mode), _AccountNumber(AccountNumber), _PinCode(PinCode), _AccountBalance(AccountBalance)
+    // Private Constructor for Object Factory Pattern
+    clsBankClient(enMode Mode,
+                  const std::string &FirstName,
+                  const std::string &LastName,
+                  const std::string &Email,
+                  const std::string &Phone,
+                  const std::string &AccountNumber,
+                  const std::string &PinCode,
+                  const double AccountBalance)
+        : clsPerson(FirstName, LastName, Email, Phone),
+          _Mode(Mode),
+          _AccountNumber(AccountNumber),
+          _PinCode(PinCode),
+          _AccountBalance(AccountBalance)
     {
     }
 
     // ----------------------------------------------------------
-    // Private Helper Converters & Data Loaders
+    // Data Serialization & Parsing (Internal Helpers)
     // ----------------------------------------------------------
 
-    static clsBankClient _ConvertLineToClientObject(const string &Line, const string &Separator = "#//#")
+    static clsBankClient _ConvertLineToClientObject(const std::string &Line, const std::string &Separator = "#//#")
     {
-        vector<string> vClientData = MyStringLib::SplitString(Line, Separator);
+        std::vector<std::string> vClientData = MyStringLib::SplitString(Line, Separator);
 
         if (vClientData.size() < 7)
             return _GetEmptyClientObject();
 
-        string DecryptedPinCode = UtilLib::DecryptText(vClientData[5], Global::EncryptionKey);
+        std::string DecryptedPinCode = UtilLib::DecryptText(vClientData[5], Global::EncryptionKey);
 
-        return {enMode::UpdateMode, vClientData[0], vClientData[1], vClientData[2], vClientData[3], vClientData[4], DecryptedPinCode, stod(vClientData[6])};
+        return clsBankClient(enMode::UpdateMode,
+                             vClientData[0], vClientData[1], vClientData[2],
+                             vClientData[3], vClientData[4], DecryptedPinCode,
+                             std::stod(vClientData[6]));
     }
 
-    static string _ConvertClientObjectToLine(const clsBankClient &Client, const string &Separator = "#//#")
+    static std::string _ConvertClientObjectToLine(const clsBankClient &Client, const std::string &Separator = "#//#")
     {
-        ostringstream ss;
-        ss << fixed << setprecision(6) << Client.GetAccountBalance();
+        std::ostringstream ss;
+        ss << std::fixed << std::setprecision(6) << Client.GetAccountBalance();
 
-        string EncryptedPinCode = UtilLib::EncryptText(Client.GetPinCode(), Global::EncryptionKey);
+        std::string EncryptedPinCode = UtilLib::EncryptText(Client.GetPinCode(), Global::EncryptionKey);
 
         return Client.GetFirstName() + Separator +
                Client.GetLastName() + Separator +
@@ -68,15 +110,15 @@ private:
                ss.str();
     }
 
-    static vector<clsBankClient> _LoadClientsDataFromFile()
+    static std::vector<clsBankClient> _LoadClientsDataFromFile()
     {
-        vector<clsBankClient> vClients;
-        fstream MyFile(Global::ClientsFilePath, ios::in);
+        std::vector<clsBankClient> vClients;
+        std::fstream MyFile(Global::ClientsFilePath, std::ios::in);
 
         if (MyFile.is_open())
         {
-            string Line;
-            while (getline(MyFile, Line))
+            std::string Line;
+            while (std::getline(MyFile, Line))
             {
                 if (!Line.empty())
                     vClients.push_back(_ConvertLineToClientObject(Line));
@@ -86,35 +128,35 @@ private:
         return vClients;
     }
 
-    static void _SaveClientsDataToFile(const vector<clsBankClient> &vClients)
+    static void _SaveClientsDataToFile(const std::vector<clsBankClient> &vClients)
     {
-        fstream MyFile(Global::ClientsFilePath, ios::out);
+        std::fstream MyFile(Global::ClientsFilePath, std::ios::out);
         if (MyFile.is_open())
         {
             for (const clsBankClient &Client : vClients)
             {
                 if (!Client._MarkedForDelete)
                 {
-                    MyFile << _ConvertClientObjectToLine(Client) << endl;
+                    MyFile << _ConvertClientObjectToLine(Client) << "\n";
                 }
             }
             MyFile.close();
         }
     }
 
-    void _AddDataLineToFile(const string &DataLine)
+    void _AddDataLineToFile(const std::string &DataLine)
     {
-        fstream MyFile(Global::ClientsFilePath, ios::out | ios::app);
+        std::fstream MyFile(Global::ClientsFilePath, std::ios::out | std::ios::app);
         if (MyFile.is_open())
         {
-            MyFile << DataLine << endl;
+            MyFile << DataLine << "\n";
             MyFile.close();
         }
     }
 
     void _Update()
     {
-        vector<clsBankClient> vClients = _LoadClientsDataFromFile();
+        std::vector<clsBankClient> vClients = _LoadClientsDataFromFile();
 
         for (clsBankClient &C : vClients)
         {
@@ -134,10 +176,10 @@ private:
 
     static clsBankClient _GetEmptyClientObject()
     {
-        return {enMode::EmptyMode, "", "", "", "", "", "", 0};
+        return clsBankClient(enMode::EmptyMode, "", "", "", "", "", "", 0);
     }
 
-    bool _MarkForDelete(vector<clsBankClient> &vClients)
+    bool _MarkForDelete(std::vector<clsBankClient> &vClients)
     {
         for (clsBankClient &C : vClients)
         {
@@ -150,39 +192,90 @@ private:
         return false;
     }
 
-public:
-    enum enSaveResults
-    {
-        svFailedEmptyObject = 0,
-        svSucceeded = 1,
-        svFailedAccountNumberExists = 2
-    };
+    // ----------------------------------------------------------
+    // Audit & Transfer Log Helpers
+    // ----------------------------------------------------------
 
+    std::string _PrepareTransferLog(const double Amount, const clsBankClient &DestinationClient, const std::string &UserName, const std::string &Separator = "#//#") const
+    {
+        std::ostringstream ssAmount, ssSenderBal, ssDestBal;
+
+        ssAmount << std::fixed << std::setprecision(6) << Amount;
+        ssSenderBal << std::fixed << std::setprecision(6) << GetAccountBalance();
+        ssDestBal << std::fixed << std::setprecision(6) << DestinationClient.GetAccountBalance();
+
+        return UtilLib::GetSystemDateTime() + Separator +
+               GetAccountNumber() + Separator +
+               DestinationClient.GetAccountNumber() + Separator +
+               ssAmount.str() + Separator +
+               ssSenderBal.str() + Separator +
+               ssDestBal.str() + Separator +
+               UserName;
+    }
+
+    void _RegisterTransferLog(const double Amount, const clsBankClient &DestinationClient, const std::string &UserName)
+    {
+        std::fstream MyFile(Global::TransferLogFilePath, std::ios::out | std::ios::app);
+        if (MyFile.is_open())
+        {
+            MyFile << _PrepareTransferLog(Amount, DestinationClient, UserName) << "\n";
+            MyFile.close();
+        }
+    }
+
+    static stTransferLogRecord _ConvertTransferLogLineToRecord(const std::string &Line, const std::string &Separator = "#//#")
+    {
+        std::vector<std::string> vData = MyStringLib::SplitString(Line, Separator);
+
+        if (vData.size() < 7)
+            return {};
+
+        return {vData[0], vData[1], vData[2], std::stod(vData[3]), std::stod(vData[4]), std::stod(vData[5]), vData[6]};
+    }
+
+    static std::vector<stTransferLogRecord> _LoadTransferLogDataFromFile()
+    {
+        std::vector<stTransferLogRecord> vRecords;
+        std::fstream MyFile(Global::TransferLogFilePath, std::ios::in);
+
+        if (MyFile.is_open())
+        {
+            std::string Line;
+            while (std::getline(MyFile, Line))
+            {
+                if (!Line.empty())
+                    vRecords.push_back(_ConvertTransferLogLineToRecord(Line));
+            }
+            MyFile.close();
+        }
+        return vRecords;
+    }
+
+public:
     // Status Queries
     bool IsEmpty() const { return (_Mode == enMode::EmptyMode); }
     bool IsMarkedForDelete() const { return _MarkedForDelete; }
 
-    // Setters
-    void SetPinCode(const string &PinCode) { _PinCode = PinCode; }
+    // Setters & Getters
+    void SetPinCode(const std::string &PinCode) { _PinCode = PinCode; }
     void SetAccountBalance(const double AccountBalance) { _AccountBalance = AccountBalance; }
 
-    // Getters
-    string GetAccountNumber() const { return _AccountNumber; }
-    string GetPinCode() const { return _PinCode; }
+    std::string GetAccountNumber() const { return _AccountNumber; }
+    std::string GetPinCode() const { return _PinCode; }
     double GetAccountBalance() const { return _AccountBalance; }
 
     // ----------------------------------------------------------
-    // Public Static Operations
+    // Public Static Operations (Data Access Layer)
     // ----------------------------------------------------------
 
-    static clsBankClient Find(const string &AccountNumber)
+    static clsBankClient Find(const std::string &AccountNumber)
     {
-        fstream MyFile(Global::ClientsFilePath, ios::in);
+        std::fstream MyFile(Global::ClientsFilePath, std::ios::in);
 
         if (MyFile.is_open())
         {
-            string line;
-            while (getline(MyFile, line))
+            std::string line;
+            while (std::getline(MyFile, line))
             {
                 if (!line.empty())
                 {
@@ -200,7 +293,7 @@ public:
         return _GetEmptyClientObject();
     }
 
-    static clsBankClient Find(const string &AccountNumber, const string &PinCode)
+    static clsBankClient Find(const std::string &AccountNumber, const std::string &PinCode)
     {
         clsBankClient Client = Find(AccountNumber);
 
@@ -210,36 +303,39 @@ public:
         return _GetEmptyClientObject();
     }
 
-    static bool IsClientExist(const string &AccountNumber)
+    static bool IsClientExist(const std::string &AccountNumber)
     {
         return (!Find(AccountNumber).IsEmpty());
     }
 
-    static clsBankClient GetAddNewClientObject(const string &AccountNumber)
+    static clsBankClient GetAddNewClientObject(const std::string &AccountNumber)
     {
-        return {enMode::AddNewMode, "", "", "", "", AccountNumber, "", 0};
+        return clsBankClient(enMode::AddNewMode, "", "", "", "", AccountNumber, "", 0);
     }
 
-    static vector<clsBankClient> GetClientsList()
+    static std::vector<clsBankClient> GetClientsList()
     {
         return _LoadClientsDataFromFile();
     }
 
     static double GetTotalBalances()
     {
-        vector<clsBankClient> vClients = GetClientsList();
-
+        std::vector<clsBankClient> vClients = GetClientsList();
         double TotalBalances = 0;
         for (const clsBankClient &Client : vClients)
         {
             TotalBalances += Client.GetAccountBalance();
         }
-
         return TotalBalances;
     }
 
+    static std::vector<stTransferLogRecord> GetTransferLogList()
+    {
+        return _LoadTransferLogDataFromFile();
+    }
+
     // ----------------------------------------------------------
-    // Public Instance Operations
+    // Public Business Logic API
     // ----------------------------------------------------------
 
     enSaveResults Save()
@@ -270,14 +366,40 @@ public:
 
     bool Deposit(double Amount)
     {
+        if (Amount <= 0)
+            return false;
+
         _AccountBalance += Amount;
         return (Save() == enSaveResults::svSucceeded);
     }
 
     bool Withdraw(double Amount)
     {
+        if (Amount <= 0 || Amount > _AccountBalance)
+            return false;
+
         _AccountBalance -= Amount;
         return (Save() == enSaveResults::svSucceeded);
+    }
+
+    bool Transfer(double Amount, clsBankClient &DestinationClient, const std::string &UserName)
+    {
+        if (Amount <= 0 || Amount > _AccountBalance)
+            return false;
+
+        if (!Withdraw(Amount))
+        {
+            return false;
+        }
+
+        if (!DestinationClient.Deposit(Amount))
+        {
+            Deposit(Amount); // Rollback
+            return false;
+        }
+
+        _RegisterTransferLog(Amount, DestinationClient, UserName);
+        return true;
     }
 
     bool Delete()
@@ -285,7 +407,7 @@ public:
         if (IsEmpty())
             return false;
 
-        vector<clsBankClient> vClients = _LoadClientsDataFromFile();
+        std::vector<clsBankClient> vClients = _LoadClientsDataFromFile();
 
         if (_MarkForDelete(vClients))
         {

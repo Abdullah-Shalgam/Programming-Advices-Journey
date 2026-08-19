@@ -4,6 +4,7 @@
 #include <sstream>
 #include "clsScreen.h"
 #include "clsBankClient.h"
+#include "clsCurrency.h"
 #include "InputValidateLib.h"
 #include "UtilLib.h"
 
@@ -14,11 +15,86 @@ class clsClientScreenBase : protected clsScreen
 protected:
     clsClientScreenBase(short ScreenWidth = 122) : clsScreen(ScreenWidth) {}
 
-    static string _FormatBalance(double Balance)
+    static string _FormatBalance(double BalanceInUSD)
     {
-        ostringstream ss;
-        ss << fixed << setprecision(2) << Balance;
-        return "$ " + ss.str();
+        return clsCurrency::FormatSystemAmount(BalanceInUSD);
+    }
+
+    static void PrintTransactionReceipt(const clsBankClient &Client, string TransactionType, double Amount)
+    {
+        string PromptMsg = UtilLib::GetColor(UtilLib::enColor::BrightYellow) +
+                           "\n  [?] Would you like to print an official transaction receipt? (y/n): " +
+                           UtilLib::GetColor(UtilLib::enColor::Reset);
+
+        char Answer = InputValidateLib::getYesNoAnswer(PromptMsg);
+        if (tolower(Answer) != 'y')
+            return;
+
+        cout << "\n";
+        UtilLib::ShowSpinner("Generating & Formatting Official Receipt...", 2);
+
+        cout << "\n\n";
+
+        const short InnerWidth = 52;
+        string BorderLine = string(InnerWidth + 4, '=');
+        string Indent = "  ";
+
+        string RawTitle = "BANK TRANSACTION RECEIPT";
+        short TitlePadding = (InnerWidth - (short)RawTitle.length()) / 2;
+
+        cout << Indent << UtilLib::GetColor(UtilLib::enColor::Cyan) << BorderLine << UtilLib::GetColor(UtilLib::enColor::Reset) << "\n";
+
+        cout << Indent << UtilLib::GetColor(UtilLib::enColor::Cyan) << "| "
+             << string(TitlePadding, ' ')
+             << UtilLib::GetColor(UtilLib::enColor::Bold)
+             << UtilLib::GetColor(UtilLib::enColor::BrightYellow)
+             << RawTitle
+             << UtilLib::GetColor(UtilLib::enColor::Reset)
+             << string(InnerWidth - TitlePadding - (short)RawTitle.length(), ' ')
+             << UtilLib::GetColor(UtilLib::enColor::Cyan) << " |" << endl;
+
+        cout << Indent << UtilLib::GetColor(UtilLib::enColor::Cyan) << BorderLine << UtilLib::GetColor(UtilLib::enColor::Reset) << "\n";
+
+        auto PrintReceiptRow = [&](string Key, string Value, UtilLib::enColor ValColor = UtilLib::enColor::Reset)
+        {
+            const short KeyWidth = 18;
+            const short ValWidth = 32;
+
+            string FormattedKey = UtilLib::Truncate(Key, KeyWidth);
+            string FormattedVal = UtilLib::Truncate(Value, ValWidth);
+
+            cout << Indent << UtilLib::GetColor(UtilLib::enColor::Cyan) << "| "
+                 << UtilLib::GetColor(UtilLib::enColor::Yellow);
+            UtilLib::TypeWriterText(FormattedKey + string(KeyWidth - (short)FormattedKey.length(), ' '), 1);
+
+            cout << UtilLib::GetColor(UtilLib::enColor::Cyan) << ": "
+                 << UtilLib::GetColor(ValColor);
+            UtilLib::TypeWriterText(FormattedVal + string(ValWidth - (short)FormattedVal.length(), ' '), 1);
+
+            cout << UtilLib::GetColor(UtilLib::enColor::Cyan) << " |" << endl;
+        };
+
+        PrintReceiptRow("Date / Time", UtilLib::GetSystemDateTime(), UtilLib::enColor::BrightCyan);
+        PrintReceiptRow("Account Number", Client.GetAccountNumber(), UtilLib::enColor::BrightCyan);
+        PrintReceiptRow("Client Name", Client.GetFullName());
+        PrintReceiptRow("Transaction Type", TransactionType, UtilLib::enColor::Magenta);
+        PrintReceiptRow("Amount", _FormatBalance(Amount), UtilLib::enColor::BrightGreen);
+        PrintReceiptRow("Updated Balance", _FormatBalance(Client.GetAccountBalance()), UtilLib::enColor::BrightYellow);
+
+        cout << Indent << UtilLib::GetColor(UtilLib::enColor::Cyan) << BorderLine << UtilLib::GetColor(UtilLib::enColor::Reset) << "\n";
+
+        string RawThanks = "Thank you for using our Banking System!";
+        short ThanksPadding = (InnerWidth - (short)RawThanks.length()) / 2;
+
+        cout << Indent << UtilLib::GetColor(UtilLib::enColor::Cyan) << "| "
+             << string(ThanksPadding, ' ')
+             << UtilLib::GetColor(UtilLib::enColor::BrightGreen)
+             << RawThanks
+             << UtilLib::GetColor(UtilLib::enColor::Reset)
+             << string(InnerWidth - ThanksPadding - (short)RawThanks.length(), ' ')
+             << UtilLib::GetColor(UtilLib::enColor::Cyan) << " |" << endl;
+
+        cout << Indent << UtilLib::GetColor(UtilLib::enColor::Cyan) << BorderLine << UtilLib::GetColor(UtilLib::enColor::Reset) << "\n\n";
     }
 
     clsBankClient _GetExistingClient(string PromptMessage = "  [>] Enter Account Number: ")
@@ -71,7 +147,6 @@ protected:
         {
             ostringstream ssKey, ssVal;
             ssKey << left << setw(18) << Key;
-
             ssVal << left << setw(35) << UtilLib::Truncate(Value, 35);
 
             cout << Indent << UtilLib::GetColor(UtilLib::enColor::Cyan) << "| "

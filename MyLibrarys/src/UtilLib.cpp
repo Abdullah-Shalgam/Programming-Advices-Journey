@@ -81,6 +81,15 @@ string UtilLib::DecryptText(string Text, short EncryptionKey)
     return Text;
 }
 
+string UtilLib::XOREncryptDecrypt(string Text, string Key)
+{
+    for (size_t i = 0; i < Text.length(); i++)
+    {
+        Text[i] = Text[i] ^ Key[i % Key.length()];
+    }
+    return Text;
+}
+
 int UtilLib::RandomNumber(int From, int To)
 {
     return rand() % (To - From + 1) + From;
@@ -234,16 +243,16 @@ long long UtilLib::GetFractionalPartAsInt(double num, int precision)
     return result;
 }
 
-string UtilLib::ConvertNumToTextWithDecimals(double Number)
+string UtilLib::ConvertNumToTextWithDecimals(double Number, string MainCurrency, string SubCurrency)
 {
     long long IntegerPart = (long long)Number;
     int FractionPart = GetFractionalPartAsInt(Number, 2);
 
-    string Text = UtilLib::ConvertNumToText(IntegerPart) + " Dollars";
+    string Text = UtilLib::ConvertNumToText(IntegerPart) + " " + MainCurrency;
 
     if (FractionPart > 0)
     {
-        Text += " and " + UtilLib::ConvertNumToText(FractionPart) + " Cents";
+        Text += " and " + UtilLib::ConvertNumToText(FractionPart) + " " + SubCurrency;
     }
 
     return Text;

@@ -12,6 +12,8 @@
 #include "clsDepositScreen.h"
 #include "clsWithdrawScreen.h"
 #include "clsTotalBalancesScreen.h"
+#include "clsTransferScreen.h"
+#include "clsTransferLogScreen.h"
 
 using namespace std;
 
@@ -23,7 +25,9 @@ private:
         eDeposit = 1,
         eWithdraw = 2,
         eShowTotalBalance = 3,
-        eShowMainMenu = 4
+        eTransfer = 4,
+        eTransferLog = 5,
+        eShowMainMenu = 6
     };
 
     clsTransactionsScreen() : clsScreen(122) {}
@@ -56,6 +60,18 @@ private:
     {
         _ShowProgressBar("Calculating System Balances & Loading Database...");
         clsTotalBalancesScreen::ShowTotalBalancesScreen();
+    }
+
+    void _ShowTransferScreen()
+    {
+        _ShowProgressBar("Initializing Transfer Module & Loading Components...");
+        clsTransferScreen::ShowTransferScreen();
+    }
+
+    void _ShowTransferLogScreen()
+    {
+        _ShowProgressBar("Fetching Transfer Transaction History & Audit Logs...");
+        clsTransferLogScreen::ShowTransferLogScreen();
     }
 
     // ----------------------------------------------------------
@@ -139,10 +155,12 @@ private:
         PrintOption("1", "Deposit");
         PrintOption("2", "Withdraw");
         PrintOption("3", "Total Balances");
+        PrintOption("4", "Transfer");
+        PrintOption("5", "Transfer Log");
 
         PrintSeparator('-');
 
-        PrintOption("4", "Main Menu", UtilLib::enColor::BrightRed);
+        PrintOption("6", "Main Menu", UtilLib::enColor::BrightRed);
 
         PrintFrameLine('=');
         cout << "\n";
@@ -174,6 +192,18 @@ private:
             _GoBackToTransactionsMenu();
             break;
 
+        case enTransactionsMenuOptions::eTransfer:
+            _ResetTheScreen();
+            _ShowTransferScreen();
+            _GoBackToTransactionsMenu();
+            break;
+
+        case enTransactionsMenuOptions::eTransferLog:
+            _ResetTheScreen();
+            _ShowTransferLogScreen();
+            _GoBackToTransactionsMenu();
+            break;
+
         case enTransactionsMenuOptions::eShowMainMenu:
             break;
         }
@@ -188,8 +218,8 @@ private:
         _DrawScreenHeader("TRANSACTIONS DASHBOARD", "Manage Financial Operations & Balances");
         _DrawMenuBox();
 
-        string Prompt = "  [?] Choose Option [1 to 4]: ";
-        short Choice = InputValidateLib::ReadShortNumberInRange(1, 4, Prompt, "  [!] Invalid Option! Enter Number between 1 and 4: ");
+        string Prompt = "  [?] Choose Option [1 to 6]: ";
+        short Choice = InputValidateLib::ReadShortNumberInRange(1, 6, Prompt, "  [!] Invalid Option! Enter Number between 1 and 6: ");
         _PerformTransactionsMenuOption((enTransactionsMenuOptions)Choice);
     }
 

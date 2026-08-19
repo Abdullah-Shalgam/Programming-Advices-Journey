@@ -33,7 +33,7 @@ private:
         if (tolower(Answer) == 'y')
         {
             cout << "\n";
-            _ShowProgressBar("Processing deposit transaction & updating database...");
+            _ShowLoadingSpinner("Processing deposit transaction & updating database...");
 
             if (Client.Deposit(Amount))
             {
@@ -47,6 +47,8 @@ private:
                      << UtilLib::GetColor(UtilLib::enColor::Reset);
                 cout << UtilLib::GetColor(UtilLib::enColor::Cyan) << "  --------------------------------------------------------\n"
                      << UtilLib::GetColor(UtilLib::enColor::Reset);
+
+                PrintTransactionReceipt(Client, "Deposit", Amount);
             }
             else
             {

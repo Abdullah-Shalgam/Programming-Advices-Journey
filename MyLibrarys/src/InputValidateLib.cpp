@@ -10,184 +10,62 @@
 
 using namespace std;
 
-// ─────────────── Int Validations ───────────────
+// ─────────────── Int Validations (Redirected to Templates) ───────────────
 
 int InputValidateLib::ReadIntNumber(string Msg, string ErrMsg)
 {
-    string inputLine;
-    long validatedNumber;
-    cout << Msg;
-    while (true)
-    {
-        if (!getline(cin >> ws, inputLine))
-        {
-            cin.clear();
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            cout << ErrMsg << "\n";
-            cout << Msg;
-            continue;
-        }
-        char *processedCharactersEnd;
-        validatedNumber = strtol(inputLine.c_str(), &processedCharactersEnd, 10);
-        if (processedCharactersEnd != inputLine.c_str() && *processedCharactersEnd == '\0')
-        {
-            return static_cast<int>(validatedNumber);
-        }
-        cout << ErrMsg << "\n";
-        cout << Msg;
-    }
+    return ReadNumber<int>(Msg, ErrMsg);
 }
 
 int InputValidateLib::ReadIntPositiveNumber(string Msg, string ErrMsg)
 {
-    while (true)
-    {
-        int Number = ReadIntNumber(Msg, ErrMsg);
-        if (Number >= 0)
-        {
-            return Number;
-        }
-        cout << ErrMsg << "\n";
-    }
+    return ReadPositiveNumber<int>(Msg, ErrMsg);
 }
 
 int InputValidateLib::ReadIntNumberInRange(int From, int To, string Msg, string ErrMsg)
 {
-    while (true)
-    {
-        int Number = ReadIntNumber(Msg, ErrMsg);
-        if (IsNumberBetween(Number, From, To))
-        {
-            return Number;
-        }
-        cout << ErrMsg << "\n";
-    }
+    return ReadNumberInRange<int>(From, To, Msg, ErrMsg);
 }
 
-// ─────────────── Short Validations ───────────────
+// ─────────────── Short Validations (Redirected to Templates) ───────────────
 
 short InputValidateLib::ReadShortNumber(string Msg, string ErrMsg)
 {
-    while (true)
-    {
-        int Number = ReadIntNumber(Msg, ErrMsg);
-        if (Number >= SHRT_MIN && Number <= SHRT_MAX)
-        {
-            return static_cast<short>(Number);
-        }
-        cout << ErrMsg << "\n";
-    }
+    return ReadNumber<short>(Msg, ErrMsg);
 }
 
 short InputValidateLib::ReadShortPositiveNumber(string Msg, string ErrMsg)
 {
-    while (true)
-    {
-        short Number = ReadShortNumber(Msg, ErrMsg);
-        if (Number >= 0)
-        {
-            return Number;
-        }
-        cout << ErrMsg << "\n";
-    }
+    return ReadPositiveNumber<short>(Msg, ErrMsg);
 }
 
 short InputValidateLib::ReadShortNumberInRange(short From, short To, string Msg, string ErrMsg)
 {
-    while (true)
-    {
-        short Number = ReadShortNumber(Msg, ErrMsg);
-        if (IsNumberBetween(Number, From, To))
-        {
-            return Number;
-        }
-        cout << ErrMsg << "\n";
-    }
+    return ReadNumberInRange<short>(From, To, Msg, ErrMsg);
 }
 
-// ─────────────── Long Long Validations ───────────────
+// ─────────────── Long Long Validations (Redirected to Templates) ───────────────
 
 long long InputValidateLib::ReadLongLongPositiveNumber(string Msg, string ErrMsg)
 {
-    string inputLine;
-    cout << Msg;
-    while (true)
-    {
-        if (!getline(cin >> ws, inputLine))
-        {
-            cin.clear();
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            cout << ErrMsg << "\n";
-            cout << Msg;
-            continue;
-        }
-        char *processedCharactersEnd;
-        errno = 0;
-        long long validatedNumber = strtoll(inputLine.c_str(), &processedCharactersEnd, 10);
-        if (processedCharactersEnd != inputLine.c_str() &&
-            *processedCharactersEnd == '\0' &&
-            errno != ERANGE &&
-            validatedNumber >= 0)
-        {
-            return validatedNumber;
-        }
-        cout << ErrMsg << "\n";
-        cout << Msg;
-    }
+    return ReadPositiveNumber<long long>(Msg, ErrMsg);
 }
 
-// ─────────────── Double Validations ───────────────
+// ─────────────── Double Validations (Redirected to Templates) ───────────────
 
 double InputValidateLib::ReadDblNumber(string Msg, string ErrMsg)
 {
-    string inputLine;
-    double validatedNumber;
-    cout << Msg;
-    while (true)
-    {
-        if (!getline(cin >> ws, inputLine))
-        {
-            cin.clear();
-            cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            cout << ErrMsg << "\n";
-            cout << Msg;
-            continue;
-        }
-        char *processedCharactersEnd;
-        validatedNumber = strtof(inputLine.c_str(), &processedCharactersEnd);
-        if (processedCharactersEnd != inputLine.c_str() && *processedCharactersEnd == '\0')
-        {
-            return validatedNumber;
-        }
-        cout << ErrMsg << "\n";
-        cout << Msg;
-    }
+    return ReadNumber<double>(Msg, ErrMsg);
 }
 
 double InputValidateLib::ReadDblPositiveNumber(string Msg, string ErrMsg)
 {
-    while (true)
-    {
-        double Number = ReadDblNumber(Msg, ErrMsg);
-        if (Number >= 0.0)
-        {
-            return Number;
-        }
-        cout << ErrMsg << "\n";
-    }
+    return ReadPositiveNumber<double>(Msg, ErrMsg);
 }
 
 double InputValidateLib::ReadDblNumberInRange(double From, double To, string Msg, string ErrMsg)
 {
-    while (true)
-    {
-        double Number = ReadDblNumber(Msg, ErrMsg);
-        if (IsNumberBetween(Number, From, To))
-        {
-            return Number;
-        }
-        cout << ErrMsg << "\n";
-    }
+    return ReadNumberInRange<double>(From, To, Msg, ErrMsg);
 }
 
 // ─────────────── Text & Character Validations ───────────────
@@ -276,7 +154,7 @@ bool InputValidateLib::IsValideDate(DateLib Date)
     return DateLib::IsValidDate(Date);
 }
 
-// ─── Password / Masked Text Utilities ───
+// ─────────────── Password / Masked Text Utilities ───────────────
 
 string InputValidateLib::ReadPassword(string Msg, short MinLength, string ErrMsg)
 {

@@ -136,7 +136,6 @@ protected:
 
             FailedAttempts++;
             short RemainingAttempts = MaxAttempts - FailedAttempts;
-            cout << "  [!] WARNING: You have (" << RemainingAttempts << ") attempt(s)";
             cout << UtilLib::GetColor(UtilLib::enColor::BrightRed)
                  << "  [!] WARNING: Invalid password! You have (" << RemainingAttempts << ") attempt(s) before Authorization Failed!." << ".\n"
                  << UtilLib::GetColor(UtilLib::enColor::Reset);

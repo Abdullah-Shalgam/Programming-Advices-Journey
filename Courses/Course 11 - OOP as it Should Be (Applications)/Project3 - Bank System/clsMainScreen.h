@@ -7,6 +7,7 @@
 #include "clsScreen.h"
 #include "InputValidateLib.h"
 #include "UtilLib.h"
+#include "Global.h"
 
 // Screens
 #include "clsClientsListScreen.h"
@@ -16,6 +17,7 @@
 #include "clsFindClientScreen.h"
 #include "clsTransactionsScreen.h"
 #include "clsManageUsersScreen.h"
+#include "clsCurrencyExchangeMainScreen.h"
 #include "clsLoginRegisterScreen.h"
 #include "clsLogoutScreen.h"
 
@@ -33,8 +35,9 @@ private:
         eFindClient = 5,
         eShowTransactionsMenu = 6,
         eManageUsers = 7,
-        eLoginRegister = 8,
-        eLogout = 9
+        eCurrncyExchange = 8,
+        eLoginRegister = 9,
+        eLogout = 10
     };
 
     clsMainScreen() : clsScreen(122) {}
@@ -93,6 +96,12 @@ private:
         _Show();
     }
 
+    void _ShowCurrencyExchangeMainScreen()
+    {
+        clsCurrencyExchangeMainScreen::ShowCurrencyExchangeMenu();
+        _Show();
+    }
+
     bool _ShowLoginRegisterScreen()
     {
         _ShowProgressBar("Opening Login Register Audit Log...");
@@ -110,7 +119,7 @@ private:
 
     void _DrawMenuBox()
     {
-        const int BoxWidth = 60;
+        const int BoxWidth = 66;
         const int InnerWidth = BoxWidth - 2;
         const int LeftMargin = (_ScreenWidth - BoxWidth) / 2;
         const string Indent(LeftMargin > 0 ? LeftMargin : 0, ' ');
@@ -150,21 +159,40 @@ private:
                  << UtilLib::GetColor(UtilLib::enColor::Reset) << endl;
         };
 
-        auto PrintOption = [&](string Num, string Label, UtilLib::enColor NumColor = UtilLib::enColor::Yellow)
+        auto PrintOption = [&](string Num, string Label, clsUser::enMainMenuPermissions PermFlag, UtilLib::enColor NumColor = UtilLib::enColor::Yellow, bool ShowBadge = true)
         {
-            int IndentInside = 3;
+            bool HasAccess = (PermFlag == (clsUser::enMainMenuPermissions)0) ||
+                             Global::CurrentUser.CheckAccessPermission(PermFlag);
+
+            int IndentInside = 2;
+            int RightMargin = 2;
             string NumTag = "[" + Num + "]";
-            int UsedWidth = IndentInside + (int)NumTag.length() + 1 + (int)Label.length();
-            int RightPad = InnerWidth - UsedWidth;
+
+            string StatusBadge = ShowBadge ? (HasAccess ? "[+ ALLOWED]" : "[- LOCKED]") : "";
+
+            UtilLib::enColor TagColor = HasAccess ? NumColor : UtilLib::enColor::DarkGray;
+            UtilLib::enColor TextColor = HasAccess ? UtilLib::enColor::Reset : UtilLib::enColor::DarkGray;
+            UtilLib::enColor BadgeColor = HasAccess ? UtilLib::enColor::BrightGreen : UtilLib::enColor::Red;
+
+            int BadgeLen = ShowBadge ? ((int)StatusBadge.length() + RightMargin) : 0;
+            int ContentLength = IndentInside + (int)NumTag.length() + 1 + (int)Label.length() + BadgeLen;
+            int RightPad = InnerWidth - ContentLength;
             if (RightPad < 0)
                 RightPad = 0;
 
             cout << Indent << UtilLib::GetColor(UtilLib::enColor::Cyan) << "|"
                  << string(IndentInside, ' ')
-                 << UtilLib::GetColor(NumColor) << NumTag
-                 << UtilLib::GetColor(UtilLib::enColor::Reset) << " "
-                 << Label
-                 << UtilLib::GetColor(UtilLib::enColor::Cyan) << string(RightPad, ' ') << "|"
+                 << UtilLib::GetColor(TagColor) << NumTag << " "
+                 << UtilLib::GetColor(TextColor) << Label
+                 << string(RightPad, ' ');
+
+            if (ShowBadge)
+            {
+                cout << UtilLib::GetColor(BadgeColor) << StatusBadge
+                     << string(RightMargin, ' ');
+            }
+
+            cout << UtilLib::GetColor(UtilLib::enColor::Cyan) << "|"
                  << UtilLib::GetColor(UtilLib::enColor::Reset) << endl;
         };
 
@@ -183,24 +211,25 @@ private:
 
         // Section 1: Client Management
         PrintSectionHeader("-- CLIENT MANAGEMENT SERVICES --", UtilLib::enColor::BrightGreen);
-        PrintOption("1", "Show Client List");
-        PrintOption("2", "Add New Client");
-        PrintOption("3", "Delete Client");
-        PrintOption("4", "Update Client Info");
-        PrintOption("5", "Find Client");
+        PrintOption("1", "Show Client List", clsUser::enMainMenuPermissions::pListClients);
+        PrintOption("2", "Add New Client", clsUser::enMainMenuPermissions::pAddNewClient);
+        PrintOption("3", "Delete Client", clsUser::enMainMenuPermissions::pDeleteClient);
+        PrintOption("4", "Update Client Info", clsUser::enMainMenuPermissions::pUpdateClients);
+        PrintOption("5", "Find Client", clsUser::enMainMenuPermissions::pFindClient);
 
         PrintSeparator('-');
 
-        // Section 2: Operations & Audit
+        // Section 2: Operations, Audit & Currency
         PrintSectionHeader("-- BANK OPERATIONS & AUDIT --", UtilLib::enColor::BrightYellow);
-        PrintOption("6", "Transactions Menu");
-        PrintOption("7", "Manage Users");
-        PrintOption("8", "Login Register");
+        PrintOption("6", "Transactions Menu", clsUser::enMainMenuPermissions::pTransactions);
+        PrintOption("7", "Manage Users Menu", clsUser::enMainMenuPermissions::pManageUsers);
+        PrintOption("8", "Currency Exchange", clsUser::enMainMenuPermissions::pCurrencyExchange);
+        PrintOption("9", "Login Register Log", clsUser::enMainMenuPermissions::pLoginRegister);
 
         PrintSeparator('-');
 
         // Section 3: Session
-        PrintOption("9", "Logout & Exit Session", UtilLib::enColor::BrightRed);
+        PrintOption("10", "Logout & Exit Session", (clsUser::enMainMenuPermissions)0, UtilLib::enColor::BrightRed, false);
 
         PrintFrameLine('=');
         cout << "\n";
@@ -254,6 +283,11 @@ private:
             _ShowManageUsersMenu();
             break;
 
+        case enMainMenuOptions::eCurrncyExchange:
+            _ResetTheScreen();
+            _ShowCurrencyExchangeMainScreen();
+            break;
+
         case enMainMenuOptions::eLoginRegister:
             _ResetTheScreen();
             if (_ShowLoginRegisterScreen())
@@ -272,8 +306,8 @@ private:
         _DrawScreenHeader("MAIN DASHBOARD", "Select an option from the menu below");
         _DrawMenuBox();
 
-        string Prompt = "  [?] Choose Option [1 to 9]: ";
-        short Choice = InputValidateLib::ReadShortNumberInRange(1, 9, Prompt, "  [!] Invalid Option! Enter Number between 1 and 9: ");
+        string Prompt = "  [?] Choose Option [1 to 10]: ";
+        short Choice = InputValidateLib::ReadShortNumberInRange(1, 10, Prompt, "  [!] Invalid Option! Enter Number between 1 and 10: ");
         _PerformMainMenuOption((enMainMenuOptions)Choice);
     }
 

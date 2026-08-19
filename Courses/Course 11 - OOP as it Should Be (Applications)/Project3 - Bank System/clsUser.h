@@ -38,7 +38,8 @@ public:
         pFindClient = 16,
         pTransactions = 32,
         pManageUsers = 64,
-        pLoginRegister = 128
+        pLoginRegister = 128,
+        pCurrencyExchange = 256
     };
 
     enum class enMode
@@ -186,7 +187,7 @@ private:
     // 4️⃣ Private Helper Converters & Data Loaders (Login Register)
     // ----------------------------------------------------------
 
-    string _ConvertLoginRegisterRecordToLine(const string &Separator = "#//#")
+    string _PrepareLoginRecord(const string &Separator = "#//#")
     {
         return UtilLib::GetSystemDateTime() + Separator +
                GetUserName() + Separator +
@@ -350,7 +351,7 @@ public:
         fstream MyFile(Global::LoginRegisterFilePath, ios::out | ios::app);
         if (MyFile.is_open())
         {
-            MyFile << _ConvertLoginRegisterRecordToLine() << endl;
+            MyFile << _PrepareLoginRecord() << endl;
             MyFile.close();
         }
     }

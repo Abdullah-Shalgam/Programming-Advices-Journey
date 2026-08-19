@@ -12,7 +12,9 @@ namespace Global
 
     inline const std::string ClientsFilePath = "Clients.txt";
     inline const std::string UsersFilePath = "Users.txt";
+    inline const std::string CurrenciesFilePath = "Currencies.txt";
     inline const std::string LoginRegisterFilePath = "LoginRegister.txt";
+    inline const std::string TransferLogFilePath = "TransferLog.txt";
 }
 
 #include "clsUser.h"
