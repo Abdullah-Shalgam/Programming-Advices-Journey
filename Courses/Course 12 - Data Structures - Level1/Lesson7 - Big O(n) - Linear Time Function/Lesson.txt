@@ -1,0 +1,17 @@
+✨The Summary✨
+
+Number of operations outside the loop = 4.
+Number of operations per iteration inside the loop = 6.
+
+🎯 Time Complexity = 6n + 4 (n = input size / number of iterations)
+ignore constant factors and constants
+= O(n).
+
+🔥so there is a linear relationship between input size and running time.
+
+
+ 🧠so Comparison between two algorithms when input size S = 1,000,000.
+
+first algorithm → O(1) because it has no loop (constant time).
+
+second algorithm → O(n) so it will perform 1,000,000 iterations when n = 1,000,000.

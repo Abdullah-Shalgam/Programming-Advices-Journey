@@ -1,0 +1,3 @@
+✨The Summary✨
+
+🎯Big O is a mathematical notation invented in mathematics to describe the relationship between input size and algorithm time/space complexity and to compare algorithm efficiency.

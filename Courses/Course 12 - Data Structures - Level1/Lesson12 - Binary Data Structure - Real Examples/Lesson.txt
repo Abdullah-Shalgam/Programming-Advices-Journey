@@ -1,0 +1,7 @@
+✨The Summary✨
+
+🔥any Number that exists stores data inside, so it is a data structure.
+
+🎯space complexity means how much space the program takes from RAM.
+
+ ➡️ in Binary Data Structure: space & time complexity is too fast and take small memory.

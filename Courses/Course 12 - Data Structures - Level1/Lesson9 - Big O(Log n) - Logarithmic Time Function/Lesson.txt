@@ -1,0 +1,10 @@
+✨The Summary✨
+
+🔥O(log n) - Log₂(n): appears when the problem size is reduced (usually by half) at each step instead of iterating through all elements
+
+💡Meaning: instead of checking elements sequentially, we divide the search space in half each iteration
+
+📍O(log n) example
+Binary Search, Divide & Conquer Algorithms
+
+⚡O(log n) is significantly faster than O(n) for large input sizes.

@@ -1,0 +1,21 @@
+✨The Summary✨
+
+🔥 Classification of Data Structures
+🟩Primitive (Basic Data Types): int,float,char,pointer.
+🟦Non-Primitive (Advanced - Sophisticated data Structure): it is Derived From Primitive Data Structure and Divided to two elements:
+📦Linear Data Structure: means data arranged sequentially in a single path 📍for ex(Array,Linked List, Stack,Queue) ,
+🌟Non-Linear List: means Not Arranged like the family tree and the data not on one path or one line but we can traverse the data 📍for ex (tree,Graph).
+
+ 🎯The Differences:
+🟩Primitive: Built in, so the language helps with saving and retrieving in and from memory.
+🟦non-Primitive: built above Primitive Data Structures like array of int.
+🧠homogeneous: data elements have the same data type.
+🛠️heterogeneous: data elements have different data types.
+
+📦Linear List Has Two Types::
+🏷Static Data Structure: Fixed Memory Size, easier to access the elements📍for ex Array.
+🚪Dynamic Data Structure: Using Pointers(Not Fixed Size) and hard to access as it stored in heap.📍for ex Queue, Stack , Linked List.
+
+🚀Vector is built on Stack Data Structure.
+
+🔍  Common Operations On Data Structure: Create, Update, Search, Select, Sorting, Merging, Destroy Data.

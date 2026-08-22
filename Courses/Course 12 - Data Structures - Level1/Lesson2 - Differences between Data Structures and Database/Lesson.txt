@@ -1,0 +1,12 @@
+✨The Summary✨
+
+⚙️Data Structure: a special format used to organize and store data in RAM (volatile memory) during program execution.
+
+🔵Database: a system used to store, manage, and retrieve data permanently in non-volatile storage such as disks or servers.
+
+⚙️Data Structure: a structured way to organize data in memory for efficient access and manipulation.
+🔵Database: an organized collection of related data usually stored in tables with relationships between them.
+
+
+🎯 these tables are managed by Database Management Systems (DBMS) like Oracle, MySQL, SQL Server, Microsoft Access, and MongoDB.
+🧩learning one database system usually makes learning others easier because the core concepts are similar.

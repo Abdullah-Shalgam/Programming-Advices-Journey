@@ -1,0 +1,34 @@
+✨The Summary✨
+
+
+💡STL: standard Template library.
+
+#include <iostream>
+
+#include <queue>  // Include **STL queue container**
+
+using namespace std;
+
+int main()
+{
+    queue<int> MyQueue; // **declare a queue of integers**
+
+    MyQueue.push(10);
+    MyQueue.push(20);
+    MyQueue.push(30);
+    MyQueue.push(40);
+
+    cout << "\n Count : " << MyQueue.size(); // **returns number of elements in queue**
+    cout << "\n Front : " << MyQueue.front(); // **access the first element (FIFO)**
+    cout << "\n Back : " << MyQueue.back(); // **access the last inserted element**
+
+    cout << "\n\nMY Queue ";
+    while (!MyQueue.empty())
+    {
+        cout << MyQueue.front() << " "; // **access the front element**
+        MyQueue.pop(); // **remove the front element from the queue**
+    }
+
+    system("pause>0");
+    return 0;
+}

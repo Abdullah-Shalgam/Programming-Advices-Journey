@@ -1,0 +1,5 @@
+✨The Summary✨
+
+🔥Queue data structure follows the FIFO (First In First Out) principle, which is the opposite behavior of Stack (LIFO).
+
+🎯there are many algorithms and systems that require the Queue data structure to manage tasks in order.

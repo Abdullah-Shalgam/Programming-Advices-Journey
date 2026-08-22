@@ -1,0 +1,17 @@
+A vector is a dynamic array in C++ STL
+
+It automatically resizes when elements are added
+
+Main operations:
+- push_back(): add element
+- pop_back(): remove last element
+- size(): number of elements
+- empty(): check if empty
+- at(): access element safely
+
+Advantages:
+- Dynamic size
+- Fast random access (O(1))
+
+Disadvantages:
+- Slow insertion/deletion in middle (O(n))

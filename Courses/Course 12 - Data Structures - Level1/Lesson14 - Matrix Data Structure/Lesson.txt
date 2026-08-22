@@ -1,0 +1,8 @@
+✨The Summary✨
+
+💡Matrix is a two-dimensional array that stores elements arranged in rows and columns.
+
+Time Complexity:
+
+🧹accessing or inserting a single element by index is O(1).
+🔁traversing all elements in a matrix using nested loops is O(n^2).

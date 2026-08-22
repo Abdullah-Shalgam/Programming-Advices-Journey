@@ -1,0 +1,23 @@
+✨The Summary✨
+
+    stack<int> MyStack1;  
+    stack<int> MyStack2;  
+
+    MyStack1.push(10);
+    MyStack1.push(20);
+    MyStack1.push(30);
+    MyStack1.push(40);
+
+    MyStack2.push(50);  
+    MyStack2.push(60);  
+    MyStack2.push(70);  
+    MyStack2.push(80);  
+
+
+
+🎯Instead of manually swapping elements using a temporary stack, we can use the STL built-in swap() function
+
+ MyStack1.swap(MyStack2); 
+
+
+💡swap() exchanges the contents of the two stacks in O(1) time.

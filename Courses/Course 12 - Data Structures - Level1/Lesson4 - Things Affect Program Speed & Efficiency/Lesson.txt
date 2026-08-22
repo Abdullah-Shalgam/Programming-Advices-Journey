@@ -1,0 +1,6 @@
+✨The Summary✨
+
+🔥Things Affecting Program Efficiency:
+⭐Algorithms(Time,Space). ➡️ Complexity.
+⭐ Computer Components (Hardware, CPU,RAM,OS) ️ ➡️ Performance.
+👨‍💻as programmers we focus on Algorithm Complexity rather than Hardware Performance.

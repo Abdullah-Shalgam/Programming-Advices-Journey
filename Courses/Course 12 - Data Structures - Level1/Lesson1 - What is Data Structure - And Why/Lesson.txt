@@ -1,0 +1,16 @@
+✨The Summary✨
+
+💡 Program = Algorithms + Data Structures
+
+🎯 Algorithms: step by step procedure to solve a particular problem.
+ 🔥to apply Algorithms Need Tools:
+
+ 1🧹related to language: if,for,while statment..etc.
+2📦 Places to store data and represented in memory.(Data Structures).
+ex📍string, int..etc.:  kinda data structure.
+
+🧠Data structure: how to represent data in RAM inside program, to retrieve it easily and deal with it efficiently.
+
+Structured query language (SQL) is used to perform operations on the data in Database
+
+Data Structure : affects the design of both structural and functional aspects of the program.

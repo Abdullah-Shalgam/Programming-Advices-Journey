@@ -1,0 +1,9 @@
+✨The Summary✨
+
+🔥Stack: working in LIFO principle (Last In First Out).
+
+➡️ Vector is a Data structure built on Stack Data structure
+➡️ Stack Data structure is built on Array.
+
+✏️one of the important uses of stack data structure is the Call Stack used by programs during function calls.
+👉so there is a difference between Stack (data structure) and Call Stack (runtime memory structure used by the program).

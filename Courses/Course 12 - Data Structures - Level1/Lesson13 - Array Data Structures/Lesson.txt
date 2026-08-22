@@ -1,0 +1,15 @@
+✨The Summary✨
+
+🎯Array is the most important type of data structure.
+
+
+🔥Array is non-pirmitive Data structure (Linear) + Homogeneous.
+
+💡Array has fixed size in C, but C++ can have dynamic arrays.
+📦array elements can be accessed randomly using index (Random Access).
+🏷️searching in arrays is usually done using linear search (iteration).
+
+
+⭐Time Complexity On Array.
+🧹accessing a single element by index is O(1).
+🔁traversing or processing all elements using a loop is O(n).

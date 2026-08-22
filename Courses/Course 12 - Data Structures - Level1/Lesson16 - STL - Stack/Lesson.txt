@@ -1,0 +1,47 @@
+✨The Summary✨
+
+💡STL: Standard Template Library → contains containers like vector, stack, queue, list, map…
+
+
+
+#include <iostream>
+
+#include <stack>  // Include **STL stack container**
+
+using namespace std;
+
+int main()
+{
+    stack<int> stkNumbers;  // **Declare a stack of integers**
+
+    stkNumbers.push(10);
+    stkNumbers.push(20);
+    stkNumbers.push(30);
+    stkNumbers.push(40);
+    stkNumbers.push(50);  // **LIFO behavior**
+
+    cout << "Count: " << stkNumbers.size() << endl;
+
+    cout << "Numbers Are: \n";
+    while (!stkNumbers.empty())
+    {
+        cout << stkNumbers.top() << endl;  // **access the top element**
+
+        stkNumbers.pop(); // **remove the top element**
+    }
+
+    system("pause>0");
+    return 0;
+}
+
+
+🎯🎯Big O
+
+stkNumbers.push() → O(1)
+stkNumbers.size() → O(1)
+stkNumbers.empty() → O(1)
+stkNumbers.pop() → O(1)
+
+➡but when these operations are executed inside a loop that processes all elements, the overall complexity becomes O(n).
+
+🔑Because the loop runs n times depending on the number of elements stored in the stack.
