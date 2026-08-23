@@ -1,0 +1,13 @@
+✨The Summary✨
+
+🔍Linked list is a linear data structure used to build other data structures like stacks, queues, and graphs.
+
+
+🔥Singly Linked List: Head ➡️ Node ➡️ Node ➡️ Node ➡️ Null.
+
+🌟"1 Next" : is called Node
+⭐1: Data the value stored in the node (int, string, etc.)
+⭐Next: a pointer storing the memory address of the next node
+⭐Head: a pointer that points to the first node of the list
+
+🎯in the past in C arrays were not dynamic, so they used Linked list to add or remove elements at run time.

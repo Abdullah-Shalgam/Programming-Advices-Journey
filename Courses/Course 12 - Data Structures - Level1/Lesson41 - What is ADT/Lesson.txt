@@ -1,0 +1,9 @@
+✨The Summary✨
+
+💡 ADT (Abstract Data Type): a model that defines data and operations without specifying implementation details.
+
+🛡vector: an STL container that abstracts the internal implementation (dynamic array) and provides easy-to-use operations.
+🧠STL (Standard Template Library): a collection of ready-made data structures and algorithms like vector, queue, stack, etc.
+
+
+💥ADT: focuses on what the data structure does (behavior), not how it is implemented internally.

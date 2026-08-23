@@ -1,0 +1,36 @@
+✨ The Summary
+
+🔥 Singly vs Doubly Linked List
+
+➡️ Singly Linked List
+
+💡Head ➡️ Node ➡️ Node ➡️ Node ➡️ NULL
+
+⭐Each node contains:
+⚙️Data
+⚙️Next pointer only
+
+🎯Moves in one direction only (forward)
+👉 from node to next node
+
+👈👉 Doubly Linked List
+
+💡NULL 👈 Prev ⬅️ Node ➡️ Next ➡️ Node ➡️ Next ➡️ NULL
+
+⭐Each node contains:
+⚙️Data
+⚙️Prev pointer
+⚙️Next pointer
+
+🎯Moves in two directions
+👉 forward (next)
+👈 backward (prev)
+
+📊 Key Difference
+
+📌Singly → one pointer (next) → one direction
+📌Doubly → two pointers (prev + next) → two directions
+
+⚡ Note
+
+💡Doubly Linked List gives easier backward traversal but uses more memory because of extra pointer.

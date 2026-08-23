@@ -1,0 +1,7 @@
+✨The Summary✨
+
+🎯Circular Linked List is a type of linked list where the last node points back to the head, forming a loop. (infinte loop).
+
+🔗It is different from singly and doubly linked lists because it does not end with NULL.
+
+💥like a buffer when moving in a circular linked list and implementing a circular buffer.

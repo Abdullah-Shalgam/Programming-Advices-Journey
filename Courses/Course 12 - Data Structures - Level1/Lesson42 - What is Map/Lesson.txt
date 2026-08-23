@@ -1,0 +1,33 @@
+✨The Summary✨
+
+🎯 Map: an ordered associative container that stores key-value pairs with unique keys.
+
+🔗elements are accessed using keys instead of indices, similar to an associative array.
+
+🔑each key must be unique, and maps to exactly one value.
+
+😏C++ → map , Python / C# → dictionary
+
+💪map stores elements sorted by keys (ascending by default) and supports: search ,insertion ,deletion.
+
+📌Implementation
+#include <map>
+map<string, int> StudentGrades;
+📍example:
+StudentGrades["Ali"] = 66;
+🔁Iteration
+for (const auto& pair : StudentGrades)
+{
+    cout << pair.first << " : " << pair.second;
+}
+
+
+📍pair.first → key
+📍pair.second → value
+
+🔍Search
+if (StudentGrades.find(studentName) != StudentGrades.end())
+
+💡Advanced Idea (Multiple Keys)
+🎯Sometimes we need more than one key (student + subject)
+⚡This allows multi-dimensional mapping using pair as key.
