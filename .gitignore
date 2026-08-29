@@ -1,13 +1,87 @@
-# Executables
+# ==========================================
+# الملفات التنفيذية والمؤقتة (من ملفك الحالي)
+# ==========================================
 *.exe
 *.out
 *.app
-
-# VS Code & Temp files
-.vscode/
-tempCodeRunnerFile*
 *.o
 *.obj
+tempCodeRunnerFile*
 
-# Node modules (if applicable)
+# ==========================================
+# ملفات خاصة بـ .NET و Visual Studio / C#
+# ==========================================
+# مجلدات المخرجات والبناء
+bin/
+obj/
+[Bb]in/
+[Oo]bj/
+
+# ملفات ومجلدات Visual Studio المؤقتة
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# ملفات نظام التجميع (MSBuild)
+*.userprefs
+*.usermd
+*.dbmdl
+*.cmp
+*.designer.cs.meta
+
+# أدوات فحص الكود والأداء
+*.sass-cache
+.resharper.*/
+*.DotCoverFiles/
+_ReSharper.*/
+
+# حزم NuGet والمجلدات المؤقتة
+*.nupkg
+packages/
+!packages/repositories.config
+project.lock.json
+project.fragment.lock.json
+
+# ملفات الـ Crash Dump ونشر التطبيق
+*.gpState
+App_Data/jobs/
+App_Data/NuGetBackup/
+publish/
+*.publish.xml
+*.pubxml
+*.pubxml.user
+
+# ==========================================
+# ملفات نظام التشغيل والمحررات الأخرى
+# ==========================================
+.DS_Store
+.DS_Store?
+._*
+Thumbs.db
+Desktop.ini
+
+.vscode/
+.idea/
+*.swp
+*~
+
+# ==========================================
+# ملفات الاعتماد والبيئة الحساسة
+# ==========================================
+.env
+.env.local
+.env.*.local
+appsettings.Development.json
+appsettings.local.json
+
+# ==========================================
+# مجلدات الويب والاعتماديات المشتركة
+# ==========================================
 node_modules/
+dist/
+build/
+logs/
+*.log
+.cache/
