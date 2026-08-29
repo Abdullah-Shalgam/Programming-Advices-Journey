@@ -1,0 +1,26 @@
+✨The Summary✨
+
+🔥Syntax of C# is like 95% in C++.
+
+the purpose in learning C# is not to increase problem-solving logic, but to learn C# syntax, .NET tools, and ecosystem; you can still practice logic using C++ Questions.
+
+after syntax we will start with Windows Forms and will understand new concepts.
+
+
+ 🚀C#: General purpose , OOP without Functional Programming.
+
+ 🌟C# is one of the most popular languages for building desktop and web applications on the .NET platform.
+ 🌟C# is influenced by C and C++ and is syntactically similar to Java.
+ 🌟so that is why you can learn the basic syntax of C# quickly if you already know C++.
+ 🌟C# is a modern language introduced in 2002 and continuously evolving ( C# 11 in 2022), and it enables rapid application development using .NET libraries and tools..
+🌟C# ensures that each variable has its particular type.
+🌟C# supports OOP paradigm such as objects, classes, inheritance, polymorphism, etc..
+🌟C# is a high-level language that abstracts low-level details, making it easier to read and write
+🌟C# has huge Community.
+
+
+💡Called C sharp: inspired by musical notation
+
+
+ ✏️What can we do with C#
+ 👉You can build any type of application supported by the .NET platform (desktop, web, mobile, cloud, etc.) because C# is a primary language in .NET

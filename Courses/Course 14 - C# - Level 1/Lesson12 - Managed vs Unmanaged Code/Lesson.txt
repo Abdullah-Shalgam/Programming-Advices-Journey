@@ -1,0 +1,15 @@
+✨The Summary✨
+
+🔥all .NET languages produce managed code that runs under CLR, so they can interoperate seamlessly.
+
+🎯all .Net supports unmanaged code like (normal C++ , Java) but can't do integration with them.
+
+💥any code outside the .NET runtime (CLR) is considered unmanaged code.
+
+🧠CLR has control only over managed code, but provides interop services( 🏷a tool layer) to work with unmanaged code.
+
+ ⚙️Unmanaged code has its own memory management, data types, and execution model independent from CLR.
+
+
+⭐Before .NET there were technologies like Classic VB, ASP, and COM, which are unmanaged; 
+🌟the CLR provides interop mechanisms (wrappers classes) to call unmanaged code from managed code.

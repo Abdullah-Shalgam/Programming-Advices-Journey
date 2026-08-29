@@ -1,0 +1,26 @@
+✨The Summary✨
+
+	🔥 .NET CLR Structure 🔥
+
+💥Base Class Library (BCL): provides core reusable APIs
+
+💥Thread Support: enables multithreading and parallel execution
+
+💥COM Marshaler: handles interoperability with COM components via wrappers
+
+💥Type Checker: ensures type safety based on CTS rules
+
+💥Exception Manager: handles runtime exceptions across .NET
+
+💥Security Engine: enforces security and access rules
+
+💥Debug Engine: supports debugging across multiple .NET languages
+
+💥IL Compiler (JIT): compiles IL into native code at runtime
+
+💥Code Manager: manages execution of code within CLR
+
+💥GC (Garbage Collector): handles automatic memory 
+management
+
+💥Class Loader: loads assemblies and types into the runtime

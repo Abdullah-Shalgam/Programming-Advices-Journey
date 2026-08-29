@@ -1,0 +1,15 @@
+✨The Summary✨
+
+C#, F#, and VB (Visual Basic code) all have the same speed.
+
+each has its own compiler to
+👇
+CIL (Common Intermediate Language)
+👇
+CLR (Common Language Runtime) is the manager of the .Net languages.
+👇
+JIT (Just-In-Time): compiler that converts CIL to machine code at runtime
+👇
+Machine Code
+
+📌JIT (Just-In-Time) is slow at first then become fast, in contrast, AOT (Ahead-of-Time)

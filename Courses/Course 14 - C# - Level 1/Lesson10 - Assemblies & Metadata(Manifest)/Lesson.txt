@@ -1,0 +1,46 @@
+✨The Summary✨
+
+💥Assemblies 💥
+
+source code : C#
+build👇
+Compiler
+👇
+Assembly (compiled unit containing IL + metadata)
+👇
+CLR with JIT
+converts IL to
+👇
+Native Code (machine Code)
+
+
+🎯 يعني إيه Assembly؟
+هو “الملف النهائي” اللي فيه كل حاجة البرنامج محتاجها
+بيحتوي على:
+IL (الكود الوسيط)
+Metadata (معلومات عن الكود)
+Resources (لو فيه صور/ملفات)
+Config أحيانًا
+
+ 🔥Assemblies: Single unit ex: (.exe file).
+
+(code + Config + Assembly)  ➡️ Compile  ➡️ Assembly (single unit of Deployment). exe or .dll
+
+📌without Assembly you can't make deployment
+
+💡dll = dynamic link library. (Library Assembly)
+💡exe = entry-point assembly (executable process)
+
+
+💥 MetaData (Mainfest) 💥
+contains information about the assembly such as version, dependencies, and modules
+
+and it is important because CLR uses metadata to understand MSIL and execute it correctly
+
+
+🔥 الخلاصة:
+Assembly = ناتج الـ Compile
+بيحتوي IL + Metadata
+بيتشغل عن طريق CLR
+شكله exe أو dll
+هو وحدة النشر (Deployment)

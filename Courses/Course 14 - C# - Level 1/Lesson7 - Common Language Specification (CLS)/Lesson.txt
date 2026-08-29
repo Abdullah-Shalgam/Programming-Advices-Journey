@@ -1,0 +1,8 @@
+✨The Summary✨
+💡CLS = Common Language Specification (مواصفات اللغة العامة).
+
+🎯CLS: gives a set of rules for the framework to ensure interoperability between languages.
+
+🏷️CLS helps enable integration, cross-language inheritance, and debugging across .NET languages.
+
+⭐even .NET languages have different syntax but adhere to CLS rules for compatibility.

@@ -1,0 +1,9 @@
+✨The Summary✨
+
+🔥CLR Main Components:
+
+➡️ CTS (Common Type System)
+➡️ CLS (Common Language Specification)
+➡️ GC (Garbage Collector)
+➡️ JIT (Just-In-Time) Compiler
+➡️ Metadata and Assemblies.

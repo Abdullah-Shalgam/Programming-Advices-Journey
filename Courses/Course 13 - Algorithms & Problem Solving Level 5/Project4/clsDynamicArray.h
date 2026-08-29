@@ -43,6 +43,51 @@ public:
         return true;
     }
 
+    bool InsertAt(int index, T value)
+    {
+        if (index < 0 || index > _Size)
+            return false;
+
+        _TempArray = new T[_Size + 1];
+
+        for (int i = 0; i < index; i++)
+        {
+            _TempArray[i] = _OriginalArray[i];
+        }
+
+        _TempArray[index] = value;
+
+        for (int i = index; i < _Size; i++)
+        {
+            _TempArray[i + 1] = _OriginalArray[i];
+        }
+
+        delete[] _OriginalArray;
+        _OriginalArray = _TempArray;
+        _Size++;
+        return true;
+    }
+
+    bool InsertAtBeginning(T value)
+    {
+        return InsertAt(0, value);
+    }
+
+    bool InsertAtEnd(T value)
+    {
+        return InsertAt(_Size, value);
+    }
+
+    bool InsertBefore(int index, T value)
+    {
+        return InsertAt(index - 1, value);
+    }
+
+    bool InsertAfter(int index, T value)
+    {
+        return InsertAt(index + 1, value);
+    }
+
     T GetItem(int index)
     {
         if (index < 0 || index >= _Size)

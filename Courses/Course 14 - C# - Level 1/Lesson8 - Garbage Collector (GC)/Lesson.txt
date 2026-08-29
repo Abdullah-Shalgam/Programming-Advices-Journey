@@ -1,0 +1,9 @@
+✨The Summary✨
+
+ 💡GC = Garabage Collector  🧹
+
+🎯in C++ you manually allocate and free memory using pointers, but in .NET the Garbage Collector automatically manages memory.
+
+🔗if an object is no longer referenced, GC frees its memory for future use.
+
+🛡️ensures memory safety and prevents invalid memory access between objects.

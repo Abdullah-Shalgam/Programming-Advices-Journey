@@ -1,0 +1,16 @@
+✨The Summary✨
+
+💡CTS = Common Type System.
+
+IL = CIL = MCIL = Microsoft common intermediate Language.
+
+CTS: provides rules for defining and using data types across languages at runtime
+
+🎯Cross Language Communication: IL + CTS together ensure interoperability(قابلية التشغيل البيني) between .NET languages by unifying data types.
+
+ ⚡to ensure Type Safety means types are managed by CLR by CTS
+
+interoperability means:➡️ the ability of different systems or languages to work together and communicate with each other seamlessly.
+
+
+📍for ex: VB.NET (Integer) and C# (int) both map to System.Int32 in IL after compilation

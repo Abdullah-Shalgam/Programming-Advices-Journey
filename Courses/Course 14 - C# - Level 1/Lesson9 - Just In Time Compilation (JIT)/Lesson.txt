@@ -1,0 +1,28 @@
+✨The Summary✨
+
+ 💡JIT = Just in time Compiler
+🎯converts Intermediate Language (MSIL/CIL) into native machine code at runtime.
+
+🔥each .NET language has its own compiler that compiles source code into IL, then JIT compiles IL into machine code during execution.
+
+💥JIT has thre types.
+🟩 1 Pre JIT Compiler = AOT (ahead of time) using Ngen.exe tool : Compiles the entire code before execution
+ (improving startup time ,using More Memory).
+
+🟦 2 Econo JIT (economy: Compiles the required code without caching it in memory, so every time it is called it recompiles.
+
+🟨 3 Normal JIT (Default): Compiles only the code that is in Demand (only when needed) and caches it in memory, so repeated calls run without recompilation. 
+(reducing Startup Time, Using Less Memory)
+
+
+⭐Who is Fast?
+it depends on the Case/scenario (startup time vs runtime performance vs memory usage).
+
+➡️Moslty Big Programmes which has thousands of lines of Code, Normal JIT is Faster because compiled code is cached and reused after the first execution.
+
+💥الخلاصة
+1. Pre JIT Compiler (AOT Ahead Of Time): (Ngen.exe) , everything compiles before start, No compilation at runtime.
+
+2. Econo JIT: Compiled and not cached (each time it will compile again).
+
+3. Normal JIT (Default): only used code is Compiled + Cached.

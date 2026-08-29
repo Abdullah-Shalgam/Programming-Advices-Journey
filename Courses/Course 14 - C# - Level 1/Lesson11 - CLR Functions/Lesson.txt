@@ -1,0 +1,14 @@
+✨The Summary✨
+
+🔥.NET CLR Functions 🔥
+🎯 transfers IL to Native code
+🎯 the Manager of all .NET Supported Languages.
+🎯 Exception Handling. (in C# program can catch error in VB and handle it)
+🎯 Provides Type-Safety
+🎯 Memory Management.
+🎯 Provides Security.
+🎯 Improved Performance.
+🎯 Language independent. (not important which language we write as all codes run together)
+🎯 Platform independent: .NET (modern) runs across platforms using the same runtime and libraries
+🎯 GC (Garbage Collection) by Memory Management (CLR)
+🎯 supports OOP features (inheritance, interfaces, polymorphism) through the runtime and type system

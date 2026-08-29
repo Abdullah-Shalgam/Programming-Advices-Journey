@@ -1,0 +1,30 @@
+✨The Summary✨
+
+.Net Framework: Implementation of the platform
+.NET Framework = تطبيق من التطبيقات دي (قديم + Windows)
+
+Two Major Components:
+
+🟩 1 CLR (Common Language Runtime) -Brain🧠-
+Handles running applications and provides services like Garbage Collection , handling errors and JIT Compiler.
+
+🟦 2 BCL (Base class libraries)
+Set of APIs and common functions: for reading and writing files, networking, databases, drawing
+
+الكود بيمشي إزاي جوه .NET:
+تكتب C#
+يتحول لـ IL
+CLR يشغّله
+يستخدم Libraries
+
+👉 يعني:
+CLR = يشغّل
+BCL = يساعدك تكتب الكود
+
+
+
+ 🧩Windows forms:Controls,drawing, windows applications.
+ 🧩Web Forms (ASP.Net): Web controls(server,Client) Web services.
+ 🧩Console Application.
+ 🧩 .Net Framework (BCL) base class library 
+🧩 CLR (Common Language Runtime): (GC) Garbage collector , Code Manager.
