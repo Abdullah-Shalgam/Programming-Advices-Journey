@@ -4,6 +4,7 @@
 
 using System;
 
+
 namespace Main
 {
     internal class Program
@@ -12,18 +13,16 @@ namespace Main
         static void Main(string[] args)
         {
 
-            //  String Interpolation
-
-            string firstName = "Mohammed";
-            string lastName = "Abu-Hadhoud";
-            int code = 107;
-
-            //You shold use $ to $ to identify an interpolated string 
-            string fullName = $"Mr. {firstName} {lastName}, Code: {code:D4}";
-
-            Console.WriteLine(fullName);
-
-            Console.ReadKey();
+            try
+            {
+                int[] myNumbers = { 1, 2, 3 };
+                Console.WriteLine(myNumbers[10]);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            Console.ReadLine();
 
         }
     }
