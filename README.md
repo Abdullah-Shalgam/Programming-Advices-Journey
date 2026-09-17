@@ -116,4 +116,6 @@ Let's connect and discuss software engineering, algorithms, or C#/.NET developme
 
 * 📞 **Phone / WhatsApp:** [+218 93 136 4346](https://wa.me/218931364346)
 
+[![Email](https://img.shields.io/badge/Email-bdallhshlghwm500%40gmail.com-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:bdallhshlghwm500@gmail.com)
+
 *Keep building, learning, and refactoring!* 💻✨
