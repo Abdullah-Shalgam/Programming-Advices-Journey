@@ -106,16 +106,18 @@ To minimize code duplication and adhere to DRY (Don't Repeat Yourself) principle
 
 * **Tools:** Visual Studio, VS Code, Git, GitHub.
 
-## 🌐 Connect With Me
+---
 
-Let's connect and discuss software engineering, algorithms, or C#/.NET development!
+## 📬 Contact & Developer Info
 
-* 🐙 **GitHub:** [Abdullah-Shalgam](https://github.com/Abdullah-Shalgam)
+[![GitHub](https://img.shields.io/badge/GitHub-Abdullah--Shalgam-181717?style=for-the-badge&logo=github)](https://github.com/Abdullah-Shalgam)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Abdullah_Shalgam-0A66C2?style=for-the-badge&logo=linkedin)](https://www.linkedin.com/in/%D8%B9%D8%A8%D8%AF%D8%A7%D9%84%D9%84%D9%87-%D8%B4%D9%84%D8%BA%D9%88%D9%85-289506438)
+[![Instagram](https://img.shields.io/badge/Instagram-@abdullah__shalgam-E4405F?style=for-the-badge&logo=instagram&logoColor=white)](https://instagram.com/abdullah_shalgam)
+[![WhatsApp](https://img.shields.io/badge/WhatsApp-+218%2093%20136%204346-25D366?style=for-the-badge&logo=whatsapp&logoColor=white)](https://wa.me/2180931364346)
+[![Email](https://img.shields.io/badge/Email-bdallhshlghwm500@gmail.com-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:bdallhshlghwm500@gmail.com)
 
-* 📸 **Instagram:** [@abdullah_shalgam](https://www.instagram.com/abdullah_shalgam?stkn=eGdiMm9hN2xzam5i)
+---
 
-* 📞 **Phone / WhatsApp:** [+218 93 136 4346](https://wa.me/218931364346)
+## 📝 License
 
-[![Email](https://img.shields.io/badge/Email-bdallhshlghwm500%40gmail.com-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:bdallhshlghwm500@gmail.com)
-
-*Keep building, learning, and refactoring!* 💻✨
+Distributed under the MIT License. See `LICENSE` for more information.
